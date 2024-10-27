@@ -1,6 +1,17 @@
-.editorContainer {
-  padding: 1rem;
-  background-color: #585858;
+.editor {
+  textarea {
+    width: var(--width, 500px);
+    height: var(--height, 240px);
+    padding: 16px;
+    display: block;
+    resize: none;
+    border: none;
+    background: none;
+    border-radius: 4px;
+    outline: none;
+    font-family: monospace;
+    font-size: 1rem;
+  }
 }
 
 .paperBox {
@@ -8,18 +19,4 @@
     outline: 2px solid #90caf9;
     outline-offset: -2px;
   }
-}
-
-.textarea {
-  width: 500px;
-  height: 240px;
-  padding: 1rem;
-  display: block;
-  resize: none;
-  border: none;
-  background: none;
-  border-radius: 4px;
-  outline: none;
-  font-family: monospace;
-  font-size: 1rem;
 }

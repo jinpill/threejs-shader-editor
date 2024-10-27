@@ -1,68 +1,42 @@
-import { useEffect, useRef, useState } from "react";
+import React from "react";
+import classNames from "classnames";
 import Paper from "@mui/material/Paper";
 import { InputLabel } from "@mui/material";
 import style from "./style.module.scss";
 
-const VERTEX_SHADER_KEY = "glsl-test__vertex-shader";
-const FRAGMENT_SHADER_KEY = "glsl-test__fragment-shader";
+type EditorProps = {
+  label: string;
+  value: string;
+  onChange: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  className?: string;
+};
 
-const Editor = () => {
-  const vertexRef = useRef<HTMLTextAreaElement>(null);
-  const fragmentRef = useRef<HTMLTextAreaElement>(null);
-
-  const [vertex, setVertex] = useState("");
-  const [fragment, setFragment] = useState("");
-  const [isChanged, setIsChanged] = useState(false);
-
-  useEffect(() => {
-    const savedVertex = window.localStorage.getItem(VERTEX_SHADER_KEY);
-    const savedFragment = window.localStorage.getItem(FRAGMENT_SHADER_KEY);
-    setVertex(savedVertex || "");
-    setFragment(savedFragment || "");
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "s") {
-        event.preventDefault();
-        window.localStorage.setItem(
-          VERTEX_SHADER_KEY,
-          vertexRef.current?.value || ""
-        );
-        window.localStorage.setItem(
-          FRAGMENT_SHADER_KEY,
-          fragmentRef.current?.value || ""
-        );
-        setIsChanged(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
+/**
+ * - `--width` textarea의 너비를 지정
+ * - `--height` textarea의 높이를 지정
+ */
+const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) => {
   return (
-    <div className={style.editorContainer}>
+    <div className={classNames(style.editor, props.className)}>
       <InputLabel
         sx={{
           fontSize: "0.875rem",
         }}
       >
-        Sample Input
+        {props.label}
       </InputLabel>
       <Paper variant="outlined" className={style.paperBox}>
         <textarea
-          ref={vertexRef}
-          value={vertex}
+          ref={ref}
+          value={props.value}
           onChange={(e) => {
-            setIsChanged(true);
-            setVertex(e.target.value);
+            props.onChange(e.target.value, e);
           }}
-          className={style.textarea}
         />
       </Paper>
     </div>
   );
-};
+});
 
+Editor.displayName = "Editor";
 export default Editor;

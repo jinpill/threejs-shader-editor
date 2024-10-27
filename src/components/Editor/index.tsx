@@ -22,6 +22,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
         sx={{
           fontSize: "0.875rem",
         }}
+        className={style.label}
       >
         {props.label}
       </InputLabel>

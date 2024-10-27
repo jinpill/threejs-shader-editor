@@ -9,6 +9,13 @@ import LightThemeIcon from "@mui/icons-material/LightMode";
 import { useCustomizingStore } from "@/stores/useCustomizingStore";
 import style from "./Header.module.scss";
 
+type Anchor = {
+  name: string;
+  href: string;
+};
+
+const ANCHORS: Anchor[] = [{ name: "Editor", href: "/editor" }];
+
 const Header = () => {
   const { theme, setTheme } = useCustomizingStore();
 
@@ -20,12 +27,20 @@ const Header = () => {
   return (
     <AppBar position="sticky" className={style.header}>
       <div>
-        <Link href="/">
-          <h1 className={style.title}>
-            <CodeIcon sx={{ display: "block" }} />
-            Three.js Shader Editor
-          </h1>
-        </Link>
+        <div className={style.anchors}>
+          <Link href="/">
+            <h1 className={style.title}>
+              <CodeIcon sx={{ display: "block" }} />
+              Three.js Shader Editor
+            </h1>
+          </Link>
+
+          {ANCHORS.map((anchor) => (
+            <Link key={anchor.name} href={anchor.href}>
+              {anchor.name}
+            </Link>
+          ))}
+        </div>
 
         <div>
           <button className={style.button} onClick={handleChangeTheme}>

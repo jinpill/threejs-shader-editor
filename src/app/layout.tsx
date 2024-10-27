@@ -4,6 +4,7 @@ import { Noto_Sans_KR, Noto_Sans_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import ThemeProvider from "./Initializer";
+import Header from "./Header";
 import "./globals.scss";
 
 const notoSansKr = Noto_Sans_KR({
@@ -25,19 +26,20 @@ export const metadata: Metadata = {
   description: "The glsl editor for Three.js shader materials.",
 };
 
-const RootLayout = (props: React.PropsWithChildren) => {
-  return (
-    <html lang="en">
-      <body
-        style={{ opacity: 0 }}
-        className={classNames(notoSansMono.variable, notoSansKr.variable, notoSansKr.className)}
-      >
-        <AppRouterCacheProvider>
-          <ThemeProvider>{props.children}</ThemeProvider>
-        </AppRouterCacheProvider>
-      </body>
-    </html>
-  );
-};
+const RootLayout = (props: React.PropsWithChildren) => (
+  <html lang="en">
+    <body
+      style={{ opacity: 0 }}
+      className={classNames(notoSansMono.variable, notoSansKr.variable, notoSansKr.className)}
+    >
+      <AppRouterCacheProvider>
+        <ThemeProvider>
+          <Header />
+          {props.children}
+        </ThemeProvider>
+      </AppRouterCacheProvider>
+    </body>
+  </html>
+);
 
 export default RootLayout;

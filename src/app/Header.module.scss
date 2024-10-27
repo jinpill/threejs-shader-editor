@@ -1,0 +1,27 @@
+.header > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  font-size: 1.25rem;
+  font-weight: 400;
+
+  user-select: none;
+}
+
+.button {
+  display: block;
+  padding: 0;
+
+  border: none;
+  background: none;
+
+  cursor: pointer;
+}

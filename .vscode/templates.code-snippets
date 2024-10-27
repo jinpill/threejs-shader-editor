@@ -1,0 +1,29 @@
+{
+  "Create new stories": {
+    "prefix": "create-new-stories",
+    "description": "새로운 스토리북 템플릿을 생성합니다.",
+    "body": [
+      "import type { Meta, StoryObj } from \"@storybook/react\";",
+      "import { fn } from \"@storybook/test\";",
+      "import ${TM_FILENAME/(.*).stories.tsx$/$1/} from \".\";",
+      "",
+      "const meta = {",
+      "  title: \"${1:Reusable}/${TM_FILENAME/(.*).stories.tsx$/$1/}\",",
+      "  component: ${TM_FILENAME/(.*).stories.tsx$/$1/},",
+      "  parameters: {",
+      "    layout: \"centered\",",
+      "  },",
+      "  tags: [\"autodocs\"],",
+      "  args: { onChange: fn() },",
+      "} satisfies Meta<typeof ${TM_FILENAME/(.*).stories.tsx$/$1/}>;",
+      "",
+      "export default meta;",
+      "type Story = StoryObj<typeof meta>;",
+      "",
+      "export const Default: Story = {",
+      "  args: {${2}},",
+      "};"
+    ],
+    "scope": "typescriptreact"
+  }
+}

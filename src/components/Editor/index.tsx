@@ -1,4 +1,9 @@
-import React, { useCallback } from "react";
+import React, {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import classNames from "classnames";
 import Paper from "@mui/material/Paper";
 import { InputLabel } from "@mui/material";
@@ -20,6 +25,17 @@ export type EditorProps = {
  */
 const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(
   (props, ref) => {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    useImperativeHandle(
+      ref,
+      () => {
+        return textareaRef.current!;
+      },
+      []
+    );
+
+    const cursorPosition = useRef<number>(0);
+
     const handleKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.ctrlKey && e.key === "/") {
@@ -33,8 +49,11 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(
 
           const line = value.slice(beforeCursor, lineEnd);
           const hasComment = line.trim().startsWith("//");
-          const newLine = hasComment
-            ? line.replace(/^(\s*)\/\/\s?/, "$1")
+          const hasCommentWithSpace = line.trim().startsWith("// ");
+          const newLine = hasCommentWithSpace
+            ? line.replace(/^(\s*)\/\/\s/, "$1")
+            : hasComment
+            ? line.replace(/^(\s*)\/\/s?/, "$1")
             : line.replace(/^(\s*)/, "$1// ");
 
           const newValue =
@@ -43,21 +62,36 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(
           let newCursorPosition = selectionStart;
           if (!hasComment) {
             newCursorPosition = selectionStart + 3;
-          } else if (selectionStart > beforeCursor + 2) {
+          } else if (hasCommentWithSpace) {
+            newCursorPosition = selectionStart - 3;
+          } else if (hasComment) {
             newCursorPosition = selectionStart - 2;
           }
+
+          //   else if (selectionStart > beforeCursor + 2) {
+          //     newCursorPosition = selectionStart - 3;
+          //   }
+
+          cursorPosition.current = newCursorPosition;
 
           props.onChange(
             newValue,
             e as unknown as React.ChangeEvent<HTMLTextAreaElement>
           );
-          setTimeout(() => {
-            textarea.setSelectionRange(newCursorPosition, newCursorPosition);
-          }, 0);
         }
       },
       [props]
     );
+
+    useLayoutEffect(() => {
+      const textarea = textareaRef;
+      if (textarea.current) {
+        textarea.current.setSelectionRange(
+          cursorPosition.current,
+          cursorPosition.current
+        );
+      }
+    }, [props.value]);
 
     return (
       <div className={classNames(style.editor, props.className)}>
@@ -71,9 +105,10 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(
         </InputLabel>
         <Paper variant="outlined" className={style.paperBox}>
           <textarea
-            ref={ref}
+            ref={textareaRef}
             value={props.value}
             onChange={(e) => {
+              cursorPosition.current = e.target.selectionStart;
               props.onChange(e.target.value, e);
             }}
             onKeyDown={handleKeyDown}

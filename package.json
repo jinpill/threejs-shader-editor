@@ -12,14 +12,18 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.1.5",
+    "@mui/material-nextjs": "^6.1.5",
     "classnames": "^2.5.1",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
-    "sass": "^1.80.4"
+    "sass": "^1.80.4",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.9.0",

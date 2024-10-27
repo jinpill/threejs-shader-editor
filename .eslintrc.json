@@ -1,7 +1,7 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:storybook/recommended"
-  ]
+  "extends": ["next/core-web-vitals", "next/typescript", "plugin:storybook/recommended"],
+  "rules": {
+    "@typescript-eslint/no-empty-object-type": "off",
+    "import/no-anonymous-default-export": "off"
+  }
 }

@@ -1,0 +1,27 @@
+.sampleButton {
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  &.active {
+    background-color: red;
+  }
+
+  div {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    animation: spin 1s linear infinite;
+  }
+}

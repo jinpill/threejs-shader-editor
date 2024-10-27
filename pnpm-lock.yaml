@@ -54,6 +54,9 @@ importers:
       '@storybook/nextjs':
         specifier: 8.3.6
         version: 8.3.6(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)(sass@1.80.4))(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)(sass@1.80.4)(storybook@8.3.6)(type-fest@2.19.0)(typescript@5.6.3)(webpack-hot-middleware@2.26.1)(webpack@5.95.0(esbuild@0.23.1))
+      '@storybook/preview-api':
+        specifier: ^8.3.6
+        version: 8.3.6(storybook@8.3.6)
       '@storybook/react':
         specifier: 8.3.6
         version: 8.3.6(@storybook/test@8.3.6(storybook@8.3.6))(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)(storybook@8.3.6)(typescript@5.6.3)

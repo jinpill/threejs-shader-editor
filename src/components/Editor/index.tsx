@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useImperativeHandle } from "react";
+import React, { useRef, useImperativeHandle } from "react";
 import classNames from "classnames";
 import Paper from "@mui/material/Paper";
 import { InputLabel } from "@mui/material";
@@ -7,7 +7,7 @@ import style from "./style.module.scss";
 export type EditorProps = {
   label: string;
   value: string;
-  onChange: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (value: string) => void;
   className?: string;
 };
 
@@ -17,65 +17,50 @@ export type EditorProps = {
  */
 const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  useImperativeHandle(
-    ref,
-    () => {
-      return textareaRef.current!;
-    },
-    [],
-  );
+  useImperativeHandle(ref, () => textareaRef.current!, []);
 
-  const cursorPosition = useRef<number>(0);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.ctrlKey && e.key === "/") {
-        e.preventDefault();
-        const textarea = e.currentTarget;
-        const { selectionStart, selectionEnd, value } = textarea;
-
-        const beforeCursor = value.lastIndexOf("\n", selectionStart - 1) + 1;
-        const afterCursor = value.indexOf("\n", selectionEnd);
-        const lineEnd = afterCursor === -1 ? value.length : afterCursor;
-
-        const line = value.slice(beforeCursor, lineEnd);
-        const hasComment = line.trim().startsWith("//");
-        const hasCommentWithSpace = line.trim().startsWith("// ");
-        const newLine = hasCommentWithSpace
-          ? line.replace(/^(\s*)\/\/\s/, "$1")
-          : hasComment
-          ? line.replace(/^(\s*)\/\/s?/, "$1")
-          : line.replace(/^(\s*)/, "$1// ");
-
-        const newValue = value.slice(0, beforeCursor) + newLine + value.slice(lineEnd);
-
-        let newCursorPosition = selectionStart;
-        if (!hasComment) {
-          newCursorPosition = selectionStart + 3;
-        } else if (hasCommentWithSpace) {
-          newCursorPosition = selectionStart - 3;
-        } else if (hasComment) {
-          newCursorPosition = selectionStart - 2;
-        }
-
-        //   else if (selectionStart > beforeCursor + 2) {
-        //     newCursorPosition = selectionStart - 3;
-        //   }
-
-        cursorPosition.current = newCursorPosition;
-
-        props.onChange(newValue, e as unknown as React.ChangeEvent<HTMLTextAreaElement>);
-      }
-    },
-    [props],
-  );
-
-  useLayoutEffect(() => {
-    const textarea = textareaRef;
-    if (textarea.current) {
-      textarea.current.setSelectionRange(cursorPosition.current, cursorPosition.current);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.ctrlKey && e.key === "/") {
+      handleComment(e);
     }
-  }, [props.value]);
+  };
+
+  const handleComment = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    const textarea = e.currentTarget;
+    const { selectionStart, selectionEnd, value } = textarea;
+
+    const beforeCursorPos = value.lastIndexOf("\n", selectionStart - 1) + 1;
+    const afterCursorPos = value.indexOf("\n", selectionEnd);
+    const lastCursorPos = afterCursorPos === -1 ? value.length : afterCursorPos;
+
+    const currentLine = value.slice(beforeCursorPos, lastCursorPos);
+    const hasComment = currentLine.trim().startsWith("//");
+    const hasCommentWithSpace = currentLine.trim().startsWith("// ");
+
+    const newLine = hasCommentWithSpace
+      ? currentLine.replace(/^(\s*)\/\/\s/, "$1")
+      : hasComment
+      ? currentLine.replace(/^(\s*)\/\//, "$1")
+      : currentLine.replace(/^(\s*)/, "$1// ");
+
+    const newValue =
+      value.slice(0, beforeCursorPos) + newLine + value.slice(lastCursorPos);
+
+    let newCursorPos = selectionStart;
+    if (!hasComment) {
+      newCursorPos = selectionStart + 3;
+    } else if (hasCommentWithSpace) {
+      newCursorPos = selectionStart - 3;
+    } else if (hasComment) {
+      newCursorPos = selectionStart - 2;
+    }
+
+    props.onChange(newValue);
+    setTimeout(() => {
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
+  };
 
   return (
     <div className={classNames(style.editor, props.className)}>
@@ -87,14 +72,14 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       >
         {props.label}
       </InputLabel>
+
       <Paper variant="outlined" className={style.paperBox}>
         <textarea
           spellCheck="false"
           ref={textareaRef}
           value={props.value}
           onChange={(e) => {
-            cursorPosition.current = e.target.selectionStart;
-            props.onChange(e.target.value, e);
+            props.onChange(e.target.value);
           }}
           onKeyDown={handleKeyDown}
         />

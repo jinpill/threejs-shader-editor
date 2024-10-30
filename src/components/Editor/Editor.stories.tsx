@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { useArgs } from "@storybook/preview-api";
 import Editor, { EditorProps } from ".";
+import { useState } from "react";
 
 const meta = {
   title: "Reusable/Editor",
@@ -17,12 +17,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args: EditorProps) => {
-    const [{ value }, setValue] = useArgs();
-    const handleChange = (value: string) => {
-      setValue({ value: value });
-    };
-    return <Editor {...args} value={value} onChange={handleChange} />;
+  render: (props: EditorProps) => {
+    const [value, setValue] = useState("");
+    return <Editor {...props} value={value} onChange={setValue} />;
   },
   args: {
     label: "Fragment Shader",

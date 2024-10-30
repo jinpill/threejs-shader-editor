@@ -1,0 +1,126 @@
+import { Meta } from "@storybook/blocks";
+import { useState } from "react";
+import classNames from "classnames";
+import useDragAndDrop from ".";
+
+<Meta title="Hooks/useDragAndDrop" />
+
+# Hook: useDragAndDrop
+
+<div className="description">
+  이 커스텀 훅은 `ref`로 지정된 엘레먼트를 드래그 앤 드롭 컨테이너로 지정해줍니다.
+
+브라우저 내에서 사용자가 파일을 드래그하여 해당 엘레먼트 위에 올리게 되면 반환하는 `dragging` 값이 `true`가 되며,
+해당 스테이트를 통해 드래그 앤 드롭 컨테이너의 스타일을 제어할 수 있습니다.
+
+그리고 파일이 드롭되었을 때, 전달된 콜백함수의 첫번째 인자로 파일 목록을 받을 수 있습니다.
+
+</div>
+
+## How to use
+
+```tsx
+import { useDragAndDrop } from "@/hooks/useDragAndDrop";
+
+const Component = () => {
+  const { ref, dragging } = useDragAndDrop((files) => {
+    console.log("Files dropped!", files);
+  });
+
+  return (
+    <div
+      ref={ref}
+      className={classNames(style.dropContainer, {
+        [style.dragging]: dragging,
+      })}
+    >
+      Drop files here
+    </div>
+  );
+};
+
+export default Component;
+```
+
+export const Component = () => {
+  const [result, setResult] = useState("");
+  const { ref, dragging } = useDragAndDrop((files) => {
+    files.forEach((file) => {
+      const contents = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+        lastModifiedDate: file.lastModifiedDate.toString(),
+        webkitRelativePath: file.webkitRelativePath,
+      };
+
+      setResult(JSON.stringify(contents, null, 2));
+    });
+
+});
+
+return (
+
+<div className="wrapper">
+  <div
+    ref={ref}
+    className={classNames("drop-container", {
+      "drop-container--dragging": dragging,
+    })}
+  >
+    Drop files here
+  </div>
+
+<pre className="drop-result">{result}</pre>
+
+</div>
+
+); };
+
+### Preview
+
+<Component />
+
+<style>
+  {`
+  .description {
+    font-size: 0.875rem;
+  }
+
+  .wrapper {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .drop-container {
+    width: 400px;
+    height: 400px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgba(0, 0, 0, 0.1);
+
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    user-select: none;
+
+    transition: 0.3s ease-in-out;
+    transition-property: background-color, color;
+  }
+
+  .drop-container--dragging {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+
+  .drop-result {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+`}
+</style>

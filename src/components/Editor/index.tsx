@@ -64,10 +64,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     }
 
     props.onChange(newValue);
-
-    setTimeout(() => {
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
+    setSelectionRange(textarea, newCursorPos);
   };
 
   const handleTab = (textarea: HTMLTextAreaElement) => {
@@ -90,34 +87,23 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
         value.slice(lastCursorPos);
 
       props.onChange(newValue);
-
-      setTimeout(() => {
-        const newCursorPos = selectionEnd + 2 * lines.length;
-        textarea.setSelectionRange(newCursorPos, newCursorPos);
-      }, 0);
+      setSelectionRange(textarea, selectionEnd + 2 * lines.length);
     } else {
       const lineBeforeCursor = value.slice(beforeCursorPos, selectionStart);
       const leadingSpacesCount = lineBeforeCursor.match(/^\s*/)?.[0].length || 0;
 
-      const spaceToAdd = leadingSpacesCount % 2 === 0 ? " " : "  ";
+      const spaceToAdd = leadingSpacesCount % 2 === 0 ? "  " : " ";
       newValue = value.slice(0, selectionStart) + spaceToAdd + value.slice(selectionEnd);
       props.onChange(newValue);
-
-      setTimeout(() => {
-        const newCursorPos = selectionStart + spaceToAdd.length;
-        textarea.setSelectionRange(newCursorPos, newCursorPos);
-      }, 0);
+      setSelectionRange(textarea, selectionStart + spaceToAdd.length);
     }
   };
 
   const handleShiftTab = (textarea: HTMLTextAreaElement) => {
-    const { selectionStart, selectionEnd, value } = textarea;
+    const { selectionStart, value } = textarea;
+    const cursorPos = getCursorPositions(textarea);
 
-    const beforeCursorPos = value.lastIndexOf("\n", selectionStart - 1) + 1;
-    const afterCursorPos = value.indexOf("\n", selectionEnd);
-    const lastCursorPos = afterCursorPos === -1 ? value.length : afterCursorPos;
-
-    const currentLine = value.slice(beforeCursorPos, lastCursorPos);
+    const currentLine = value.slice(cursorPos.before, cursorPos.last);
     const leadingSpaces = currentLine.match(/^\s*/)?.[0].length || 0;
 
     const spacesToRemove = leadingSpaces % 2 === 0 ? 2 : 1;
@@ -125,15 +111,33 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     const newLine = currentLine.replace(new RegExp(`^\\s{0,${spacesToRemove}}`), "");
 
     const newValue =
-      value.slice(0, beforeCursorPos) + newLine + value.slice(lastCursorPos);
+      value.slice(0, cursorPos.before) + newLine + value.slice(cursorPos.last);
 
     props.onChange(newValue);
+    setSelectionRange(textarea, selectionStart - spacesToRemove);
+  };
 
+  const getCursorPositions = (textarea: HTMLTextAreaElement) => {
+    const { selectionStart, selectionEnd, value } = textarea;
+
+    const beforeCursorPos = value.lastIndexOf("\n", selectionStart - 1) + 1;
+    const afterCursorPos = value.indexOf("\n", selectionEnd);
+    const lastCursorPos = afterCursorPos === -1 ? value.length : afterCursorPos;
+
+    return {
+      before: beforeCursorPos,
+      after: lastCursorPos,
+      last: lastCursorPos,
+    };
+  };
+
+  const setSelectionRange = (
+    textarea: HTMLTextAreaElement,
+    start: number,
+    end?: number,
+  ) => {
     setTimeout(() => {
-      textarea.setSelectionRange(
-        selectionStart - spacesToRemove,
-        selectionStart - spacesToRemove,
-      );
+      textarea.setSelectionRange(start, end ?? start);
     }, 0);
   };
 

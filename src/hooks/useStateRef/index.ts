@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 
-const useStateRef = <T>(state: T) => {
+export type UseStateRef = <T>(state: T) => React.MutableRefObject<T>;
+
+const useStateRef: UseStateRef = (state) => {
   const stateRef = useRef(state);
 
   useEffect(() => {

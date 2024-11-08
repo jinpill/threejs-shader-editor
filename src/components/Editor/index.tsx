@@ -21,7 +21,6 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const textarea = e.currentTarget;
-
     if (e.ctrlKey && e.key === "/") {
       e.preventDefault();
       handleComment(textarea);
@@ -31,6 +30,9 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     } else if (e.shiftKey && e.key === "Tab") {
       e.preventDefault();
       handleShiftTab(textarea);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      handleEnter(textarea);
     }
   };
 
@@ -155,6 +157,23 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       const newCursorPos = selectionStart - spacesToRemove;
       setSelectionRange(textarea, newCursorPos);
     }
+  };
+
+  const handleEnter = (textarea: HTMLTextAreaElement) => {
+    const { selectionStart, value } = textarea;
+
+    const cursorPos = getCursorPositions(textarea);
+    const currentLine = value.slice(cursorPos.before, cursorPos.last);
+
+    const leadingSpaces = currentLine.match(/^\s*/)?.[0] || "";
+
+    const newValue =
+      value.slice(0, selectionStart) + `\n${leadingSpaces}` + value.slice(selectionStart);
+
+    const newCursorPos = selectionStart + 1 + leadingSpaces.length;
+
+    props.onChange(newValue);
+    setSelectionRange(textarea, newCursorPos);
   };
 
   const getCursorPositions = (textarea: HTMLTextAreaElement) => {

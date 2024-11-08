@@ -81,7 +81,9 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
         value.slice(cursorPos.last);
 
       props.onChange(newValue);
-      setSelectionRange(textarea, cursorPos.after + 2 * lines.length);
+
+      const newSelectionEnd = selectionEnd + 2 * lines.length;
+      setSelectionRange(textarea, selectionStart + 2, newSelectionEnd);
     } else {
       const lineBeforeCursor = value.slice(cursorPos.before, selectionStart);
       const CharCount = lineBeforeCursor.length;
@@ -96,49 +98,62 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
   };
 
   const handleShiftTab = (textarea: HTMLTextAreaElement) => {
-    const { selectionStart, value } = textarea;
+    const { selectionStart, selectionEnd, value } = textarea;
     const cursorPos = getCursorPositions(textarea);
     const selectedText = value.slice(cursorPos.before, cursorPos.last);
+
+    if (!selectedText.trim()) {
+      return;
+    }
+
     const lines = selectedText.split("\n");
 
     let newValue: string;
+    let totalRemovedSpaces = 0;
 
     if (selectionStart !== cursorPos.after && lines.length > 1) {
-      const rmTabLines: string[] = [];
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+      const updatedLines: string[] = [];
+      const spacesRemovedPerLine: number[] = [];
+
+      for (const line of lines) {
         const leadingSpaces = line.match(/^\s*/)?.[0].length || 0;
-        const spacesToRemove = leadingSpaces % 2 === 0 ? 2 : 1;
-        const rmLine = line.replace(new RegExp(`^\\s{0,${spacesToRemove}}`), "");
-        rmTabLines.push(rmLine);
+        const spacesToRemove = Math.min(leadingSpaces, 2);
+        spacesRemovedPerLine.push(spacesToRemove);
+
+        const updatedLine = line.replace(new RegExp(`^\\s{0,${spacesToRemove}}`), "");
+        updatedLines.push(updatedLine);
       }
 
       newValue =
         value.slice(0, cursorPos.before) +
-        rmTabLines.join("\n") +
+        updatedLines.join("\n") +
         value.slice(cursorPos.last);
+
+      totalRemovedSpaces = spacesRemovedPerLine.reduce((sum, spaces) => sum + spaces, 0);
 
       props.onChange(newValue);
 
-      setSelectionRange(
-        textarea,
-        selectionStart -
-          rmTabLines.reduce((acc, line, idx) => {
-            const originalLeadingSpaces = lines[idx].match(/^\s*/)?.[0].length || 0;
-            return acc + (originalLeadingSpaces % 2 === 0 ? 2 : 1);
-          }, 0),
-      );
+      const startLineRemovedSpaces = spacesRemovedPerLine[0] || 0;
+      const newSelectionStart = selectionStart - startLineRemovedSpaces;
+      const newSelectionEnd = selectionEnd - totalRemovedSpaces;
+
+      setSelectionRange(textarea, newSelectionStart, newSelectionEnd);
     } else {
       const currentLine = value.slice(cursorPos.before, cursorPos.last);
       const leadingSpaces = currentLine.match(/^\s*/)?.[0].length || 0;
-      const spacesToRemove = leadingSpaces % 2 === 0 ? 2 : 1;
-      const newLine = currentLine.replace(new RegExp(`^\\s{0,${spacesToRemove}}`), "");
+      const spacesToRemove = Math.min(leadingSpaces, 2);
+      const updatedLine = currentLine.replace(
+        new RegExp(`^\\s{0,${spacesToRemove}}`),
+        "",
+      );
 
-      newValue = value.slice(0, cursorPos.before) + newLine + value.slice(cursorPos.last);
+      newValue =
+        value.slice(0, cursorPos.before) + updatedLine + value.slice(cursorPos.last);
 
       props.onChange(newValue);
 
-      setSelectionRange(textarea, selectionStart - spacesToRemove);
+      const newCursorPos = selectionStart - spacesToRemove;
+      setSelectionRange(textarea, newCursorPos);
     }
   };
 

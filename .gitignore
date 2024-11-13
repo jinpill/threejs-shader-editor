@@ -41,4 +41,6 @@ next-env.d.ts
 
 *storybook.log
 
-src/components/Editor/index copy.tsx
+src/components/**/*.study.tsx
+src/components/**/*.study.ts
+src/components/**/*.study.scss

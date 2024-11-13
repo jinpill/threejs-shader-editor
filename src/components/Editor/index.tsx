@@ -26,16 +26,17 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       handleComment(textarea);
     } else if (!e.shiftKey && e.key === "Tab") {
       e.preventDefault();
-      handleTab(textarea);
+      handleIndent(textarea);
     } else if (e.shiftKey && e.key === "Tab") {
       e.preventDefault();
-      handleShiftTab(textarea);
+      handleUnIndent(textarea);
     } else if (e.key === "Enter") {
       e.preventDefault();
       handleEnter(textarea);
     }
   };
 
+  // 주석에 대한 기능
   const handleComment = (textarea: HTMLTextAreaElement) => {
     const { selectionStart, value } = textarea;
     const cursorPos = getCursorPositions(textarea);
@@ -59,7 +60,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     updateTextarea(textarea, newValue, newCursorPos);
   };
 
-  const handleTab = (textarea: HTMLTextAreaElement) => {
+  // 인덴트에 대한 기능
+  const handleIndent = (textarea: HTMLTextAreaElement) => {
     const { selectionStart, selectionEnd, value } = textarea;
     const cursorPos = getCursorPositions(textarea);
 
@@ -87,7 +89,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     }
   };
 
-  const handleShiftTab = (textarea: HTMLTextAreaElement) => {
+  // 언인덴트에 대한 기능
+  const handleUnIndent = (textarea: HTMLTextAreaElement) => {
     const { selectionStart, selectionEnd, value } = textarea;
     const cursorPos = getCursorPositions(textarea);
     const selectedText = value.slice(cursorPos.before, cursorPos.last);
@@ -99,16 +102,16 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     if (selectionStart !== cursorPos.after && lines.length > 1) {
       const updatedLines = lines.map((line) => line.replace(/^ {1,2}/, ""));
 
+      const totalRemovedSpaces = lines.reduce(
+        (sum, line) => sum + getLeadingSpaces(line),
+        0,
+      );
+      const startLineRemovedSpaces = getLeadingSpaces(lines[0]);
+
       const newValue =
         value.slice(0, cursorPos.before) +
         updatedLines.join("\n") +
         value.slice(cursorPos.last);
-
-      const totalRemovedSpaces = lines.reduce(
-        (sum, line) => sum + Math.min(line.match(/^ */)?.[0].length || 0, 2),
-        0,
-      );
-      const startLineRemovedSpaces = Math.min(lines[0]?.match(/^ */)?.[0].length || 0, 2);
 
       const newSelectionStart = Math.max(selectionStart - startLineRemovedSpaces, 0);
       const newSelectionEnd = Math.max(selectionEnd - totalRemovedSpaces, 0);
@@ -129,6 +132,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     }
   };
 
+  // 들여쓰기에 대한 기능
   const handleEnter = (textarea: HTMLTextAreaElement) => {
     const { selectionStart, value } = textarea;
 
@@ -142,6 +146,11 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     const newCursorPos = selectionStart + 1 + leadingSpaces.length;
 
     updateTextarea(textarea, newValue, newCursorPos);
+  };
+
+  const getLeadingSpaces = (line: string, maxSpaces = 2) => {
+    const leadingSpaces = line.match(/^ */)?.[0].length || 0;
+    return Math.min(leadingSpaces, maxSpaces);
   };
 
   const getCursorPositions = (textarea: HTMLTextAreaElement) => {

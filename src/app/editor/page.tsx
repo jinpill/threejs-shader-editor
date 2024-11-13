@@ -1,10 +1,15 @@
-import SampleButton from "@/components/SampleButton";
+"use client";
+
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 const EditorPage = () => {
   return (
-    <div>
-      <h1>Editor</h1>
-      <SampleButton size="medium">Sample Button</SampleButton>
+    <div style={{ height: "100%" }}>
+      <Canvas>
+        <OrbitControls />
+      </Canvas>
     </div>
   );
 };

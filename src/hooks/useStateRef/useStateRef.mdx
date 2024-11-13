@@ -1,0 +1,91 @@
+import { Meta } from "@storybook/blocks";
+import { useState } from "react";
+import classNames from "classnames";
+import useStateRef from ".";
+
+<Meta title="Hooks/useStateRef" />
+
+# Hook: useStateRef
+
+<div className="description">
+  이 커스텀 훅은 첫 번째 인자로 입력한 스테이트의 최신 값과 동일한 값으로 동기화는 레퍼런스 객체를 반환합니다.
+
+이 반환되는 값은 `useEffect` 또는 `useCallback` 등 훅 내부에서 디펜던시에 영향을 주지 않고 최신 값을 참조해야 할 때 활용할 수 있으며,
+반환되는 레퍼런스 객체는 디펜던시 배열에 추가해야 하지만 참조 결과에 영향은 주지 않습니다.
+
+</div>
+
+## How to use
+
+<div className="description">
+  아래 예시 코드는 `useStateRef` 훅을 사용해야 하는 간단한 예시입니다.
+
+이 컴포넌트의 개발자는 컴포넌트가 마운트 되었을 때, `fetchList` 함수를 호출하고 싶어합니다.
+그러나 `fetchList` 함수는 `keyword` 스테이트의 값에 의존하고 있기 때문에, `useEffect` 훅의 디펜던시 배열에 `keyword`를 추가해야 합니다.
+
+`useEffect` 훅의 디펜던시 배열에 추가된 `keyword` 스테이트로 인해, 사용자가 입력창에 타이핑 할 때마다 API 호출이 발생하게 될 것입니다.
+이것은 컴포넌트의 마운트 시에만 호출하고 싶은 `fetchList` 함수의 목적과는 다르게 동작하게 됩니다.
+
+</div>
+
+```tsx
+const Component = () => {
+  const [keyword, setKeyword] = useState("");
+  const [list, setList] = useState<SomeFetchItem[]>([]);
+
+  const fetchList = async (keyword: string) => {
+    const response = await fetch(`https://api.example.com/search?keyword=${keyword}`);
+    const data = await response.json();
+    setList(data);
+  };
+
+  useEffect(() => {
+    fetchList(keyword);
+  }, [keyword]);
+
+  return (
+    <div>
+      <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <button onClick={() => fetchList(keyword)}>Search</button>
+    </div>
+  );
+};
+
+export default Component;
+```
+
+<div className="description">
+  아래의 코드는 `useStateRef` 훅을 사용하여 개선된 코드입니다.
+
+`useEffect` 훅의 디펜던시 배열에서 `keywordRef`를 참조하지만, 레퍼런스 오브젝트는 변하지 않기 때문에 API를 매번 호출하지 않고 최신 값을 참조할 수 있습니다.
+
+</div>
+
+```tsx
+import { useStateRef } from "@/hooks/useStateRef";
+
+const Component = () => {
+  const [keyword, setKeyword] = useState("");
+  const keywordRef = useStateRef(keyword);
+  const [list, setList] = useState<SomeFetchItem[]>([]);
+
+  const fetchList = async (keyword: string) => {
+    const response = await fetch(`https://api.example.com/search?keyword=${keyword}`);
+    const data = await response.json();
+    setList(data);
+  };
+
+  useEffect(() => {
+    fetchList(keywordRef.current);
+  }, [keywordRef]);
+
+  return (
+    <div>
+      <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <button onClick={() => fetchList(keyword)}>Search</button>
+    </div>
+  );
+};
+
+export default Component;
+```

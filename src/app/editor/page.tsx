@@ -1,7 +1,15 @@
+"use client";
+
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+
 const EditorPage = () => {
   return (
     <div>
-      <h1>Editor</h1>
+      <Canvas>
+        <OrbitControls />
+      </Canvas>
     </div>
   );
 };

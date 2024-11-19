@@ -40,3 +40,7 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+
+src/**/*.study.tsx
+src/**/*.study.ts
+src/**/*.study.scss

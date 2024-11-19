@@ -6,9 +6,17 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  > div {
+    height: 0;
+    flex: 1 1 0;
+  }
 }
 
 * {

@@ -6,7 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 
 const EditorPage = () => {
   return (
-    <div style={{ height: "100%" }}>
+    <div>
       <Canvas>
         <OrbitControls />
       </Canvas>

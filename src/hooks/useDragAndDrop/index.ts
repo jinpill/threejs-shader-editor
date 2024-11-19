@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import useStateRef from "@/hooks/useStateRef";
 
-export type UseDragAndDrop = (onDrop: DropEventHandler) => UseDragAndDropReturn;
+export type UseDragAndDrop<E extends HTMLElement> = (
+  onDrop: DropEventHandler,
+) => UseDragAndDropReturn<E>;
 export type DropEventHandler = (files: File[], event: DragEvent) => void;
-export type UseDragAndDropReturn = {
-  ref: React.RefObject<HTMLElement>;
+export type UseDragAndDropReturn<E extends HTMLElement> = {
+  ref: React.RefObject<E>;
   dragging: boolean;
 };
 
-const useDragAndDrop: UseDragAndDrop = (onDrop) => {
-  const elementRef = useRef<HTMLElement>(null);
+const useDragAndDrop = <E extends HTMLElement>(onDrop: DropEventHandler) => {
+  const elementRef = useRef<E>(null);
   const [dragging, setDragging] = useState(false);
   const onDropRef = useStateRef(onDrop);
 

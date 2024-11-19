@@ -1,37 +1,37 @@
 .toolbar {
   padding: 8px;
+}
 
-  &Wrapper {
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+
+  > div {
     display: flex;
-    justify-content: space-between;
     gap: 8px;
+  }
+}
 
-    > div {
-      display: flex;
-      gap: 8px;
-    }
+.button {
+  width: 40px;
+  height: 40px;
+
+  display: block;
+  padding: 0;
+
+  border-radius: 4px;
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
-  &Button {
-    width: 40px;
-    height: 40px;
-
-    display: block;
-    padding: 0;
-
-    border-radius: 4px;
-    border: none;
-    background-color: transparent;
-
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    &:active {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 }

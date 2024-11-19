@@ -10,7 +10,7 @@ export type ToolbarProps = {
 
 const Toolbar = (props: ToolbarProps) => (
   <AppBar className={style.toolbar} color="default">
-    <div className={style.toolbarWrapper}>
+    <div className={style.wrapper}>
       <div>{props.children}</div>
       <div>
         <ToolbarButton name="사용자 설정" onClick={props.onOpenSettings}>

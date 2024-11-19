@@ -9,7 +9,7 @@ export type ToolbarButtonProps = {
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
   <Tooltip title={props.name} arrow>
-    <button className={style.toolbarButton} tabIndex={-1} onClick={props.onClick}>
+    <button className={style.button} tabIndex={-1} onClick={props.onClick}>
       {props.children}
     </button>
   </Tooltip>

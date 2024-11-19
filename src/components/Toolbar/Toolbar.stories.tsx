@@ -23,9 +23,11 @@ export const Default: Story = {
         <Toolbar.Button name="3D모델">
           <ViewInArIcon />
         </Toolbar.Button>
+
         <Toolbar.Button name="조작">
           <ControlCameraIcon />
         </Toolbar.Button>
+
         <Toolbar.Button name="복제">
           <AnimationIcon />
         </Toolbar.Button>

@@ -31,7 +31,7 @@ const EditorPage = () => {
       url,
       (geometry: THREE.BufferGeometry) => {
         const material = new THREE.MeshPhongMaterial({
-          color: 0xff8800,
+          color: 0x00b7ff,
         });
         const mesh = new THREE.Mesh(geometry, material);
         const box = new THREE.Box3();
@@ -72,10 +72,8 @@ const EditorPage = () => {
         {error && <p className={style.errorMessage}>{error}</p>}
       </div>
 
-      <Canvas
-        className={style.canvasWrapper}
-        camera={{ position: [10, 10, 10], fov: 50 }}
-      >
+      {/* <Canvas className={style.canvasWrapper} camera={{ position: [5, 5, 5], fov: 50 }}> */}
+      <Canvas className={style.canvasWrapper} camera={{ position: [50, 50, 50] }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         {mesh && <primitive object={mesh} />}

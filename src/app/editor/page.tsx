@@ -1,147 +1,86 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { STLLoader } from "three-stdlib";
+import React, { useState } from "react";
+import classNames from "classnames";
 import * as THREE from "three";
+import { STLLoader } from "three/examples/jsm/Addons.js";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+
 import PublishIcon from "@mui/icons-material/Publish";
+import useDragAndDrop from "@/hooks/useDragAndDrop";
+
 import style from "./style.module.scss";
 
 const EditorPage = () => {
-  const [model, setModel] = useState<THREE.BufferGeometry | null>(null);
+  const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [dragging, setDragging] = useState(false);
-  const [dropped, setDropped] = useState(false);
-  const ref = React.useRef<HTMLDivElement | null>(null);
 
-  const handleDrop = async (files: File[]) => {
+  const { ref, dragging } = useDragAndDrop<HTMLDivElement>((files) => {
     const file = files[0];
-
-    console.log("File Type:", file.type);
-    console.log("File Name:", file.name);
-
     const fileExtension = file.name.split(".").pop()?.toLowerCase();
-    console.log("File 확장자:", fileExtension);
 
     if (fileExtension !== "stl") {
       setError("지원되지 않는 형식입니다. STL 파일을 업로드하세요.");
-      setModel(null);
-      setDropped(false);
       return;
     }
 
-    setError(null);
-    setDropped(true);
+    const url = URL.createObjectURL(file);
+    const loader = new STLLoader();
+    loader.load(
+      url,
+      (geometry: THREE.BufferGeometry) => {
+        const material = new THREE.MeshPhongMaterial({
+          color: 0xff8800,
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        const box = new THREE.Box3();
+        box.setFromObject(mesh);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.result === null) {
-        console.error("파일을 읽는 데 실패했습니다.");
-        setError("파일을 읽는 데 실패했습니다.");
-        return;
-      }
+        const center = box.getCenter(new THREE.Vector3());
+        mesh.position.sub(center);
 
-      console.log("Reader Result:", reader.result);
-
-      const loader = new STLLoader();
-      try {
-        const geometry = loader.parse(reader.result as ArrayBuffer);
-
-        geometry.center();
-        geometry.computeBoundingBox();
-        const box = geometry.boundingBox;
-        if (box) {
-          const size = new THREE.Vector3();
-          box.getSize(size);
-
-          console.log("Model Size:", size);
-
-          const maxAxis = Math.max(size.x, size.y, size.z);
-          geometry.scale(1 / maxAxis, 1 / maxAxis, 1 / maxAxis);
-        }
-
-        console.log("Geometry Parsed:", geometry);
-        setModel(geometry);
-      } catch (e) {
-        console.error("STL 파싱 중 오류 발생:", e);
+        setError(null);
+        setMesh(mesh);
+      },
+      (xhr) => {
+        console.log("Loading Progress:", `${(xhr.loaded / xhr.total) * 100}%`);
+      },
+      (error) => {
+        console.error("STL 파일 로드 중 오류 발생:", error);
         setError("STL 파일을 로드하는 중 오류가 발생했습니다.");
-        setModel(null);
-        setDropped(false);
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const handleDragEnter = (event: DragEvent) => {
-      event.preventDefault();
-      setDragging(true);
-      setError(null);
-    };
-
-    const handleDragOver = (event: DragEvent) => {
-      event.preventDefault();
-    };
-
-    const handleDragLeave = (event: DragEvent) => {
-      event.preventDefault();
-      setDragging(false);
-    };
-
-    const handleDropEvent = (event: DragEvent) => {
-      event.preventDefault();
-      setDragging(false);
-      const files = Array.from(event.dataTransfer?.files || []);
-      handleDrop(files);
-    };
-
-    element.addEventListener("dragenter", handleDragEnter);
-    element.addEventListener("dragover", handleDragOver);
-    element.addEventListener("dragleave", handleDragLeave);
-    element.addEventListener("drop", handleDropEvent);
-
-    return () => {
-      element.removeEventListener("dragenter", handleDragEnter);
-      element.removeEventListener("dragover", handleDragOver);
-      element.removeEventListener("dragleave", handleDragLeave);
-      element.removeEventListener("drop", handleDropEvent);
-    };
-  }, []);
+        setMesh(null);
+      },
+    );
+  });
 
   return (
     <div
       ref={ref}
-      className={`${style.container} ${dragging ? style.dragging : ""} ${
-        error ? style.error : ""
-      }`}
+      className={classNames(style.container, {
+        [style.dragging]: dragging,
+        [style.error]: error,
+      })}
     >
-      {dragging && !model && !error && !dropped && (
-        <>
-          <PublishIcon className={style.dropIcon} />
-          <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
-        </>
-      )}
+      <div className={style.overviewArea}>
+        {dragging && (
+          <div className={style.dropDescription}>
+            <PublishIcon fontSize="inherit" />
+            <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+          </div>
+        )}
+        {error && <p className={style.errorMessage}>{error}</p>}
+      </div>
 
-      {error && <p className={style.errorMessage}>{error}</p>}
-
-      {dropped && model && (
-        <Canvas
-          className={style.canvasWrapper}
-          camera={{ position: [10, 10, 10], fov: 50 }}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-          <mesh geometry={model} scale={[0.01, 0.01, 0.01]}>
-            <meshStandardMaterial color="orange" />
-          </mesh>
-          <OrbitControls />
-        </Canvas>
-      )}
+      <Canvas
+        className={style.canvasWrapper}
+        camera={{ position: [10, 10, 10], fov: 50 }}
+      >
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        {mesh && <primitive object={mesh} />}
+        <OrbitControls />
+      </Canvas>
     </div>
   );
 };

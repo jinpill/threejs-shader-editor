@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Label from "@mui/material/FormLabel";
-import style from "./style.module.scss";
+import style from "../style.module.scss";
 
 export type ToolPanelLabelProps = {
   name: string;

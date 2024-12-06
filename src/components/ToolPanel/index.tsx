@@ -2,10 +2,10 @@ import classNames from "classnames";
 import { Paper } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import ToolPanelSection from "./Section";
-import ToolPanelLabel from "./Label";
-import ToolPanelButtons from "./Buttons";
-import ToolPanelButton from "./Button";
+import ToolPanelSection from "./children/Section";
+import ToolPanelLabel from "./children/Label";
+import ToolPanelButtons from "./children/Buttons";
+import ToolPanelButton from "./children/Button";
 
 import style from "./style.module.scss";
 
@@ -19,9 +19,9 @@ export type ToolPanelProps = {
 };
 
 /**
- * - `--tool-panel-width` ToolPanel의 너비를 지정 (default: 400px)
- * - `--tool-panel-height` ToolPanel의 높이를 지정 (default: auto)
- * - `--tool-panel-max-height` ToolPanel의 최대 높이를 지정 (default: 640px)
+ * - `--tp-width` ToolPanel의 너비를 지정 (default: 400px)
+ * - `--tp-height` ToolPanel의 높이를 지정 (default: auto)
+ * - `--tp-max-height` ToolPanel의 최대 높이를 지정 (default: 640px)
  */
 const ToolPanel = (props: ToolPanelProps) => {
   return (

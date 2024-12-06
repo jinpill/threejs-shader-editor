@@ -1,5 +1,5 @@
 import ToolPanelSection from "./Section";
-import style from "./style.module.scss";
+import style from "../style.module.scss";
 
 export type ToolPanelButtonsProps = {
   className?: string;

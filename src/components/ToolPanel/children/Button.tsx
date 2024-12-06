@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Button from "@mui/material/Button";
-import style from "./style.module.scss";
+import style from "../style.module.scss";
 
 export type ToolPanelButtonProps = {
   label: string;

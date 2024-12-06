@@ -1,7 +1,7 @@
 .toolPanel {
-  width: var(--tool-panel-width, 400px);
-  height: var(--tool-panel-height, auto);
-  max-height: var(--tool-panel-max-height, 640px);
+  width: var(--tp-width, 400px);
+  height: var(--tp-height, auto);
+  max-height: var(--tp-max-height, 640px);
 
   display: flex;
   flex-direction: column;
@@ -105,6 +105,11 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: all;
+  }
 
   .name {
     width: var(--tp-ln-width, auto);

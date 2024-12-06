@@ -1,60 +1,119 @@
 .toolPanel {
-  width: var(--width, 400px);
-  height: var(--height, auto);
-  max-height: 640px;
-  overflow-y: auto;
-}
+  width: var(--tool-panel-width, 400px);
+  height: var(--tool-panel-height, auto);
+  max-height: var(--tool-panel-max-height, 640px);
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-
-  position: sticky;
-  top: 0;
-  z-index: 1;
-
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  .title {
-    user-select: none;
-    font-weight: bold;
-  }
-
-  .closeButton {
-    width: 24px;
-    height: 24px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-
-    border-radius: 4px;
-    border: none;
-    background-color: transparent;
-
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    &:active {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  }
-}
-
-.contents {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 16px 24px;
 
-  background-color: #f5f5f5;
-  overflow: auto;
+  overflow-y: auto;
+
+  > .header {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    z-index: 1;
+
+    .title {
+      user-select: none;
+      font-weight: bold;
+    }
+
+    .closeButton {
+      width: 24px;
+      height: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      border-radius: 4px;
+      border: none;
+      background-color: transparent;
+
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &:active {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  > .contents {
+    flex: 0 1 auto;
+    overflow: auto;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px 16px 24px;
+
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.section {
+  &:not(:first-child)::before {
+    display: block;
+    content: "";
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .header {
+    margin-bottom: 16px;
+
+    .title {
+      font-size: 0.75rem;
+      font-weight: bold;
+      user-select: none;
+    }
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+
+  .button {
+    width: 0;
+    flex: 1 1 0;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .name {
+    width: var(--tp-ln-width, auto);
+    flex: none;
+    user-select: none;
+  }
+
+  .contents {
+    width: 0;
+    flex: 1 1 0;
+  }
 }

@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/Addons.js";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import View from "@/components/Editor/view";
 
 import PublishIcon from "@mui/icons-material/Publish";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
@@ -15,6 +16,7 @@ import style from "./style.module.scss";
 const EditorPage = () => {
   const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [fov, setFov] = useState<number>(50);
 
   const { ref, dragging } = useDragAndDrop<HTMLDivElement>((files) => {
     const file = files[0];
@@ -39,7 +41,6 @@ const EditorPage = () => {
 
         const center = box.getCenter(new THREE.Vector3());
         mesh.position.sub(center);
-
         setError(null);
         setMesh(mesh);
       },
@@ -72,11 +73,19 @@ const EditorPage = () => {
         {error && <p className={style.errorMessage}>{error}</p>}
       </div>
 
-      {/* <Canvas className={style.canvasWrapper} camera={{ position: [5, 5, 5], fov: 50 }}> */}
-      <Canvas className={style.canvasWrapper} camera={{ position: [50, 50, 50] }}>
+      <Canvas
+        className={style.canvasWrapper}
+        camera={{
+          position: [0, -10, 100],
+          fov: fov,
+          near: 0.1,
+          far: 10000,
+        }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         {mesh && <primitive object={mesh} />}
+        {mesh && <View mesh={mesh} onCalculateFov={(newFov) => setFov(newFov)} />}
         <OrbitControls />
       </Canvas>
     </div>

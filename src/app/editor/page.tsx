@@ -6,17 +6,20 @@ import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/Addons.js";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import View from "@/components/Editor/view";
 
 import PublishIcon from "@mui/icons-material/Publish";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
+import useBoundingCamera from "@/hooks/useBoundingCamera";
+import { useThreeStore } from "@/stores/useThreeStore";
 
 import style from "./style.module.scss";
 
 const EditorPage = () => {
+  const { setCamera } = useThreeStore();
+  const setBoundingCamera = useBoundingCamera();
+
   const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [fov, setFov] = useState<number>(50);
 
   const { ref, dragging } = useDragAndDrop<HTMLDivElement>((files) => {
     const file = files[0];
@@ -43,6 +46,9 @@ const EditorPage = () => {
         mesh.position.sub(center);
         setError(null);
         setMesh(mesh);
+
+        const normal = new THREE.Vector3(0, -1, 0);
+        setBoundingCamera(mesh, normal);
       },
       (xhr) => {
         console.log("Loading Progress:", `${(xhr.loaded / xhr.total) * 100}%`);
@@ -76,16 +82,21 @@ const EditorPage = () => {
       <Canvas
         className={style.canvasWrapper}
         camera={{
-          position: [0, -10, 100],
-          fov: fov,
+          position: [0, 0, 100],
+          fov: 50,
           near: 0.1,
           far: 10000,
+          up: [0, 0, 1],
+        }}
+        onCreated={(state) => {
+          if (state.camera instanceof THREE.PerspectiveCamera) {
+            setCamera(state.camera);
+          }
         }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         {mesh && <primitive object={mesh} />}
-        {mesh && <View mesh={mesh} onCalculateFov={(newFov) => setFov(newFov)} />}
         <OrbitControls />
       </Canvas>
     </div>

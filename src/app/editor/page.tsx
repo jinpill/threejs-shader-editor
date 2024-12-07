@@ -8,15 +8,22 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import PublishIcon from "@mui/icons-material/Publish";
+import ModelsPanel from "./panels/ModelsPanel";
+import SettingsPanel from "./panels/SettingsPanel";
+
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
+
 import { useThreeStore } from "@/stores/useThreeStore";
+import { useToolbarStore } from "@/stores/useToolbarStore";
 
 import style from "./style.module.scss";
+import EditorToolbar from "./EditorToolbar";
 
 const EditorPage = () => {
   const { setCamera } = useThreeStore();
   const setBoundingCamera = useBoundingCamera();
+  const { activeToolPanel } = useToolbarStore();
 
   const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -69,36 +76,48 @@ const EditorPage = () => {
         [style.error]: error,
       })}
     >
-      <div className={style.overviewArea}>
-        {dragging && (
-          <div className={style.dropDescription}>
-            <PublishIcon fontSize="inherit" />
-            <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
-          </div>
-        )}
-        {error && <p className={style.errorMessage}>{error}</p>}
-      </div>
+      {/* Toolbar */}
+      <EditorToolbar />
 
-      <Canvas
-        className={style.canvasWrapper}
-        camera={{
-          position: [0, 0, 100],
-          fov: 50,
-          near: 0.1,
-          far: 10000,
-          up: [0, 0, 1],
-        }}
-        onCreated={(state) => {
-          if (state.camera instanceof THREE.PerspectiveCamera) {
-            setCamera(state.camera);
-          }
-        }}
-      >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={1} />
-        {mesh && <primitive object={mesh} />}
-        <OrbitControls />
-      </Canvas>
+      <div className={style.viewArea}>
+        {/* Tool Panels */}
+        <div className={style.toolPanelArea}>
+          {activeToolPanel === "Models" && <ModelsPanel />}
+          {activeToolPanel === "Settings" && <SettingsPanel />}
+        </div>
+
+        {/* Overview */}
+        <div className={style.overviewArea}>
+          {dragging && (
+            <div className={style.dropDescription}>
+              <PublishIcon fontSize="inherit" />
+              <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+            </div>
+          )}
+          {error && <p className={style.errorMessage}>{error}</p>}
+        </div>
+
+        <Canvas
+          className={style.canvasWrapper}
+          camera={{
+            position: [0, 0, 100],
+            fov: 50,
+            near: 0.1,
+            far: 10000,
+            up: [0, 0, 1],
+          }}
+          onCreated={(state) => {
+            if (state.camera instanceof THREE.PerspectiveCamera) {
+              setCamera(state.camera);
+            }
+          }}
+        >
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          {mesh && <primitive object={mesh} />}
+          <OrbitControls />
+        </Canvas>
+      </div>
     </div>
   );
 };

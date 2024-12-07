@@ -2,15 +2,18 @@ import classNames from "classnames";
 import { Paper } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import ToolPanelSection from "./children/Section";
-import ToolPanelLabel from "./children/Label";
-import ToolPanelButtons from "./children/Buttons";
-import ToolPanelButton from "./children/Button";
+import ToolPanelSection from "./parts/Section";
+import ToolPanelLabel from "./parts/Label";
+import ToolPanelButtons from "./parts/Buttons";
+import ToolPanelButton from "./parts/Button";
+
+import { useToolbarStore, type ToolPanelName } from "@/stores/useToolbarStore";
 
 import style from "./style.module.scss";
 
 export type ToolPanelProps = {
   title: string;
+  name?: ToolPanelName;
   onClose?: () => void;
 
   className?: string;
@@ -24,12 +27,26 @@ export type ToolPanelProps = {
  * - `--tp-max-height` ToolPanel의 최대 높이를 지정 (default: 640px)
  */
 const ToolPanel = (props: ToolPanelProps) => {
+  const { hideToolPanel } = useToolbarStore();
+
+  const handleClose = () => {
+    if (props.name) {
+      hideToolPanel(props.name);
+    }
+
+    props.onClose?.();
+  };
+
   return (
-    <Paper className={classNames(style.toolPanel, props.className)} style={props.style}>
+    <Paper
+      elevation={4}
+      className={classNames(style.toolPanel, props.className)}
+      style={props.style}
+    >
       <header className={style.header}>
         <div className={style.title}>{props.title}</div>
 
-        <button className={style.closeButton} tabIndex={-1} onClick={props.onClose}>
+        <button className={style.closeButton} tabIndex={-1} onClick={handleClose}>
           <CloseIcon fontSize="small" />
         </button>
       </header>

@@ -1,0 +1,39 @@
+.toolbar {
+  padding: 8px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+
+  > div {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.button {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  border-radius: 4px;
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}

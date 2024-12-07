@@ -21,8 +21,13 @@ const Initializer = (props: InitializerProps) => {
     const html = document.querySelector("html");
     if (!html) return;
 
-    if (theme === "dark") html.classList.add("dark");
-    else html.classList.remove("dark");
+    if (theme === "dark") {
+      html.classList.add("dark");
+      document.body.setAttribute("data-theme", "dark");
+    } else {
+      html.classList.remove("dark");
+      document.body.setAttribute("data-theme", "light");
+    }
   }, [theme]);
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/Addons.js";
@@ -20,6 +20,7 @@ import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
 import style from "./style.module.scss";
+import TargetHelper from "./TargetHelper";
 
 const EditorPage = () => {
   const { handleCreated } = useThreeStore();
@@ -54,6 +55,7 @@ const EditorPage = () => {
 
         const center = box.getCenter(new THREE.Vector3());
         mesh.position.sub(center);
+
         setError(null);
         setMesh(mesh);
 
@@ -70,6 +72,25 @@ const EditorPage = () => {
       },
     );
   });
+
+  useEffect(() => {
+    const handleSpace = (e: KeyboardEvent) => {
+      const activeElement = document.activeElement;
+      const isInputFocused =
+        activeElement &&
+        (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
+
+      if (!isInputFocused && e.key === " " && e.code === "Space") {
+        e.preventDefault();
+
+        if (mesh) {
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleSpace);
+    return () => window.removeEventListener("keydown", handleSpace);
+  }, [mesh, setBoundingCamera]);
 
   return (
     <div
@@ -114,6 +135,7 @@ const EditorPage = () => {
           <directionalLight position={[5, 5, 5]} intensity={1} />
           {mesh && <primitive object={mesh} />}
           <OrbitControls />
+          <TargetHelper />
         </Canvas>
       </div>
     </div>

@@ -19,10 +19,10 @@ import AddonLibrary from "./assets/addon-library.png";
 export const RightArrow = () => (
   <svg
     viewBox="0 0 14 14"
-    width="8px"
-    height="14px"
+    width="0.5rem"
+    height="0.875rem"
     style={{
-      marginLeft: "4px",
+      marginLeft: "0.25rem",
       display: "inline-block",
       shapeRendering: "inherit",
       verticalAlign: "middle",
@@ -295,14 +295,14 @@ export const RightArrow = () => (
 <style>
   {`
   .sb-container {
-    margin-bottom: 48px;
+    margin-bottom: 3rem;
   }
 
   .sb-section {
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 1.25rem;
   }
 
   img {
@@ -310,11 +310,11 @@ export const RightArrow = () => (
   }
 
   .sb-section-title {
-    margin-bottom: 32px;
+    margin-bottom: 2rem;
   }
 
   .sb-section a:not(h1 a, h2 a, h3 a) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .sb-section-item, .sb-grid-item {
@@ -324,23 +324,23 @@ export const RightArrow = () => (
   }
 
   .sb-section-item-heading {
-    padding-top: 20px !important;
-    padding-bottom: 5px !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 0.3125rem !important;
     margin: 0 !important;
   }
   .sb-section-item-paragraph {
     margin: 0;
-    padding-bottom: 10px;
+    padding-bottom: 0.625rem;
   }
 
   .sb-chevron {
-    margin-left: 5px;
+    margin-left: 0.3125rem;
   }
 
   .sb-features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 32px 20px;
+    grid-gap: 2rem 1.25rem;
   }
 
   .sb-socials {
@@ -349,11 +349,11 @@ export const RightArrow = () => (
   }
 
   .sb-socials p {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
   }
 
   .sb-explore-image {
-    max-height: 32px;
+    max-height: 2rem;
     align-self: flex-start;
   }
 
@@ -363,26 +363,26 @@ export const RightArrow = () => (
     align-items: center;
     position: relative;
     background-color: #EEF3F8;
-    border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid rgba(0, 0, 0, 0.05);
     background: #EEF3F8;
-    height: 180px;
-    margin-bottom: 48px;
+    height: 11.25rem;
+    margin-bottom: 3rem;
     overflow: hidden;
   }
 
   .sb-addon-text {
-    padding-left: 48px;
-    max-width: 240px;
+    padding-left: 3rem;
+    max-width: 15rem;
   }
 
   .sb-addon-text h4 {
-    padding-top: 0px;
+    padding-top: 0;
   }
 
   .sb-addon-img {
     position: absolute;
-    left: 345px;
+    left: 21.5625rem;
     top: 0;
     height: 100%;
     width: 200%;
@@ -390,21 +390,21 @@ export const RightArrow = () => (
   }
 
   .sb-addon-img img {
-    width: 650px;
+    width: 40.625rem;
     transform: rotate(-15deg);
-    margin-left: 40px;
-    margin-top: -72px;
-    box-shadow: 0 0 1px rgba(255, 255, 255, 0);
+    margin-left: 2.5rem;
+    margin-top: -4.5rem;
+    box-shadow: 0 0 0.0625rem rgba(255, 255, 255, 0);
     backface-visibility: hidden;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 50rem) {
     .sb-addon-img {
-      left: 300px;
+      left: 18.75rem;
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 37.5rem) {
     .sb-section {
       flex-direction: column;
     }
@@ -418,20 +418,20 @@ export const RightArrow = () => (
     }
 
     .sb-addon {
-      height: 280px;
+      height: 17.5rem;
       align-items: flex-start;
-      padding-top: 32px;
+      padding-top: 2rem;
       overflow: hidden;
     }
 
     .sb-addon-text {
-      padding-left: 24px;
+      padding-left: 1.5rem;
     }
 
     .sb-addon-img {
       right: 0;
       left: 0;
-      top: 130px;
+      top: 8.125rem;
       bottom: 0;
       overflow: hidden;
       height: auto;
@@ -439,12 +439,12 @@ export const RightArrow = () => (
     }
 
     .sb-addon-img img {
-      width: 1200px;
+      width: 75rem;
       transform: rotate(-12deg);
       margin-left: 0;
-      margin-top: 48px;
-      margin-bottom: -40px;
-      margin-left: -24px;
+      margin-top: 3rem;
+      margin-bottom: -2.5rem;
+      margin-left: -1.5rem;
     }
   }
   `}

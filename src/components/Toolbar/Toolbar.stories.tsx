@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
-    <div style={{ padding: "16px 0" }}>
+    <div style={{ padding: "1rem 0" }}>
       <Toolbar {...args}>
         <Toolbar.Button label="3D모델">
           <ViewInArIcon />

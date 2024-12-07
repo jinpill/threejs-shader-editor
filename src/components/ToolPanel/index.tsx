@@ -22,9 +22,9 @@ export type ToolPanelProps = {
 };
 
 /**
- * - `--tp-width` ToolPanel의 너비를 지정 (default: 400px)
+ * - `--tp-width` ToolPanel의 너비를 지정 (default: 25rem)
  * - `--tp-height` ToolPanel의 높이를 지정 (default: auto)
- * - `--tp-max-height` ToolPanel의 최대 높이를 지정 (default: 640px)
+ * - `--tp-max-height` ToolPanel의 최대 높이를 지정 (default: 40rem)
  */
 const ToolPanel = (props: ToolPanelProps) => {
   const { hideToolPanel } = useToolbarStore();

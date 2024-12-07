@@ -19,7 +19,6 @@ const useBackgroundColor = () => {
     if (!scene) return;
 
     const color = BACKGROUND_COLORS[theme];
-    console.log(color);
     if (typeof color === "number") {
       scene.background = new THREE.Color(color);
     }

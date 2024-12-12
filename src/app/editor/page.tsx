@@ -73,6 +73,7 @@ const EditorPage = () => {
     );
   });
 
+  // space에 대한 기능
   useEffect(() => {
     const handleSpace = (e: KeyboardEvent) => {
       const activeElement = document.activeElement;
@@ -84,6 +85,15 @@ const EditorPage = () => {
         e.preventDefault();
 
         if (mesh) {
+          const camera = useThreeStore.getState().camera;
+          if (!camera) return;
+
+          const direction = new THREE.Vector3();
+          camera.getWorldDirection(direction);
+
+          direction.negate();
+
+          setBoundingCamera(mesh, direction);
         }
       }
     };

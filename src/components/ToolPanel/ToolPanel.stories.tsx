@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <ToolPanel {...args}>
-      <Skeletons count={10} height="80px" />
+      <Skeletons count={10} height="5rem" />
     </ToolPanel>
   ),
   args: {
@@ -29,11 +29,11 @@ export const WithSections: Story = {
   render: (args) => (
     <ToolPanel {...args}>
       <ToolPanel.Section title="Section 1">
-        <Skeletons count={2} height="32px" />
+        <Skeletons count={2} height="2rem" />
       </ToolPanel.Section>
 
       <ToolPanel.Section title="Section 2">
-        <Skeletons count={3} height="32px" />
+        <Skeletons count={3} height="2rem" />
       </ToolPanel.Section>
     </ToolPanel>
   ),
@@ -46,11 +46,11 @@ export const WithButtons: Story = {
   render: (args) => (
     <ToolPanel {...args}>
       <ToolPanel.Section title="Section 1">
-        <Skeletons count={2} height="32px" />
+        <Skeletons count={2} height="2rem" />
       </ToolPanel.Section>
 
       <ToolPanel.Section title="Section 2">
-        <Skeletons count={3} height="32px" />
+        <Skeletons count={3} height="2rem" />
       </ToolPanel.Section>
 
       <ToolPanel.Buttons>
@@ -69,22 +69,22 @@ export const WithLabels: Story = {
     <ToolPanel {...args}>
       <ToolPanel.Section title="Section 1">
         <ToolPanel.Label name="Label 1">
-          <Skeletons count={1} height="32px" />
+          <Skeletons count={1} height="2rem" />
         </ToolPanel.Label>
         <ToolPanel.Label name="Label 2">
-          <Skeletons count={1} height="32px" />
+          <Skeletons count={1} height="2rem" />
         </ToolPanel.Label>
       </ToolPanel.Section>
 
       <ToolPanel.Section title="Section 2">
         <ToolPanel.Label name="Label 3">
-          <Skeletons count={1} height="32px" />
+          <Skeletons count={1} height="2rem" />
         </ToolPanel.Label>
         <ToolPanel.Label name="Label 4">
-          <Skeletons count={1} height="32px" />
+          <Skeletons count={1} height="2rem" />
         </ToolPanel.Label>
         <ToolPanel.Label name="Label 5">
-          <Skeletons count={1} height="32px" />
+          <Skeletons count={1} height="2rem" />
         </ToolPanel.Label>
       </ToolPanel.Section>
 

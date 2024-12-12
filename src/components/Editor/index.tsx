@@ -12,8 +12,8 @@ export type EditorProps = {
 };
 
 /**
- * - `--width` textarea의 너비를 지정
- * - `--height` textarea의 높이를 지정
+ * - `--ed-width` textarea의 너비를 지정 (default: 31.25rem)
+ * - `--ed-height` textarea의 높이를 지정 (default: 15rem)
  */
 const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);

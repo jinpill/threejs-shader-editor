@@ -5,9 +5,9 @@
     --tp-contents-bgcolor: #666666;
   }
 
-  width: var(--tp-width, 400px);
+  width: var(--tp-width, 25rem);
   height: var(--tp-height, auto);
-  max-height: var(--tp-max-height, 640px);
+  max-height: var(--tp-max-height, 40rem);
 
   display: flex;
   flex-direction: column;
@@ -19,9 +19,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
+    padding: 1rem;
 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 
     z-index: 1;
 
@@ -31,15 +31,15 @@
     }
 
     .closeButton {
-      width: 24px;
-      height: 24px;
+      width: 1.5rem;
+      height: 1.5rem;
 
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
 
-      border-radius: 4px;
+      border-radius: 0.25rem;
       border: none;
       background-color: transparent;
 
@@ -63,8 +63,8 @@
     > div {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding: 16px 16px 24px;
+      gap: 1rem;
+      padding: 1rem 1rem 1.5rem;
 
       background-color: var(--tp-contents-bgcolor);
     }
@@ -75,12 +75,12 @@
   &:not(:first-child)::before {
     display: block;
     content: "";
-    padding-top: 16px;
-    border-top: 1px solid #e0e0e0;
+    padding-top: 1rem;
+    border-top: 0.0625rem solid #e0e0e0;
   }
 
   .header {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 
     .title {
       font-size: 0.75rem;
@@ -92,13 +92,13 @@
   .contents {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1rem;
   }
 }
 
 .buttons {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
 
   .button {
     width: 0;
@@ -109,7 +109,7 @@
 .label {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   pointer-events: none;
 
   > * {

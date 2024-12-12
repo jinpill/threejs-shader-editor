@@ -31,5 +31,11 @@
     "description": "유틸리티를 불러옵니다.",
     "body": ["import * as ${2:${1}Utils} from \"@/utils/${1}Utils\";"],
     "scope": "typescript,typescriptreact"
+  },
+  "Import THREE.js": {
+    "prefix": "import-three",
+    "description": "THREE.js를 불러옵니다.",
+    "body": ["import * as ${1:THREE} from \"three\";"],
+    "scope": "typescript,typescriptreact"
   }
 }

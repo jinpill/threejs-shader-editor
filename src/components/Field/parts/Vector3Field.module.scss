@@ -1,0 +1,5 @@
+.vector3Field {
+  $gap: 0.5rem;
+  width: var(--fi-width, calc((11.375rem - #{$gap}) / 2 * 3 + #{$gap} * 2));
+  gap: $gap;
+}

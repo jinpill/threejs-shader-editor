@@ -1,17 +1,24 @@
+import React from "react";
 import classNames from "classnames";
-import Paper from "@mui/material/Paper";
 import style from "./FieldBase.module.scss";
 
 export type FieldBaseProps = {
+  isFullWidth?: boolean;
   className?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
 };
 
-const FieldBase = (props: FieldBaseProps) => (
-  <Paper className={classNames(style.fieldBase, props.className)} style={props.style}>
+const FieldBase = React.forwardRef<HTMLDivElement, FieldBaseProps>((props) => (
+  <div
+    className={classNames(style.fieldBase, props.className, {
+      [style.fullWidth]: props.isFullWidth,
+    })}
+    style={props.style}
+  >
     {props.children}
-  </Paper>
-);
+  </div>
+));
 
+FieldBase.displayName = "FieldBase";
 export default FieldBase;

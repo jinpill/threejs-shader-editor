@@ -9,7 +9,8 @@ export type ThreeStore = {
   scene: THREE.Scene | null;
   getScene: () => THREE.Scene | null;
 
-  handleCreated: (state: RootState) => void;
+  invalidate: () => void;
+  initThreeStore: (state: RootState) => void;
 };
 
 export const useThreeStore = create<ThreeStore>((set, get) => ({
@@ -25,8 +26,12 @@ export const useThreeStore = create<ThreeStore>((set, get) => ({
     return state.scene;
   },
 
-  handleCreated: (state) => {
-    set({ scene: state.scene });
+  invalidate: () => {},
+  initThreeStore: (state) => {
+    set({
+      scene: state.scene,
+      invalidate: state.invalidate,
+    });
 
     if (state.camera instanceof THREE.PerspectiveCamera) {
       set({ camera: state.camera });

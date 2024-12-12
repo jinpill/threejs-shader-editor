@@ -11,6 +11,8 @@ import PublishIcon from "@mui/icons-material/Publish";
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
+import TargetHelper from "./TargetHelper";
+import ThreeInitializer from "./ThreeInitializer";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
@@ -20,10 +22,9 @@ import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
 import style from "./style.module.scss";
-import TargetHelper from "./TargetHelper";
 
 const EditorPage = () => {
-  const { handleCreated } = useThreeStore();
+  const { initThreeStore } = useThreeStore();
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
@@ -76,21 +77,22 @@ const EditorPage = () => {
   // space에 대한 기능
   useEffect(() => {
     const handleSpace = (e: KeyboardEvent) => {
-      const activeElement = document.activeElement;
-      const isInputFocused =
-        activeElement &&
-        (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
+      // const activeElement = document.activeElement;
+      // const isInputFocused =
+      //   activeElement &&
+      //   (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
+      const tagName = document.activeElement?.tagName;
+      const isInputFocused = tagName === "INPUT" || tagName === "TEXTAREA";
 
       if (!isInputFocused && e.key === " " && e.code === "Space") {
         e.preventDefault();
 
         if (mesh) {
-          const camera = useThreeStore.getState().camera;
+          const { camera } = useThreeStore.getState();
           if (!camera) return;
 
           const direction = new THREE.Vector3();
           camera.getWorldDirection(direction);
-
           direction.negate();
 
           setBoundingCamera(mesh, direction);
@@ -139,13 +141,14 @@ const EditorPage = () => {
             far: 10000,
             up: [0, 0, 1],
           }}
-          onCreated={handleCreated}
+          onCreated={initThreeStore}
         >
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           {mesh && <primitive object={mesh} />}
           <OrbitControls />
           <TargetHelper />
+          <ThreeInitializer />
         </Canvas>
       </div>
     </div>

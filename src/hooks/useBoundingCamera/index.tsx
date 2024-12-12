@@ -15,11 +15,12 @@ const useBoundingCamera = () => {
       const fovRad = THREE.MathUtils.degToRad(camera.fov);
       const distance = sphere.radius / Math.tan(fovRad / 2);
 
+      const center = box.getCenter(new THREE.Vector3());
       const normal = vector.clone().normalize();
-      const position = normal.multiplyScalar(distance);
+      const position = normal.multiplyScalar(distance).add(center);
 
       camera.position.copy(position);
-      camera.lookAt(new THREE.Vector3(0, 0, 0));
+      camera.lookAt(center);
       camera.updateProjectionMatrix();
     },
     [camera],

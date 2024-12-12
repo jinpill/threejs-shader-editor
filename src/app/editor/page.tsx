@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/Addons.js";
@@ -11,6 +11,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
+import ThreeInitializer from "./ThreeInitializer";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
@@ -22,7 +23,7 @@ import { useToolbarStore } from "@/stores/useToolbarStore";
 import style from "./style.module.scss";
 
 const EditorPage = () => {
-  const { handleCreated } = useThreeStore();
+  const { setControls, initThreeStore } = useThreeStore();
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
@@ -54,6 +55,7 @@ const EditorPage = () => {
 
         const center = box.getCenter(new THREE.Vector3());
         mesh.position.sub(center);
+
         setError(null);
         setMesh(mesh);
 
@@ -70,6 +72,36 @@ const EditorPage = () => {
       },
     );
   });
+
+  // space에 대한 기능
+  useEffect(() => {
+    const handleSpace = (e: KeyboardEvent) => {
+      // const activeElement = document.activeElement;
+      // const isInputFocused =
+      //   activeElement &&
+      //   (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
+      const tagName = document.activeElement?.tagName;
+      const isInputFocused = tagName === "INPUT" || tagName === "TEXTAREA";
+
+      if (!isInputFocused && e.key === " " && e.code === "Space") {
+        e.preventDefault();
+
+        if (mesh) {
+          const { camera } = useThreeStore.getState();
+          if (!camera) return;
+
+          const direction = new THREE.Vector3();
+          camera.getWorldDirection(direction);
+          direction.negate();
+
+          setBoundingCamera(mesh, direction);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleSpace);
+    return () => window.removeEventListener("keydown", handleSpace);
+  }, [mesh, setBoundingCamera]);
 
   return (
     <div
@@ -108,12 +140,13 @@ const EditorPage = () => {
             far: 10000,
             up: [0, 0, 1],
           }}
-          onCreated={handleCreated}
+          onCreated={initThreeStore}
         >
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           {mesh && <primitive object={mesh} />}
-          <OrbitControls />
+          <OrbitControls onUpdate={setControls} />
+          <ThreeInitializer />
         </Canvas>
       </div>
     </div>

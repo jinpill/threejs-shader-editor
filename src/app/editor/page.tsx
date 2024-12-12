@@ -82,21 +82,17 @@ const EditorPage = () => {
       //   (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
       const tagName = document.activeElement?.tagName;
       const isInputFocused = tagName === "INPUT" || tagName === "TEXTAREA";
+      if (isInputFocused || e.code !== "Space") return;
+      e.preventDefault();
 
-      if (!isInputFocused && e.key === " " && e.code === "Space") {
-        e.preventDefault();
+      const { camera } = useThreeStore.getState();
+      if (!camera || !mesh) return;
 
-        if (mesh) {
-          const { camera } = useThreeStore.getState();
-          if (!camera) return;
+      const direction = new THREE.Vector3();
+      camera.getWorldDirection(direction);
+      direction.negate();
 
-          const direction = new THREE.Vector3();
-          camera.getWorldDirection(direction);
-          direction.negate();
-
-          setBoundingCamera(mesh, direction);
-        }
-      }
+      setBoundingCamera(mesh, direction);
     };
 
     window.addEventListener("keydown", handleSpace);
@@ -145,7 +141,7 @@ const EditorPage = () => {
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           {mesh && <primitive object={mesh} />}
-          <OrbitControls onUpdate={setControls} />
+          <OrbitControls onUpdate={setControls} enableDamping={false} />
           <ThreeInitializer />
         </Canvas>
       </div>

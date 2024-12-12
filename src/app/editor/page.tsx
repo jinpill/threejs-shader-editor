@@ -11,7 +11,6 @@ import PublishIcon from "@mui/icons-material/Publish";
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
-import TargetHelper from "./TargetHelper";
 import ThreeInitializer from "./ThreeInitializer";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
@@ -24,7 +23,7 @@ import { useToolbarStore } from "@/stores/useToolbarStore";
 import style from "./style.module.scss";
 
 const EditorPage = () => {
-  const { initThreeStore } = useThreeStore();
+  const { setControls, initThreeStore } = useThreeStore();
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
@@ -146,8 +145,7 @@ const EditorPage = () => {
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           {mesh && <primitive object={mesh} />}
-          <OrbitControls />
-          <TargetHelper />
+          <OrbitControls onUpdate={setControls} />
           <ThreeInitializer />
         </Canvas>
       </div>

@@ -1,6 +1,6 @@
-import { useThreeStore } from "@/stores/useThreeStore";
-import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
+import { useThree } from "@react-three/fiber";
+import { useThreeStore } from "@/stores/useThreeStore";
 
 const ThreeInitializer = () => {
   const state = useThree();

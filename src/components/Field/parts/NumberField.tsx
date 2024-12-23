@@ -12,6 +12,7 @@ export type NumberFieldProps = {
   min?: number | string;
   max?: number | string;
   value?: number;
+  unit?: string;
 
   onChange?: (value: number) => void;
   onBlur?: () => void;
@@ -44,6 +45,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props, r
         label={props.label}
         min={min}
         max={max}
+        end={props.unit}
         value={value}
         onChange={handleChange}
         onBlur={props.onBlur}

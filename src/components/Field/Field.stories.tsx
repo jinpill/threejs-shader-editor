@@ -23,6 +23,7 @@ type NumberFieldStory = StoryObj<typeof numberFieldMeta>;
 export const NumberField: NumberFieldStory = {
   args: {
     label: "Number Field",
+    unit: "px",
     value: 0,
   },
   render: (args: NumberFieldProps) => {

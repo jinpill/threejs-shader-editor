@@ -1,0 +1,12 @@
+.input {
+  width: 0;
+  flex: 1 1 0;
+
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}

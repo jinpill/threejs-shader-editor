@@ -29,8 +29,15 @@ export const metadata: Metadata = {
 const RootLayout = (props: React.PropsWithChildren) => (
   <html lang="en">
     <body
-      style={{ opacity: 0 }}
-      className={classNames(notoSansMono.variable, notoSansKr.variable, notoSansKr.className)}
+      style={{
+        opacity: 0,
+        fontSize: "16px",
+      }}
+      className={classNames(
+        notoSansMono.variable,
+        notoSansKr.variable,
+        notoSansKr.className,
+      )}
     >
       <AppRouterCacheProvider>
         <ThemeProvider>

@@ -1,4 +1,5 @@
 import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 import style from "./Input.module.scss";
 
 type InputProps = {
@@ -8,6 +9,9 @@ type InputProps = {
   min?: number;
   max?: number;
   value?: string;
+
+  start?: string;
+  end?: string;
 
   onChange?: (value: string) => void;
   onBlur?: () => void;
@@ -31,11 +35,19 @@ const Input = (props: InputProps) => {
           min: props.min,
           max: props.max,
         },
+        input: {
+          startAdornment: props.start ? (
+            <InputAdornment position="start">{props.start}</InputAdornment>
+          ) : null,
+          endAdornment: props.end ? (
+            <InputAdornment position="end">{props.end}</InputAdornment>
+          ) : null,
+        },
       }}
       value={props.value}
       onChange={handleChange}
-      onAbort={props.onBlur}
       onFocus={props.onFocus}
+      onBlur={props.onBlur}
     />
   );
 };

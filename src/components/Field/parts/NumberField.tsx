@@ -24,7 +24,7 @@ export type NumberFieldProps = {
 /**
  * `--fi-width` Field.Number의 너비를 지정 (default: 11.375rem)
  */
-const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props) => {
+const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props, ref) => {
   const min = numberUtils.parseNumber(props.min);
   const max = numberUtils.parseNumber(props.max);
   const value = props.value?.toString() ?? "";
@@ -35,6 +35,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props) =
 
   return (
     <FieldBase
+      ref={ref}
       className={classNames(style.numberField, props.className)}
       style={props.style}
     >

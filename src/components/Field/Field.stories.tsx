@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import * as THREE from "three";
 import Field from ".";
+import { fn } from "@storybook/test";
 
 import type { NumberFieldProps } from "./parts/NumberField";
 import type { Vector3FieldProps } from "./parts/Vector3Field";
@@ -13,6 +14,7 @@ const numberFieldMeta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  args: { onChange: fn() },
 } satisfies Meta<typeof Field.Number>;
 
 export default numberFieldMeta;
@@ -28,6 +30,7 @@ export const NumberField: NumberFieldStory = {
 
     const handleChange = (value: number) => {
       setValue({ value });
+      args.onChange?.(value);
     };
 
     return <Field.Number {...args} value={value} onChange={handleChange} />;
@@ -51,6 +54,7 @@ export const Vector3Field: Vector3FieldStory = {
 
     const handleChange = (value: THREE.Vector3) => {
       setValue({ value });
+      args.onChange?.(value);
     };
 
     return <Field.Vector3 {...args} value={value} onChange={handleChange} />;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import classNames from "classnames";
 import * as THREE from "three";
 
+import InputLabel from "@mui/material/InputLabel";
 import FieldBase from "../utils/FieldBase";
 import Input from "../utils/Input";
 
@@ -22,20 +23,68 @@ export type Vector3FieldProps = {
 /**
  * `--fi-width` Field.Vector3 너비를 지정 (default: 11.375rem)
  */
-const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props) => {
+const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props, ref) => {
+  const vector3 = useMemo(() => {
+    return props.value ?? new THREE.Vector3();
+  }, [props.value]);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    props.onFocus?.();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    props.onBlur?.();
+  };
+
+  const handleChange = (axis: "x" | "y" | "z", value: string) => {
+    const newValue = value.trim() ? Number(value) : 0;
+    const newVector3 = vector3.clone();
+    newVector3[axis] = newValue;
+    props.onChange?.(newVector3);
+  };
+
   return (
     <FieldBase
+      ref={ref}
       className={classNames(style.vector3Field, props.className)}
       style={props.style}
     >
+      <div className={style.label}>
+        <InputLabel focused={isFocused} shrink>
+          {props.label}
+        </InputLabel>
+      </div>
+
       <Input
         type="number"
-        label={props.label}
-        onBlur={props.onBlur}
-        onFocus={props.onFocus}
+        label=" "
+        start="x"
+        value={vector3.x.toString()}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange.bind(null, "x")}
       />
-      <Input type="number" label=" " onBlur={props.onBlur} onFocus={props.onFocus} />
-      <Input type="number" label=" " onBlur={props.onBlur} onFocus={props.onFocus} />
+      <Input
+        type="number"
+        label=" "
+        start="y"
+        value={vector3.y.toString()}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange.bind(null, "y")}
+      />
+      <Input
+        type="number"
+        label=" "
+        start="z"
+        value={vector3.z.toString()}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange.bind(null, "z")}
+      />
     </FieldBase>
   );
 });

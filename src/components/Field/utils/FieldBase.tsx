@@ -9,8 +9,9 @@ export type FieldBaseProps = {
   style?: React.CSSProperties;
 };
 
-const FieldBase = React.forwardRef<HTMLDivElement, FieldBaseProps>((props) => (
+const FieldBase = React.forwardRef<HTMLDivElement, FieldBaseProps>((props, ref) => (
   <div
+    ref={ref}
     className={classNames(style.fieldBase, props.className, {
       [style.fullWidth]: props.isFullWidth,
     })}

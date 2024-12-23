@@ -3,3 +3,9 @@
   width: var(--fi-width, calc((11.375rem - #{$gap}) / 2 * 3 + #{$gap} * 2));
   gap: $gap;
 }
+
+.label {
+  padding: 4px 0 5px;
+  position: absolute;
+  top: -4px;
+}

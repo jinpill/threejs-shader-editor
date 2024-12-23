@@ -1,6 +1,7 @@
 .fieldBase {
   display: flex;
   align-items: center;
+  position: relative;
 
   &.fullWidth {
     width: 100%;

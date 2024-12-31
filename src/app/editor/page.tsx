@@ -8,6 +8,9 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import PublishIcon from "@mui/icons-material/Publish";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
@@ -20,6 +23,8 @@ import useBackgroundColor from "./hooks/useBackgroundColor";
 import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
+import Editor from "../../components/Editor";
+
 import style from "./style.module.scss";
 
 const EditorPage = () => {
@@ -29,6 +34,10 @@ const EditorPage = () => {
 
   const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [vertexShader, setVertexShader] = useState("");
+  const [fragmentShader, setFragmentShader] = useState("");
 
   useBackgroundColor();
 
@@ -76,10 +85,6 @@ const EditorPage = () => {
   // space에 대한 기능
   useEffect(() => {
     const handleSpace = (e: KeyboardEvent) => {
-      // const activeElement = document.activeElement;
-      // const isInputFocused =
-      //   activeElement &&
-      //   (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
       const tagName = document.activeElement?.tagName;
       const isInputFocused = tagName === "INPUT" || tagName === "TEXTAREA";
       if (isInputFocused || e.code !== "Space") return;
@@ -109,41 +114,75 @@ const EditorPage = () => {
     >
       {/* Toolbar */}
       <EditorToolbar />
+      <div className={style.flexContainer}>
+        <div className={style.leftArea}>
+          <div className={style.viewArea}>
+            {/* Tool Panels */}
+            <div className={style.toolPanelArea}>
+              {activeToolPanel === "Models" && <ModelsPanel />}
+              {activeToolPanel === "Settings" && <SettingsPanel />}
+            </div>
 
-      <div className={style.viewArea}>
-        {/* Tool Panels */}
-        <div className={style.toolPanelArea}>
-          {activeToolPanel === "Models" && <ModelsPanel />}
-          {activeToolPanel === "Settings" && <SettingsPanel />}
+            {/* Overview */}
+            <div className={style.overviewArea}>
+              {dragging && (
+                <div className={style.dropDescription}>
+                  <PublishIcon fontSize="inherit" />
+                  <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+                </div>
+              )}
+              {error && <p className={style.errorMessage}>{error}</p>}
+            </div>
+
+            <Canvas
+              camera={{
+                position: [0, 0, 100],
+                fov: 50,
+                near: 0.1,
+                far: 10000,
+                up: [0, 0, 1],
+              }}
+              onCreated={initThreeStore}
+            >
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[5, 5, 5]} intensity={1} />
+              {mesh && <primitive object={mesh} />}
+              <OrbitControls onUpdate={setControls} enableDamping={false} />
+              <ThreeInitializer />
+            </Canvas>
+          </div>
         </div>
+        <div
+          className={classNames(style.rightArea, {
+            [style.collapsed]: isCollapsed,
+          })}
+        >
+          {/* <div className={style.textContainer}> */}
+          {/* 접기/펼치기 버튼 */}
+          <div
+            className={style.collapseButton}
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </div>
 
-        {/* Overview */}
-        <div className={style.overviewArea}>
-          {dragging && (
-            <div className={style.dropDescription}>
-              <PublishIcon fontSize="inherit" />
-              <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+          {/* 텍스트 영역 */}
+          {!isCollapsed && (
+            <div className={style.textAreaContainer}>
+              <Editor
+                label="Vertex Shader"
+                value={vertexShader}
+                onChange={setVertexShader}
+              />
+              <Editor
+                label="Fragment Shader"
+                value={fragmentShader}
+                onChange={setFragmentShader}
+              />
             </div>
           )}
-          {error && <p className={style.errorMessage}>{error}</p>}
+          {/* </div> */}
         </div>
-
-        <Canvas
-          camera={{
-            position: [0, 0, 100],
-            fov: 50,
-            near: 0.1,
-            far: 10000,
-            up: [0, 0, 1],
-          }}
-          onCreated={initThreeStore}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-          {mesh && <primitive object={mesh} />}
-          <OrbitControls onUpdate={setControls} enableDamping={false} />
-          <ThreeInitializer />
-        </Canvas>
       </div>
     </div>
   );

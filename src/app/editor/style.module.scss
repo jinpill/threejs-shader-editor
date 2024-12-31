@@ -5,8 +5,70 @@
   display: flex;
   flex-direction: column;
 
+  overflow: hidden;
+
   transition: 0.4s ease-in-out;
   transition-property: background-color, opacity;
+
+  .flexContainer {
+    display: flex;
+    height: 100%;
+
+    .leftArea {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .rightArea {
+      position: relative;
+      width: 31.25rem;
+      height: calc(100vh - 6.625rem);
+      background-color: #d9d9d9;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      overflow: hidden;
+      transition: width 0.3s ease;
+
+      &.collapsed {
+        width: 3.125rem;
+      }
+
+      // .textContainer {
+      .textAreaContainer {
+        position: relative;
+        --ed-width: 29rem;
+        width: var(--ed-width);
+        height: 93%;
+        margin: 1rem auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        > * {
+          flex: 1;
+          aspect-ratio: 1/1;
+          max-height: 100%;
+          overflow: hidden;
+        }
+      }
+
+      .collapseButton {
+        width: 1.5625rem;
+        height: 1.5625rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          // 고민
+        }
+      }
+      // }
+    }
+  }
 }
 
 .dragging {

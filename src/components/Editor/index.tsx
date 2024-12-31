@@ -9,6 +9,7 @@ export type EditorProps = {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  placeholder?: string;
 };
 
 /**
@@ -207,6 +208,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
             props.onChange(e.target.value);
           }}
           onKeyDown={handleKeyDown}
+          placeholder={props.placeholder}
         />
       </Paper>
     </div>

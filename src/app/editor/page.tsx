@@ -173,12 +173,14 @@ const EditorPage = () => {
                 label="Vertex Shader"
                 value={vertexShader}
                 onChange={setVertexShader}
+                placeholder="예시코드를 입력해주세요..."
               />
               <Editor
                 className={style.editor}
                 label="Fragment Shader"
                 value={fragmentShader}
                 onChange={setFragmentShader}
+                placeholder="예시코드를 입력해주세요..."
               />
             </div>
           )}

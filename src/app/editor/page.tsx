@@ -76,10 +76,6 @@ const EditorPage = () => {
   // space에 대한 기능
   useEffect(() => {
     const handleSpace = (e: KeyboardEvent) => {
-      // const activeElement = document.activeElement;
-      // const isInputFocused =
-      //   activeElement &&
-      //   (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA");
       const tagName = document.activeElement?.tagName;
       const isInputFocused = tagName === "INPUT" || tagName === "TEXTAREA";
       if (isInputFocused || e.code !== "Space") return;

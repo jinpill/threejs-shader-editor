@@ -157,7 +157,6 @@ const EditorPage = () => {
             [style.collapsed]: isCollapsed,
           })}
         >
-          {/* <div className={style.textContainer}> */}
           {/* 접기/펼치기 버튼 */}
           <div
             className={style.collapseButton}
@@ -170,11 +169,13 @@ const EditorPage = () => {
           {!isCollapsed && (
             <div className={style.textAreaContainer}>
               <Editor
+                className={style.editor}
                 label="Vertex Shader"
                 value={vertexShader}
                 onChange={setVertexShader}
               />
               <Editor
+                className={style.editor}
                 label="Fragment Shader"
                 value={fragmentShader}
                 onChange={setFragmentShader}

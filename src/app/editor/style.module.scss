@@ -22,51 +22,51 @@
     }
 
     .rightArea {
-      position: relative;
+      $collapseButton-size: 1.5rem;
+      $padding: 1rem;
+
       width: 31.25rem;
       height: calc(100vh - 6.625rem);
-      background-color: #d9d9d9;
+
       display: flex;
       flex-direction: column;
-      padding: 1rem;
-      overflow: hidden;
-      transition: width 0.3s ease;
+      padding: $padding;
+
+      background-color: #d9d9d9;
+      transition: width 0.3s ease-in-out;
 
       &.collapsed {
-        width: 3.125rem;
-      }
-
-      // .textContainer {
-      .textAreaContainer {
-        position: relative;
-        --ed-width: 29rem;
-        width: var(--ed-width);
-        height: 93%;
-        margin: 1rem auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        > * {
-          flex: 1;
-          aspect-ratio: 1/1;
-          max-height: 100%;
-          overflow: hidden;
-        }
+        width: $collapseButton-size + $padding * 2;
       }
 
       .collapseButton {
-        width: 1.5625rem;
-        height: 1.5625rem;
+        width: $collapseButton-size;
+        height: $collapseButton-size;
+
+        flex: none;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
 
-        &:hover {
-          // 고민
-        }
+        cursor: pointer;
       }
-      // }
+
+      .textAreaContainer {
+        width: 100%;
+        height: 0;
+
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .editor {
+        --ed-width: 100%;
+        --ed-height: 0;
+        flex: 1 1 0;
+      }
     }
   }
 }

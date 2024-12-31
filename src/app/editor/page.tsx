@@ -14,6 +14,7 @@ import ThreeInitializer from "./ThreeInitializer";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
+import { Context } from "./hooks/useContext";
 import useGeometry from "./hooks/useGeometry";
 import useBackgroundColor from "./hooks/useBackgroundColor";
 
@@ -98,52 +99,59 @@ const EditorPage = () => {
   }, [setBoundingCamera]);
 
   return (
-    <div
-      ref={ref}
-      className={classNames(style.container, {
-        [style.dragging]: dragging,
-        [style.error]: error,
-      })}
+    <Context.Provider
+      value={{
+        geometryParams,
+        setGeometryParams,
+      }}
     >
-      {/* Toolbar */}
-      <EditorToolbar />
+      <div
+        ref={ref}
+        className={classNames(style.container, {
+          [style.dragging]: dragging,
+          [style.error]: error,
+        })}
+      >
+        {/* Toolbar */}
+        <EditorToolbar />
 
-      <div className={style.viewArea}>
-        {/* Tool Panels */}
-        <div className={style.toolPanelArea}>
-          {activeToolPanel === "Models" && <ModelsPanel />}
-          {activeToolPanel === "Settings" && <SettingsPanel />}
+        <div className={style.viewArea}>
+          {/* Tool Panels */}
+          <div className={style.toolPanelArea}>
+            {activeToolPanel === "Models" && <ModelsPanel />}
+            {activeToolPanel === "Settings" && <SettingsPanel />}
+          </div>
+
+          {/* Overview */}
+          <div className={style.overviewArea}>
+            {dragging && (
+              <div className={style.dropDescription}>
+                <PublishIcon fontSize="inherit" />
+                <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+              </div>
+            )}
+            {error && <p className={style.errorMessage}>{error}</p>}
+          </div>
+
+          <Canvas
+            camera={{
+              position: [0, 0, 100],
+              fov: 50,
+              near: 0.1,
+              far: 10000,
+              up: [0, 0, 1],
+            }}
+            onCreated={initThreeStore}
+          >
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[5, 5, 5]} intensity={1} />
+            <mesh ref={meshRef} geometry={geometry} material={material} />
+            <OrbitControls onUpdate={setControls} enableDamping={false} />
+            <ThreeInitializer />
+          </Canvas>
         </div>
-
-        {/* Overview */}
-        <div className={style.overviewArea}>
-          {dragging && (
-            <div className={style.dropDescription}>
-              <PublishIcon fontSize="inherit" />
-              <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
-            </div>
-          )}
-          {error && <p className={style.errorMessage}>{error}</p>}
-        </div>
-
-        <Canvas
-          camera={{
-            position: [0, 0, 100],
-            fov: 50,
-            near: 0.1,
-            far: 10000,
-            up: [0, 0, 1],
-          }}
-          onCreated={initThreeStore}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-          <mesh ref={meshRef} geometry={geometry} material={material} />
-          <OrbitControls onUpdate={setControls} enableDamping={false} />
-          <ThreeInitializer />
-        </Canvas>
       </div>
-    </div>
+    </Context.Provider>
   );
 };
 

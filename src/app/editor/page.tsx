@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import * as THREE from "three";
-import { STLLoader } from "three/examples/jsm/Addons.js";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
@@ -15,63 +14,65 @@ import ThreeInitializer from "./ThreeInitializer";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
+import useGeometry from "./hooks/useGeometry";
 import useBackgroundColor from "./hooks/useBackgroundColor";
 
 import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
+import type { GeometryParams } from "./types/geometry";
 import style from "./style.module.scss";
 
+const material = new THREE.MeshPhongMaterial({
+  color: 0x00b7ff,
+});
+
 const EditorPage = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
   const { setControls, initThreeStore } = useThreeStore();
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
-  const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [geometryParams, setGeometryParams] = useState<GeometryParams>({
+    type: "box",
+    width: 1,
+    height: 1,
+    depth: 1,
+    widthSegments: 1,
+    heightSegments: 1,
+    depthSegments: 1,
+  });
 
+  const { geometry, error } = useGeometry(geometryParams);
   useBackgroundColor();
 
   const { ref, dragging } = useDragAndDrop<HTMLDivElement>((files) => {
     const file = files[0];
     const fileExtension = file.name.split(".").pop()?.toLowerCase();
+    if (fileExtension !== "stl") return;
 
-    if (fileExtension !== "stl") {
-      setError("지원되지 않는 형식입니다. STL 파일을 업로드하세요.");
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-    const loader = new STLLoader();
-    loader.load(
-      url,
-      (geometry: THREE.BufferGeometry) => {
-        const material = new THREE.MeshPhongMaterial({
-          color: 0x00b7ff,
-        });
-        const mesh = new THREE.Mesh(geometry, material);
-        const box = new THREE.Box3();
-        box.setFromObject(mesh);
-
-        const center = box.getCenter(new THREE.Vector3());
-        mesh.position.sub(center);
-
-        setError(null);
-        setMesh(mesh);
-
-        const normal = new THREE.Vector3(0, -1, 0);
-        setBoundingCamera(mesh, normal);
-      },
-      (xhr) => {
-        console.log("Loading Progress:", `${(xhr.loaded / xhr.total) * 100}%`);
-      },
-      (error) => {
-        console.error("STL 파일 로드 중 오류 발생:", error);
-        setError("STL 파일을 로드하는 중 오류가 발생했습니다.");
-        setMesh(null);
-      },
-    );
+    setGeometryParams({
+      type: "file",
+      file: file,
+    });
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      const mesh = meshRef.current;
+      if (!mesh) return;
+
+      const box = new THREE.Box3();
+      box.setFromObject(mesh);
+
+      const center = box.getCenter(new THREE.Vector3());
+      mesh.position.sub(center);
+
+      const normal = new THREE.Vector3(0, -1, 0);
+      setBoundingCamera(mesh, normal);
+    }, 0);
+  }, [geometry, setBoundingCamera]);
 
   // space에 대한 기능
   useEffect(() => {
@@ -81,8 +82,9 @@ const EditorPage = () => {
       if (isInputFocused || e.code !== "Space") return;
       e.preventDefault();
 
+      const mesh = meshRef.current;
       const { camera } = useThreeStore.getState();
-      if (!camera || !mesh) return;
+      if (!mesh || !camera) return;
 
       const direction = new THREE.Vector3();
       camera.getWorldDirection(direction);
@@ -93,7 +95,7 @@ const EditorPage = () => {
 
     window.addEventListener("keydown", handleSpace);
     return () => window.removeEventListener("keydown", handleSpace);
-  }, [mesh, setBoundingCamera]);
+  }, [setBoundingCamera]);
 
   return (
     <div
@@ -136,7 +138,7 @@ const EditorPage = () => {
         >
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
-          {mesh && <primitive object={mesh} />}
+          <mesh ref={meshRef} geometry={geometry} material={material} />
           <OrbitControls onUpdate={setControls} enableDamping={false} />
           <ThreeInitializer />
         </Canvas>

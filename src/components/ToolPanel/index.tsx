@@ -14,6 +14,7 @@ import style from "./style.module.scss";
 export type ToolPanelProps = {
   title: string;
   name?: ToolPanelName;
+  isRight?: boolean;
   onClose?: () => void;
 
   className?: string;
@@ -40,7 +41,9 @@ const ToolPanel = (props: ToolPanelProps) => {
   return (
     <Paper
       elevation={4}
-      className={classNames(style.toolPanel, props.className)}
+      className={classNames(style.toolPanel, props.className, {
+        [style.right]: props.isRight,
+      })}
       style={props.style}
     >
       <header className={style.header}>

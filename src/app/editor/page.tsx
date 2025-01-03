@@ -10,6 +10,7 @@ import { OrbitControls } from "@react-three/drei";
 import PublishIcon from "@mui/icons-material/Publish";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Paper } from "@mui/material";
 
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
@@ -152,7 +153,8 @@ const EditorPage = () => {
             </Canvas>
           </div>
         </div>
-        <div
+        <Paper
+          elevation={4}
           className={classNames(style.rightArea, {
             [style.collapsed]: isCollapsed,
           })}
@@ -184,8 +186,7 @@ const EditorPage = () => {
               />
             </div>
           )}
-          {/* </div> */}
-        </div>
+        </Paper>
       </div>
     </div>
   );

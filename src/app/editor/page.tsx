@@ -11,6 +11,7 @@ import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
 import ThreeInitializer from "./ThreeInitializer";
+import RightArea from "./RightArea";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
@@ -21,10 +22,8 @@ import useBackgroundColor from "./hooks/useBackgroundColor";
 import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
-import type { GeometryParams } from "./types/geometry";
-
+import { DEFAULT_GEOMETRY_PARAMS } from "./constants";
 import style from "./style.module.scss";
-import RightArea from "./RightArea";
 
 const material = new THREE.MeshPhongMaterial({
   color: 0x00b7ff,
@@ -37,17 +36,9 @@ const EditorPage = () => {
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
-  const [geometryParams, setGeometryParams] = useState<GeometryParams>({
-    type: "box",
-    width: 1,
-    height: 1,
-    depth: 1,
-    widthSegments: 1,
-    heightSegments: 1,
-    depthSegments: 1,
-  });
-
+  const [geometryParams, setGeometryParams] = useState(DEFAULT_GEOMETRY_PARAMS);
   const { geometry, error } = useGeometry(geometryParams);
+
   const [vertexShader, setVertexShader] = useState("");
   const [fragmentShader, setFragmentShader] = useState("");
 

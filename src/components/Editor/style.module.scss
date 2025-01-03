@@ -2,6 +2,8 @@
   width: var(--ed-width, 31.25rem);
   height: var(--ed-height, 15rem);
 
+  // width: var(--ed-width, 27rem);
+
   display: flex;
   flex-direction: column;
 
@@ -22,6 +24,7 @@
 
 .label {
   flex: none;
+  margin-bottom: 0.375rem;
 }
 
 .paperBox {

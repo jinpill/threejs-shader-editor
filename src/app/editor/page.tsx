@@ -7,6 +7,10 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import PublishIcon from "@mui/icons-material/Publish";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Paper } from "@mui/material";
+
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
 import SettingsPanel from "./panels/SettingsPanel";
@@ -22,6 +26,8 @@ import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
 import type { GeometryParams } from "./types/geometry";
+import Editor from "../../components/Editor";
+
 import style from "./style.module.scss";
 
 const material = new THREE.MeshPhongMaterial({
@@ -46,6 +52,10 @@ const EditorPage = () => {
   });
 
   const { geometry, error } = useGeometry(geometryParams);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [vertexShader, setVertexShader] = useState("");
+  const [fragmentShader, setFragmentShader] = useState("");
+
   useBackgroundColor();
 
   const { ref, dragging } = useDragAndDrop<HTMLDivElement>((files) => {
@@ -115,40 +125,79 @@ const EditorPage = () => {
         {/* Toolbar */}
         <EditorToolbar />
 
-        <div className={style.viewArea}>
-          {/* Tool Panels */}
-          <div className={style.toolPanelArea}>
-            {activeToolPanel === "Models" && <ModelsPanel />}
-            {activeToolPanel === "Settings" && <SettingsPanel />}
+        <div className={style.flexContainer}>
+          <div className={style.leftArea}>
+            <div className={style.viewArea}>
+              {/* Tool Panels */}
+              <div className={style.toolPanelArea}>
+                {activeToolPanel === "Models" && <ModelsPanel />}
+                {activeToolPanel === "Settings" && <SettingsPanel />}
+              </div>
+
+              {/* Overview */}
+              <div className={style.overviewArea}>
+                {dragging && (
+                  <div className={style.dropDescription}>
+                    <PublishIcon fontSize="inherit" />
+                    <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+                  </div>
+                )}
+                {error && <p className={style.errorMessage}>{error}</p>}
+              </div>
+
+              <Canvas
+                camera={{
+                  position: [0, 0, 100],
+                  fov: 50,
+                  near: 0.1,
+                  far: 10000,
+                  up: [0, 0, 1],
+                }}
+                onCreated={initThreeStore}
+              >
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[5, 5, 5]} intensity={1} />
+                <mesh ref={meshRef} geometry={geometry} material={material} />
+                <OrbitControls onUpdate={setControls} enableDamping={false} />
+                <ThreeInitializer />
+              </Canvas>
+            </div>
           </div>
 
-          {/* Overview */}
-          <div className={style.overviewArea}>
-            {dragging && (
-              <div className={style.dropDescription}>
-                <PublishIcon fontSize="inherit" />
-                <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+          <Paper
+            elevation={4}
+            className={classNames(style.rightArea, {
+              [style.collapsed]: isCollapsed,
+            })}
+          >
+            {/* 접기/펼치기 버튼 */}
+            <div
+              className={style.collapseButton}
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </div>
+
+            {/* 텍스트 영역 */}
+            {!isCollapsed && (
+              <div className={style.textAreaContainer}>
+                <Editor
+                  className={style.editor}
+                  label="Vertex Shader"
+                  value={vertexShader}
+                  onChange={setVertexShader}
+                  placeholder="예시코드를 입력해주세요..."
+                />
+                <Editor
+                  className={style.editor}
+                  label="Fragment Shader"
+                  value={fragmentShader}
+                  onChange={setFragmentShader}
+                  placeholder="예시코드를 입력해주세요..."
+                />
               </div>
             )}
-            {error && <p className={style.errorMessage}>{error}</p>}
-          </div>
-
-          <Canvas
-            camera={{
-              position: [0, 0, 100],
-              fov: 50,
-              near: 0.1,
-              far: 10000,
-              up: [0, 0, 1],
-            }}
-            onCreated={initThreeStore}
-          >
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[5, 5, 5]} intensity={1} />
-            <mesh ref={meshRef} geometry={geometry} material={material} />
-            <OrbitControls onUpdate={setControls} enableDamping={false} />
-            <ThreeInitializer />
-          </Canvas>
+          </Paper>
         </div>
       </div>
     </Context.Provider>

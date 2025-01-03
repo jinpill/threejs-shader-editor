@@ -14,13 +14,6 @@
     display: flex;
     height: 100%;
 
-    .leftArea {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
     .rightArea {
       $collapseButton-size: 1.5rem;
       $padding: 1rem;
@@ -28,6 +21,7 @@
       width: 31.25rem;
       height: calc(100vh - 6.625rem);
 
+      flex: none;
       display: flex;
       flex-direction: column;
       padding: $padding;
@@ -87,7 +81,7 @@
 }
 
 .viewArea {
-  height: 0;
+  width: 0;
   flex: 1 1 0;
   position: relative;
 }

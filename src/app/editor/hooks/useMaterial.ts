@@ -15,6 +15,7 @@ const useMaterial = (vertexShader: string, fragmentShader: string) => {
     material.vertexShader = vertexShader;
     material.fragmentShader = fragmentShader;
     material.visible = true;
+    material.needsUpdate = true;
   }, [vertexShader, fragmentShader, material]);
 
   return material;

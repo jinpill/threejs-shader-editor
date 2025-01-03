@@ -46,6 +46,7 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
     "eslint-plugin-storybook": "^0.10.1",
+    "raw-loader": "^4.0.2",
     "storybook": "8.3.6",
     "typescript": "^5"
   }

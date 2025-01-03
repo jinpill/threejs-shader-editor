@@ -17,17 +17,17 @@ import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
 import { Context } from "./hooks/useContext";
 import useGeometry from "./hooks/useGeometry";
+import useMaterial from "./hooks/useMaterial";
 import useBackgroundColor from "./hooks/useBackgroundColor";
 
 import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 
+import vertex from "./shaders/vertex.glsl";
+import fragment from "./shaders/fragment.glsl";
 import { DEFAULT_GEOMETRY_PARAMS } from "./constants";
-import style from "./style.module.scss";
 
-const material = new THREE.MeshPhongMaterial({
-  color: 0x00b7ff,
-});
+import style from "./style.module.scss";
 
 const EditorPage = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -39,8 +39,9 @@ const EditorPage = () => {
   const [geometryParams, setGeometryParams] = useState(DEFAULT_GEOMETRY_PARAMS);
   const { geometry, error } = useGeometry(geometryParams);
 
-  const [vertexShader, setVertexShader] = useState("");
-  const [fragmentShader, setFragmentShader] = useState("");
+  const [vertexShader, setVertexShader] = useState(vertex);
+  const [fragmentShader, setFragmentShader] = useState(fragment);
+  const material = useMaterial(vertexShader, fragmentShader);
 
   useBackgroundColor();
 

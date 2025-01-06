@@ -114,8 +114,22 @@
 .label {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   pointer-events: none;
+
+  &.reverse {
+    flex-direction: row-reverse;
+
+    .name {
+      width: 0;
+      flex: 1 1 0;
+    }
+
+    .contents {
+      width: fit-content;
+      flex: none;
+    }
+  }
 
   > * {
     pointer-events: all;
@@ -125,10 +139,15 @@
     width: var(--tp-ln-width, auto);
     flex: none;
     user-select: none;
+    font-size: 0.75rem;
   }
 
   .contents {
     width: 0;
     flex: 1 1 0;
+
+    > * {
+      flex: none;
+    }
   }
 }

@@ -9,6 +9,7 @@ import { OrbitControls } from "@react-three/drei";
 import PublishIcon from "@mui/icons-material/Publish";
 import EditorToolbar from "./EditorToolbar";
 import ModelsPanel from "./panels/ModelsPanel";
+import MaterialPanel from "./panels/MaterialPanel";
 import SettingsPanel from "./panels/SettingsPanel";
 import ThreeInitializer from "./ThreeInitializer";
 import RightArea from "./RightArea";
@@ -25,7 +26,7 @@ import { useToolbarStore } from "@/stores/useToolbarStore";
 
 import vertex from "./shaders/vertex.glsl";
 import fragment from "./shaders/fragment.glsl";
-import { DEFAULT_GEOMETRY_PARAMS } from "./constants";
+import { DEFAULT_MATERIAL_OPTIONS, DEFAULT_GEOMETRY_PARAMS } from "./constants";
 
 import style from "./style.module.scss";
 
@@ -41,7 +42,8 @@ const EditorPage = () => {
 
   const [vertexShader, setVertexShader] = useState(vertex);
   const [fragmentShader, setFragmentShader] = useState(fragment);
-  const material = useMaterial(vertexShader, fragmentShader);
+  const [materialOptions, setMaterialOptions] = useState(DEFAULT_MATERIAL_OPTIONS);
+  const material = useMaterial(vertexShader, fragmentShader, materialOptions);
 
   useBackgroundColor();
 
@@ -100,6 +102,8 @@ const EditorPage = () => {
       value={{
         geometryParams,
         setGeometryParams,
+        materialOptions,
+        setMaterialOptions,
       }}
     >
       <div
@@ -117,6 +121,7 @@ const EditorPage = () => {
             {/* Tool Panels */}
             <div className={style.toolPanelArea}>
               {activeToolPanel === "Models" && <ModelsPanel />}
+              {activeToolPanel === "Material" && <MaterialPanel />}
               {activeToolPanel === "Settings" && <SettingsPanel />}
             </div>
 

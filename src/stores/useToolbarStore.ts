@@ -7,7 +7,7 @@ export type ToolbarStore = {
   hideToolPanel: (panel?: ToolPanelName) => void;
 };
 
-export type ToolPanelName = "Models" | "Settings";
+export type ToolPanelName = "Models" | "Material" | "Settings";
 
 export const useToolbarStore = create<ToolbarStore>((set, get) => ({
   activeToolPanel: "",

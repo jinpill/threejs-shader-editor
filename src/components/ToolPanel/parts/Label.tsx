@@ -4,6 +4,7 @@ import style from "../style.module.scss";
 
 export type ToolPanelLabelProps = {
   name: string;
+  isReverse?: boolean;
 
   className?: string;
   children?: React.ReactNode;
@@ -15,7 +16,12 @@ export type ToolPanelLabelProps = {
  */
 const ToolPanelLabel = (props: ToolPanelLabelProps) => {
   return (
-    <Label className={classNames(style.label, props.className)} style={props.style}>
+    <Label
+      className={classNames(style.label, props.className, {
+        [style.reverse]: props.isReverse,
+      })}
+      style={props.style}
+    >
       <div className={style.name}>{props.name}</div>
       <div className={style.contents}>{props.children}</div>
     </Label>

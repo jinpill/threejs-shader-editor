@@ -1,7 +1,12 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
+import type { MaterialOptions } from "../types/material";
 
-const useMaterial = (vertexShader: string, fragmentShader: string) => {
+const useMaterial = (
+  vertexShader: string,
+  fragmentShader: string,
+  options: MaterialOptions,
+) => {
   const material = useMemo(() => {
     return new THREE.ShaderMaterial({
       visible: false,
@@ -17,6 +22,12 @@ const useMaterial = (vertexShader: string, fragmentShader: string) => {
     material.visible = true;
     material.needsUpdate = true;
   }, [vertexShader, fragmentShader, material]);
+
+  useEffect(() => {
+    material.transparent = options.transparent;
+    material.side = options.side;
+    material.needsUpdate = true;
+  }, [options, material]);
 
   return material;
 };

@@ -35,7 +35,8 @@ const Initializer = (props: InitializerProps) => {
     const html = document.querySelector("html");
     if (!html) return;
 
-    html.style.fontSize = `${displayScale}%`;
+    const fontSize = (16 * displayScale) / 100;
+    html.style.fontSize = `${fontSize}px`;
   }, [displayScale]);
 
   return (

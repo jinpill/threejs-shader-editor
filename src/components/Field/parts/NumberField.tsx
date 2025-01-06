@@ -33,7 +33,10 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props, r
   const value = props.value?.toString() ?? "";
 
   const handleChange = (value: string) => {
-    props.onChange?.(Number(value));
+    let nextValue = Number(value);
+    if (typeof min === "number") nextValue = Math.max(nextValue, min);
+    if (typeof max === "number") nextValue = Math.min(nextValue, max);
+    props.onChange?.(nextValue);
   };
 
   return (

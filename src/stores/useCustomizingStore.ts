@@ -34,9 +34,7 @@ export const useCustomizingStore = create<CustomizingStore>((set, get) => ({
       theme = darkMode ? "dark" : "light";
     }
 
-    set({
-      theme: theme as Theme,
-    });
+    set({ theme: theme as Theme });
   },
 
   displayScale: 100,
@@ -51,8 +49,7 @@ export const useCustomizingStore = create<CustomizingStore>((set, get) => ({
     const displayScale = localStorage.getItem(DISPLAY_SCALE_KEY);
     if (!displayScale) return;
 
-    set({
-      displayScale: parseFloat(displayScale),
-    });
+    const scale = Math.max(50, Math.min(200, parseFloat(displayScale)));
+    set({ displayScale: scale });
   },
 }));

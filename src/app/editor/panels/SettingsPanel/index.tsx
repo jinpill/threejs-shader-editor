@@ -11,7 +11,7 @@ const SettingsPanel = () => {
         <Field.Number
           label="디스플레이 배율"
           unit="%"
-          min="50"
+          min="75"
           max="200"
           step="10"
           value={displayScale}

@@ -10,12 +10,13 @@ type InitializerProps = {
 };
 
 const Initializer = (props: InitializerProps) => {
-  const { theme, setTheme, initTheme } = useCustomizingStore();
+  const { theme, displayScale, initTheme, initDisplayScale } = useCustomizingStore();
 
   useEffect(() => {
     initTheme();
+    initDisplayScale();
     document.body.style.opacity = "1";
-  }, [initTheme, setTheme]);
+  }, [initTheme, initDisplayScale]);
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -29,6 +30,13 @@ const Initializer = (props: InitializerProps) => {
       document.body.setAttribute("data-theme", "light");
     }
   }, [theme]);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    if (!html) return;
+
+    html.style.fontSize = `${displayScale}%`;
+  }, [displayScale]);
 
   return (
     <MuiThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

@@ -8,6 +8,7 @@ type InputProps = {
   placeholder?: string;
   min?: number;
   max?: number;
+  step?: number;
   value?: string;
 
   start?: string;
@@ -34,6 +35,7 @@ const Input = (props: InputProps) => {
         htmlInput: {
           min: props.min,
           max: props.max,
+          step: props.step,
         },
         input: {
           startAdornment: props.start ? (

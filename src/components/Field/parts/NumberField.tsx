@@ -11,6 +11,7 @@ export type NumberFieldProps = {
   label: string;
   min?: number | string;
   max?: number | string;
+  step?: number | string;
   value?: number;
   unit?: string;
 
@@ -28,6 +29,7 @@ export type NumberFieldProps = {
 const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props, ref) => {
   const min = numberUtils.parseNumber(props.min);
   const max = numberUtils.parseNumber(props.max);
+  const step = numberUtils.parseNumber(props.step);
   const value = props.value?.toString() ?? "";
 
   const handleChange = (value: string) => {
@@ -45,6 +47,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>((props, r
         label={props.label}
         min={min}
         max={max}
+        step={step}
         end={props.unit}
         value={value}
         onChange={handleChange}

@@ -13,7 +13,7 @@ const useBoundingCamera = () => {
       const sphere = box.getBoundingSphere(new THREE.Sphere());
 
       const fovRad = THREE.MathUtils.degToRad(camera.fov);
-      const distance = sphere.radius / Math.tan(fovRad / 2);
+      const distance = (sphere.radius * 1.1) / Math.sin(fovRad / 2);
 
       const center = box.getCenter(new THREE.Vector3());
       const normal = vector.clone().normalize();

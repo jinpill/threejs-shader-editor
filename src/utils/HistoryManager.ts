@@ -1,16 +1,16 @@
 const TIMEOUT_DURATION = 1000;
 
-export class HistoryManager {
-  private history: string[] = [];
+export class HistoryManager<T> {
+  private history: T[] = [];
   private currentIndex = -1;
-  private timeoutId: number | null = null;
+  private timeoutId: NodeJS.Timeout | null = null;
   private readonly maxLength: number;
 
   constructor(maxLength: number) {
     this.maxLength = maxLength;
   }
 
-  public push = (state: string) => {
+  public push = (state: T) => {
     this.history = this.history.slice(0, this.currentIndex + 1);
 
     if (typeof this.timeoutId === "number") {
@@ -25,7 +25,7 @@ export class HistoryManager {
       this.currentIndex = this.history.length - 1;
     }
 
-    this.timeoutId = window.setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.timeoutId = null;
     }, TIMEOUT_DURATION);
   };
@@ -45,7 +45,7 @@ export class HistoryManager {
   }
 
   public get current() {
-    return this.history[this.currentIndex] ?? "";
+    return this.history[this.currentIndex] ?? null;
   }
 
   public undo = () => {
@@ -55,7 +55,7 @@ export class HistoryManager {
       this.currentIndex--;
       return this.current;
     } else {
-      return "";
+      return null;
     }
   };
 
@@ -66,7 +66,7 @@ export class HistoryManager {
       this.currentIndex++;
       return this.current;
     } else {
-      return "";
+      return null;
     }
   };
 }

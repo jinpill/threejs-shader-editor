@@ -44,3 +44,5 @@ next-env.d.ts
 src/**/*.study.tsx
 src/**/*.study.ts
 src/**/*.study.scss
+
+TODO.md

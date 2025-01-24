@@ -11,6 +11,7 @@ export class HistoryManager<T> {
   }
 
   public push = (state: T) => {
+    if (this.current === state) return;
     this.history = this.history.slice(0, this.currentIndex + 1);
 
     if (typeof this.timeoutId === "number") {
@@ -48,6 +49,12 @@ export class HistoryManager<T> {
     return this.history[this.currentIndex] ?? null;
   }
 
+  public update = (state: T) => {
+    if (this.current === null) return;
+    if (this.current === state) return;
+    this.history[this.currentIndex] = state;
+  };
+
   public undo = () => {
     this.clearTimeout();
 
@@ -69,4 +76,8 @@ export class HistoryManager<T> {
       return null;
     }
   };
+
+  public get length() {
+    return this.history.length;
+  }
 }

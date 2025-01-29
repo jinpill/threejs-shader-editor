@@ -1,12 +1,14 @@
-import React, { useRef, useImperativeHandle, useEffect } from "react";
+import React, { useRef, useImperativeHandle, useEffect, useCallback } from "react";
 import classNames from "classnames";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { InputLabel } from "@mui/material";
+
+import useStateRef from "@/hooks/useStateRef";
 import style from "./style.module.scss";
 
 export type EditorProps = {
-  label: string;
+  type: "vertex" | "fragment";
   value: string;
   onChange: (value: string) => void;
   className?: string;
@@ -23,21 +25,22 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const textarea = e.currentTarget;
+
     if (e.ctrlKey) {
-      switch (e.key) {
-        case "s":
+      switch (e.code) {
+        case "KeyS":
           e.preventDefault();
           saveToLocalStorage();
           break;
-        case "e":
+        case "KeyE":
           e.preventDefault();
           exportFile();
           break;
-        case "i":
+        case "KeyI":
           e.preventDefault();
           importFile();
           break;
-        case "/":
+        case "Slash":
           e.preventDefault();
           handleComment(textarea);
           break;
@@ -54,33 +57,33 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
     }
   };
 
+  const onChangeRef = useStateRef(props.onChange);
+  const getStorageKey = useCallback(() => {
+    return props.type === "vertex" ? "vertexShader" : "fragmentShader";
+  }, [props.type]);
+
   // 로컬스토리지 저장
   useEffect(() => {
-    const localStorageKey =
-      props.label === "Vertex Shader" ? "vertexShader" : "fragmentShader";
-    const savedData = localStorage.getItem(localStorageKey);
-    if (savedData !== null) {
-      props.onChange(savedData);
-    }
-  }, []);
+    const savedData = localStorage.getItem(getStorageKey());
+    if (savedData === null) return;
+    onChangeRef.current(savedData);
+  }, [getStorageKey, onChangeRef]);
 
   const saveToLocalStorage = () => {
-    const localStorageKey =
-      props.label === "Vertex Shader" ? "vertexShader" : "fragmentShader";
-    localStorage.setItem(localStorageKey, props.value);
-    console.log("저장되었습니다.");
+    localStorage.setItem(getStorageKey(), props.value);
   };
 
   // 파일 내보내기
   const exportFile = () => {
-    const fileName =
-      props.label === "Vertex Shader" ? "vertex_shader.glsl" : "fragment_shader.glsl";
+    const fileName = `${props.type}_shader.glsl`;
     const blob = new Blob([props.value], { type: "text/plain" });
+
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
+
     document.body.removeChild(a);
     URL.revokeObjectURL(a.href);
   };
@@ -264,7 +267,9 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
   return (
     <div className={classNames(style.editor, props.className)}>
       <div className={style.btnCon}>
-        <InputLabel className={style.label}>{props.label}</InputLabel>
+        <InputLabel className={style.label}>
+          {props.type === "vertex" ? "Vertex Shader" : "Fragment Shader"}
+        </InputLabel>
         <div>
           <Button className={style.flieButton} onClick={saveToLocalStorage}>
             저장

@@ -35,7 +35,7 @@ const RightArea = (props: RightAreaProps) => {
         <div className={style.textAreaContainer}>
           <Editor
             className={style.editor}
-            label="Vertex Shader"
+            type="vertex"
             value={props.vertexShader}
             onChange={props.onChangeVertexShader}
             placeholder="이곳에 셰이더 코드를 입력해주세요"
@@ -43,7 +43,7 @@ const RightArea = (props: RightAreaProps) => {
 
           <Editor
             className={style.editor}
-            label="Fragment Shader"
+            type="fragment"
             value={props.fragmentShader}
             onChange={props.onChangeFragmentShader}
             placeholder="이곳에 셰이더 코드를 입력해주세요"

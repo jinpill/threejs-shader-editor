@@ -1,16 +1,10 @@
-import React, { useRef, useMemo, useImperativeHandle, useEffect } from "react";
+import React, { useRef, useImperativeHandle } from "react";
 import classNames from "classnames";
 import Paper from "@mui/material/Paper";
 import { InputLabel } from "@mui/material";
 
-import { HistoryManager } from "@/utils/HistoryManager";
+import useHistoryManager from "./hooks/useHistoryManager";
 import style from "./style.module.scss";
-
-type HistoryState = {
-  value: string;
-  cursorStart: number;
-  cursorEnd: number;
-};
 
 export type EditorProps = {
   label: string;
@@ -28,46 +22,44 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useImperativeHandle(ref, () => textareaRef.current!, [textareaRef]);
 
-  const history = useMemo(() => {
-    const history = new HistoryManager<HistoryState>(50);
-    return history;
-  }, []);
+  const updateTextarea = (
+    textarea: HTMLTextAreaElement,
+    newValue: string,
+    cursorStart: number,
+    cursorEnd = cursorStart,
+  ) => {
+    props.onChange(newValue);
+    setTimeout(() => {
+      textarea.setSelectionRange(cursorStart, cursorEnd);
+    }, 0);
+  };
+
+  const { handleUndo, handleRedo } = useHistoryManager({
+    value: props.value,
+    textareaRef,
+    updateTextarea,
+  });
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const textarea = e.currentTarget;
     if (e.ctrlKey && e.key === "/") {
       e.preventDefault();
-      handleComment(e.currentTarget);
-      return;
-    }
-
-    if (!e.shiftKey && e.key === "Tab") {
+      handleComment(textarea);
+    } else if (!e.shiftKey && e.key === "Tab") {
       e.preventDefault();
-      handleIndent(e.currentTarget);
-      return;
-    }
-
-    if (e.shiftKey && e.key === "Tab") {
+      handleIndent(textarea);
+    } else if (e.shiftKey && e.key === "Tab") {
       e.preventDefault();
-      handleUnIndent(e.currentTarget);
-      return;
-    }
-
-    if (e.key === "Enter") {
+      handleUnIndent(textarea);
+    } else if (e.key === "Enter") {
       e.preventDefault();
-      handleEnter(e.currentTarget);
-      return;
-    }
-
-    if (e.ctrlKey && e.code === "KeyZ") {
+      handleEnter(textarea);
+    } else if (e.ctrlKey && e.code === "KeyZ") {
       e.preventDefault();
       handleUndo(e.currentTarget);
-      return;
-    }
-
-    if (e.ctrlKey && e.code === "KeyY") {
+    } else if (e.ctrlKey && e.code === "KeyY") {
       e.preventDefault();
       handleRedo(e.currentTarget);
-      return;
     }
   };
 
@@ -201,85 +193,6 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       last: lastCursorPos,
     };
   };
-
-  const setSelectionRange = (
-    textarea: HTMLTextAreaElement,
-    start: number,
-    end?: number,
-  ) => {
-    setTimeout(() => {
-      textarea.setSelectionRange(start, end ?? start);
-    }, 0);
-  };
-
-  const handleUndo = (textarea: HTMLTextAreaElement) => {
-    if (!history.isUndoAvailable) return;
-
-    const state = history.undo();
-    if (state === null) return;
-
-    updateTextarea(textarea, state.value, state.cursorStart, state.cursorEnd);
-  };
-
-  const handleRedo = (textarea: HTMLTextAreaElement) => {
-    if (!history.isRedoAvailable) return;
-
-    const state = history.redo();
-    if (state === null) return;
-
-    updateTextarea(textarea, state.value, state.cursorStart, state.cursorEnd);
-  };
-
-  const updateTextarea = (
-    textarea: HTMLTextAreaElement,
-    newValue: string,
-    cursorStart: number,
-    cursorEnd?: number,
-  ) => {
-    props.onChange(newValue);
-    setSelectionRange(textarea, cursorStart, cursorEnd);
-  };
-
-  useEffect(() => {
-    const $textarea = textareaRef.current;
-    if (!$textarea) return;
-
-    const updateCursorPosition = () => {
-      const state = history.current;
-      if (state === null) return;
-
-      const stateValue = state.value.replaceAll("\r", "");
-      const currentValue = $textarea.value.replaceAll("\r", "");
-      if (stateValue !== currentValue) return;
-
-      history.update({
-        ...state,
-        cursorStart: $textarea.selectionStart,
-        cursorEnd: $textarea.selectionEnd,
-      });
-    };
-
-    $textarea.addEventListener("input", updateCursorPosition);
-    $textarea.addEventListener("click", updateCursorPosition);
-    $textarea.addEventListener("keyup", updateCursorPosition);
-
-    return () => {
-      $textarea.removeEventListener("input", updateCursorPosition);
-      $textarea.removeEventListener("click", updateCursorPosition);
-      $textarea.removeEventListener("keyup", updateCursorPosition);
-    };
-  }, [history]);
-
-  useEffect(() => {
-    const $textarea = textareaRef.current;
-    if (!$textarea) return;
-
-    history.push({
-      value: props.value,
-      cursorStart: $textarea.selectionStart,
-      cursorEnd: $textarea.selectionEnd,
-    });
-  }, [history, props.value]);
 
   return (
     <div className={classNames(style.editor, props.className)}>

@@ -2,8 +2,6 @@
   width: var(--ed-width, 31.25rem);
   height: var(--ed-height, 15rem);
 
-  // width: var(--ed-width, 27rem);
-
   display: flex;
   flex-direction: column;
 
@@ -21,10 +19,21 @@
     font-size: 1rem;
   }
 }
+.btnCon {
+  display: flex;
+  justify-content: space-between;
 
-.label {
-  flex: none;
-  margin-bottom: 0.375rem;
+  .label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flieButton {
+    color: rgba(0, 0, 0, 0.6);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
 }
 
 .paperBox {

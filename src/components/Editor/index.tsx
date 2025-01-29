@@ -1,6 +1,7 @@
-import React, { useRef, useImperativeHandle } from "react";
+import React, { useRef, useImperativeHandle, useEffect } from "react";
 import classNames from "classnames";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import { InputLabel } from "@mui/material";
 import style from "./style.module.scss";
 
@@ -22,9 +23,25 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const textarea = e.currentTarget;
-    if (e.ctrlKey && e.key === "/") {
-      e.preventDefault();
-      handleComment(textarea);
+    if (e.ctrlKey) {
+      switch (e.key) {
+        case "s":
+          e.preventDefault();
+          saveToLocalStorage();
+          break;
+        case "e":
+          e.preventDefault();
+          exportFile();
+          break;
+        case "i":
+          e.preventDefault();
+          importFile();
+          break;
+        case "/":
+          e.preventDefault();
+          handleComment(textarea);
+          break;
+      }
     } else if (!e.shiftKey && e.key === "Tab") {
       e.preventDefault();
       handleIndent(textarea);
@@ -35,6 +52,62 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       e.preventDefault();
       handleEnter(textarea);
     }
+  };
+
+  // 로컬스토리지 저장
+  useEffect(() => {
+    const localStorageKey =
+      props.label === "Vertex Shader" ? "vertexShader" : "fragmentShader";
+    const savedData = localStorage.getItem(localStorageKey);
+    if (savedData !== null) {
+      props.onChange(savedData);
+    }
+  }, []);
+
+  const saveToLocalStorage = () => {
+    const localStorageKey =
+      props.label === "Vertex Shader" ? "vertexShader" : "fragmentShader";
+    localStorage.setItem(localStorageKey, props.value);
+    console.log("저장되었습니다.");
+  };
+
+  // 파일 내보내기
+  const exportFile = () => {
+    const fileName =
+      props.label === "Vertex Shader" ? "vertex_shader.glsl" : "fragment_shader.glsl";
+    const blob = new Blob([props.value], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  };
+
+  // 파일 불러오기
+  const importFile = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".glsl";
+
+    input.onchange = (e: any) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (!file.name.endsWith(".glsl")) {
+        alert("GLSL 파일만 선택 가능합니다.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const shaderCode = event.target.result;
+        props.onChange(shaderCode);
+      };
+      reader.readAsText(file);
+    };
+    input.click();
   };
 
   // 주석에 대한 기능
@@ -190,15 +263,20 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
 
   return (
     <div className={classNames(style.editor, props.className)}>
-      <InputLabel
-        sx={{
-          fontSize: "0.875rem",
-        }}
-        className={style.label}
-      >
-        {props.label}
-      </InputLabel>
-
+      <div className={style.btnCon}>
+        <InputLabel className={style.label}>{props.label}</InputLabel>
+        <div>
+          <Button className={style.flieButton} onClick={saveToLocalStorage}>
+            저장
+          </Button>
+          <Button className={style.flieButton} onClick={exportFile}>
+            내보내기
+          </Button>
+          <Button className={style.flieButton} onClick={importFile}>
+            불러오기
+          </Button>
+        </div>
+      </div>
       <Paper variant="outlined" className={style.paperBox}>
         <textarea
           spellCheck="false"

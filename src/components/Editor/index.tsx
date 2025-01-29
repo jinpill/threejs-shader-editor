@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { InputLabel } from "@mui/material";
 
 import useStateRef from "@/hooks/useStateRef";
+import useHistoryManager from "./hooks/useHistoryManager";
 import style from "./style.module.scss";
 
 export type EditorProps = {
@@ -23,6 +24,24 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useImperativeHandle(ref, () => textareaRef.current!, [textareaRef]);
 
+  const updateTextarea = (
+    textarea: HTMLTextAreaElement,
+    newValue: string,
+    cursorStart: number,
+    cursorEnd = cursorStart,
+  ) => {
+    props.onChange(newValue);
+    setTimeout(() => {
+      textarea.setSelectionRange(cursorStart, cursorEnd);
+    }, 0);
+  };
+
+  const { handleUndo, handleRedo } = useHistoryManager({
+    value: props.value,
+    textareaRef,
+    updateTextarea,
+  });
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const textarea = e.currentTarget;
 
@@ -39,6 +58,14 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
         case "KeyI":
           e.preventDefault();
           importFile();
+          break;
+        case "KeyZ":
+          e.preventDefault();
+          handleUndo(textarea);
+          break;
+        case "KeyY":
+          e.preventDefault();
+          handleRedo(textarea);
           break;
         case "Slash":
           e.preventDefault();
@@ -242,26 +269,6 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
       after: afterCursorPos,
       last: lastCursorPos,
     };
-  };
-
-  const setSelectionRange = (
-    textarea: HTMLTextAreaElement,
-    start: number,
-    end?: number,
-  ) => {
-    setTimeout(() => {
-      textarea.setSelectionRange(start, end ?? start);
-    }, 0);
-  };
-
-  const updateTextarea = (
-    textarea: HTMLTextAreaElement,
-    newValue: string,
-    cursorStart: number,
-    cursorEnd?: number,
-  ) => {
-    props.onChange(newValue);
-    setSelectionRange(textarea, cursorStart, cursorEnd);
   };
 
   return (

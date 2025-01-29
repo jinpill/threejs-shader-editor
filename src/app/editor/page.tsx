@@ -67,7 +67,7 @@ const EditorPage = () => {
       const center = box.getCenter(new THREE.Vector3());
       mesh.position.sub(center);
 
-      const normal = new THREE.Vector3(0, -1, 0);
+      const normal = new THREE.Vector3(0.5, -1, 0.67);
       setBoundingCamera(mesh, normal);
     }, 0);
   }, [geometry, setBoundingCamera]);

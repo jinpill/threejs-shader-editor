@@ -278,13 +278,13 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) =
           {props.type === "vertex" ? "Vertex Shader" : "Fragment Shader"}
         </InputLabel>
         <div>
-          <Button className={style.flieButton} onClick={saveToLocalStorage}>
+          <Button className={style.fileButton} onClick={saveToLocalStorage}>
             저장
           </Button>
-          <Button className={style.flieButton} onClick={exportFile}>
+          <Button className={style.fileButton} onClick={exportFile}>
             내보내기
           </Button>
-          <Button className={style.flieButton} onClick={importFile}>
+          <Button className={style.fileButton} onClick={importFile}>
             불러오기
           </Button>
         </div>

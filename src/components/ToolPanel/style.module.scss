@@ -25,7 +25,7 @@
     justify-content: space-between;
     padding: 1rem;
 
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(black, 0.1);
 
     z-index: 1;
 
@@ -52,11 +52,11 @@
       transition: background-color 0.2s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(black, 0.1);
       }
 
       &:active {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(black, 0.2);
       }
     }
   }

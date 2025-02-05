@@ -13,8 +13,9 @@ export type Vector3FieldProps = {
   value?: THREE.Vector3;
 
   onChange?: (value: THREE.Vector3) => void;
-  onBlur?: () => void;
-  onFocus?: () => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 
   className?: string;
   style?: React.CSSProperties;
@@ -29,14 +30,14 @@ const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props,
   }, [props.value]);
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => {
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
-    props.onFocus?.();
+    props.onFocus?.(e);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    props.onBlur?.();
+    props.onBlur?.(e);
   };
 
   const handleChange = (axis: "x" | "y" | "z", value: string) => {
@@ -63,6 +64,7 @@ const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props,
         label=" "
         start="x"
         value={vector3.x.toString()}
+        onKeyDown={props.onKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange.bind(null, "x")}
@@ -72,6 +74,7 @@ const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props,
         label=" "
         start="y"
         value={vector3.y.toString()}
+        onKeyDown={props.onKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange.bind(null, "y")}
@@ -81,6 +84,7 @@ const Vector3Field = React.forwardRef<HTMLDivElement, Vector3FieldProps>((props,
         label=" "
         start="z"
         value={vector3.z.toString()}
+        onKeyDown={props.onKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange.bind(null, "z")}

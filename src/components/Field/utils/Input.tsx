@@ -15,8 +15,9 @@ type InputProps = {
   end?: string;
 
   onChange?: (value: string) => void;
-  onBlur?: () => void;
-  onFocus?: () => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const Input = (props: InputProps) => {
@@ -50,6 +51,7 @@ const Input = (props: InputProps) => {
       onChange={handleChange}
       onFocus={props.onFocus}
       onBlur={props.onBlur}
+      onKeyDown={props.onKeyDown}
     />
   );
 };

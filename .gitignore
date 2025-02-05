@@ -46,3 +46,4 @@ src/**/*.study.ts
 src/**/*.study.scss
 
 TODO.md
+samples/**/*

@@ -2,6 +2,12 @@
   width: var(--ed-width, 31.25rem);
   height: var(--ed-height, 15rem);
 
+  --editor-btn-color: rgba(black, 0.6);
+
+  [data-theme="dark"] & {
+    --editor-btn-color: rgba(white, 0.7);
+  }
+
   display: flex;
   flex-direction: column;
 
@@ -19,6 +25,7 @@
     font-size: 1rem;
   }
 }
+
 .btnCon {
   display: flex;
   justify-content: space-between;
@@ -28,10 +35,11 @@
     justify-content: center;
     align-items: center;
   }
-  .flieButton {
-    color: rgba(0, 0, 0, 0.6);
+  .fileButton {
+    color: var(--editor-btn-color);
+
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(black, 0.05);
     }
   }
 }

@@ -16,17 +16,17 @@ import RightArea from "./RightArea";
 
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useBoundingCamera from "@/hooks/useBoundingCamera";
-import { Context } from "./hooks/useContext";
 import useGeometry from "./hooks/useGeometry";
 import useMaterial from "./hooks/useMaterial";
 import useBackgroundColor from "./hooks/useBackgroundColor";
 
 import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
+import { useGeometryStore } from "@/stores/useGeometryStore";
+import { useMaterialStore } from "@/stores/useMaterialStore";
 
 import vertex from "./shaders/vertex.glsl";
 import fragment from "./shaders/fragment.glsl";
-import { DEFAULT_MATERIAL_OPTIONS, DEFAULT_GEOMETRY_PARAMS } from "./constants";
 
 import style from "./style.module.scss";
 
@@ -37,12 +37,12 @@ const EditorPage = () => {
   const setBoundingCamera = useBoundingCamera();
   const { activeToolPanel } = useToolbarStore();
 
-  const [geometryParams, setGeometryParams] = useState(DEFAULT_GEOMETRY_PARAMS);
+  const { geometryParams, setGeometryParams } = useGeometryStore();
   const { geometry, error } = useGeometry(geometryParams);
 
   const [vertexShader, setVertexShader] = useState(vertex);
   const [fragmentShader, setFragmentShader] = useState(fragment);
-  const [materialOptions, setMaterialOptions] = useState(DEFAULT_MATERIAL_OPTIONS);
+  const { materialOptions } = useMaterialStore();
   const material = useMaterial(vertexShader, fragmentShader, materialOptions);
 
   useBackgroundColor();
@@ -98,71 +98,62 @@ const EditorPage = () => {
   }, [setBoundingCamera]);
 
   return (
-    <Context.Provider
-      value={{
-        geometryParams,
-        setGeometryParams,
-        materialOptions,
-        setMaterialOptions,
-      }}
+    <div
+      ref={ref}
+      className={classNames(style.container, {
+        [style.dragging]: dragging,
+        [style.error]: error,
+      })}
     >
-      <div
-        ref={ref}
-        className={classNames(style.container, {
-          [style.dragging]: dragging,
-          [style.error]: error,
-        })}
-      >
-        {/* Toolbar */}
-        <EditorToolbar />
+      {/* Toolbar */}
+      <EditorToolbar />
 
-        <div className={style.flexContainer}>
-          <div className={style.viewArea}>
-            {/* Tool Panels */}
-            <div className={style.toolPanelArea}>
-              {activeToolPanel === "Models" && <ModelsPanel />}
-              {activeToolPanel === "Material" && <MaterialPanel />}
-              {activeToolPanel === "Settings" && <SettingsPanel />}
-            </div>
-
-            {/* Overview */}
-            <div className={style.overviewArea}>
-              {dragging && (
-                <div className={style.dropDescription}>
-                  <PublishIcon fontSize="inherit" />
-                  <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
-                </div>
-              )}
-              {error && <p className={style.errorMessage}>{error}</p>}
-            </div>
-
-            <Canvas
-              camera={{
-                position: [0, 0, 100],
-                fov: 50,
-                near: 0.1,
-                far: 10000,
-                up: [0, 0, 1],
-              }}
-              onCreated={initThreeStore}
-            >
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[5, 5, 5]} intensity={1} />
-              <mesh ref={meshRef} geometry={geometry} material={material} />
-              <OrbitControls onUpdate={setControls} enableDamping={false} />
-              <ThreeInitializer />
-            </Canvas>
+      <div className={style.flexContainer}>
+        <div className={style.viewArea}>
+          {/* Tool Panels */}
+          <div className={style.toolPanelArea}>
+            {activeToolPanel === "Models" && <ModelsPanel />}
+            {activeToolPanel === "Material" && <MaterialPanel />}
+            {activeToolPanel === "Settings" && <SettingsPanel />}
           </div>
 
-          <RightArea
-            vertexShader={vertexShader}
-            fragmentShader={fragmentShader}
-            onChangeVertexShader={setVertexShader}
-            onChangeFragmentShader={setFragmentShader}
-          />
+          {/* Overview */}
+          <div className={style.overviewArea}>
+            {dragging && (
+              <div className={style.dropDescription}>
+                <PublishIcon fontSize="inherit" />
+                <p className={style.instruction}>파일을 끌어와 3D 모델을 로드하기</p>
+              </div>
+            )}
+            {error && <p className={style.errorMessage}>{error}</p>}
+          </div>
+
+          <Canvas
+            camera={{
+              position: [0, 0, 100],
+              fov: 50,
+              near: 0.1,
+              far: 10000,
+              up: [0, 0, 1],
+            }}
+            onCreated={initThreeStore}
+          >
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[5, 5, 5]} intensity={1} />
+            <mesh ref={meshRef} geometry={geometry} material={material} />
+            <OrbitControls onUpdate={setControls} enableDamping={false} />
+            <ThreeInitializer />
+          </Canvas>
         </div>
+
+        <RightArea
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          onChangeVertexShader={setVertexShader}
+          onChangeFragmentShader={setFragmentShader}
+        />
       </div>
-    </Context.Provider>
+    </div>
   );
 };
 

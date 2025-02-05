@@ -1,11 +1,10 @@
 import { useState } from "react";
 import ToolPanel from "@/components/ToolPanel";
 import CheckBox from "@/components/CheckBox";
-import useContext from "../../hooks/useContext";
-import type { MaterialOptions } from "../../types/material";
+import { useMaterialStore, type MaterialOptions } from "@/stores/useMaterialStore";
 
 const MaterialPanel = () => {
-  const { materialOptions, setMaterialOptions } = useContext();
+  const { materialOptions, setMaterialOptions } = useMaterialStore();
   const [checked, setChecked] = useState(false);
 
   const handleChange = <K extends keyof MaterialOptions>(

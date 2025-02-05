@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/Addons.js";
-import type { GeometryParams } from "../types/geometry";
+import type { GeometryParams } from "@/stores/useGeometryStore";
 
 const useGeometry = (params: GeometryParams) => {
   const [geometry, setGeometry] = useState<THREE.BufferGeometry>(

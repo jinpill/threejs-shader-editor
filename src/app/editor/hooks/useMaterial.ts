@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
-import type { MaterialOptions } from "../types/material";
+import type { MaterialOptions } from "@/stores/useMaterialStore";
 
 const useMaterial = (
   vertexShader: string,

@@ -6,12 +6,13 @@ export type GeometryStore = {
   setGeometryParams: (params: GeometryParams) => void;
 };
 
-export type GeometryType = "file" | "box" | "sphere";
+export type GeometryType = "file" | "box" | "sphere" | "cylinder";
 
 export type GeometryParams =
   | FileGeometryParams
   | BoxGeometryParams
-  | SphereGeometryParams;
+  | SphereGeometryParams
+  | CylinderGeometryParams;
 
 export type FileGeometryParams = {
   type: "file";
@@ -35,6 +36,18 @@ export type SphereGeometryParams = {
   heightSegments: number;
   phiStart: number;
   phiLength: number;
+  thetaStart: number;
+  thetaLength: number;
+};
+
+export type CylinderGeometryParams = {
+  type: "cylinder";
+  radiusTop: number;
+  radiusBottom: number;
+  height: number;
+  radialSegments: number;
+  heightSegments: number;
+  openEnded: boolean;
   thetaStart: number;
   thetaLength: number;
 };

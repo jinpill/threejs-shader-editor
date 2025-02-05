@@ -37,6 +37,21 @@ const useGeometry = (params: GeometryParams) => {
       );
     }
 
+    if (params.type === "cylinder") {
+      setGeometry(
+        new THREE.CylinderGeometry(
+          params.radiusTop,
+          params.radiusBottom,
+          params.height,
+          params.radialSegments,
+          params.heightSegments,
+          params.openEnded,
+          params.thetaStart,
+          params.thetaLength,
+        ),
+      );
+    }
+
     if (params.type === "file") {
       const url = URL.createObjectURL(params.file);
       const loader = new STLLoader();

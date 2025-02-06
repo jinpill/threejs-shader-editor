@@ -9,12 +9,12 @@ export type MaterialStore = {
 
 export type MaterialOptions = {
   transparent: boolean;
-  side: THREE.Side;
+  side: string;
 };
 
 export const DEFAULT_MATERIAL_OPTIONS: MaterialOptions = {
   transparent: true,
-  side: THREE.DoubleSide,
+  side: THREE.DoubleSide.toString(),
 };
 
 export const useMaterialStore = create<MaterialStore>((set, get) => ({

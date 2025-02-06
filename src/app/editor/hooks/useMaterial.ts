@@ -25,7 +25,7 @@ const useMaterial = (
 
   useEffect(() => {
     material.transparent = options.transparent;
-    material.side = options.side;
+    material.side = Number(options.side) as THREE.Side;
     material.needsUpdate = true;
   }, [options, material]);
 

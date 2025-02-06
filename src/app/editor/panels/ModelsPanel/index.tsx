@@ -42,13 +42,13 @@ const ModelsPanel = () => {
       <ModelCard
         name="Cylinder"
         image="/cylinder.jpg"
-        details={`128 faces\n 196 vertices\n 10 × 20 × 10 mm`}
+        details={`128 faces\n 196 vertices\n 10 × 14 × 10 mm`}
         onClick={() =>
           setGeometryParams({
             type: "cylinder",
             radiusTop: 5,
             radiusBottom: 5,
-            height: 20,
+            height: 14,
             radialSegments: 32,
             heightSegments: 1,
             openEnded: false,

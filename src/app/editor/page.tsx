@@ -71,8 +71,13 @@ const EditorPage = () => {
 
       const normal = new THREE.Vector3(0.5, -1, 0.67);
       setBoundingCamera(mesh, normal);
+
+      if (geometryParams.type === "cylinder") {
+        mesh.rotation.set(0, 0, 0);
+        mesh.rotation.x = Math.PI / 2;
+      }
     }, 0);
-  }, [geometry, setBoundingCamera]);
+  }, [geometry, geometryParams.type, setBoundingCamera]);
 
   // space에 대한 기능
   useEffect(() => {

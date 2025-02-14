@@ -16,7 +16,7 @@ export type GeometryParams =
 
 export type FileGeometryParams = {
   type: "file";
-  file: File;
+  file: { name: string; path: string };
 };
 
 export type BoxGeometryParams = {

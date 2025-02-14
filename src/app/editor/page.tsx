@@ -52,9 +52,11 @@ const EditorPage = () => {
     const fileExtension = file.name.split(".").pop()?.toLowerCase();
     if (fileExtension !== "stl") return;
 
+    const fileUrl = URL.createObjectURL(file);
+
     setGeometryParams({
       type: "file",
-      file: file,
+      file: { name: file.name, path: fileUrl },
     });
   });
 

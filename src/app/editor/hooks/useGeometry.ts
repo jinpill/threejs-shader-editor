@@ -53,17 +53,16 @@ const useGeometry = (params: GeometryParams) => {
     }
 
     if (params.type === "file") {
-      const url = URL.createObjectURL(params.file);
       const loader = new STLLoader();
+      const filePath = params.file.path;
+
       loader.load(
-        url,
-        (geometry: THREE.BufferGeometry) => {
+        filePath,
+        (geometry) => {
           setGeometry(geometry);
           setError("");
         },
-        (xhr) => {
-          console.log("Loading Progress:", `${(xhr.loaded / xhr.total) * 100}%`);
-        },
+        undefined,
         (error) => {
           console.error("STL 파일 로드 중 오류 발생:", error);
           setError("STL 파일을 로드하는 중 오류가 발생했습니다.");

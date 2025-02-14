@@ -57,6 +57,39 @@ const ModelsPanel = () => {
           })
         }
       />
+      <ModelCard
+        name="Bunny"
+        image="/bunny.png"
+        details={`309 faces\n 927 vertices\n 85 × 66.9 × 83.9 mm`}
+        onClick={() =>
+          setGeometryParams({
+            type: "file",
+            file: { name: "bunny.stl", path: "/models/bunny.stl" },
+          })
+        }
+      />
+      <ModelCard
+        name="Cat"
+        image="/cat.png"
+        details={`368 faces\n 1104 vertices\n 43.9 × 90 × 29.6 mm`}
+        onClick={() =>
+          setGeometryParams({
+            type: "file",
+            file: { name: "cat.stl", path: "/models/cat.stl" },
+          })
+        }
+      />
+      <ModelCard
+        name="Dog"
+        image="/dog.png"
+        details={`790 faces\n 2370 vertices\n 37.6 × 98 × 90.7 mm`}
+        onClick={() =>
+          setGeometryParams({
+            type: "file",
+            file: { name: "dog.stl", path: "/models/dog.stl" },
+          })
+        }
+      />
     </ToolPanel>
   );
 };

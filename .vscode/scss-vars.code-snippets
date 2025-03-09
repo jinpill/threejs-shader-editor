@@ -1,4 +1,36 @@
 {
+  "var(--Primary-Light)": {
+    "prefix": "--Primary-Light",
+    "body": ["--Primary-Light"],
+    "description": "#1d83f8",
+    "scope": "css,scss"
+  },
+  "var(--Primary-Dark)": {
+    "prefix": "--Primary-Dark",
+    "body": ["--Primary-Dark"],
+    "description": "#8a2be2",
+    "scope": "css,scss"
+  },
+
+  "var(--Success)": {
+    "prefix": "--Success",
+    "body": ["--Success"],
+    "description": "#53c253",
+    "scope": "css,scss"
+  },
+  "var(--Warning)": {
+    "prefix": "--Warning",
+    "body": ["--Warning"],
+    "description": "#e0b53f",
+    "scope": "css,scss"
+  },
+  "var(--Danger)": {
+    "prefix": "--Danger",
+    "body": ["--Danger"],
+    "description": "#db4747",
+    "scope": "css,scss"
+  },
+
   "var(--Gray-0)": {
     "prefix": "--Gray-0",
     "body": ["--Gray-0"],
@@ -183,6 +215,189 @@
     "prefix": "--Gray-1500",
     "body": ["--Gray-1500"],
     "description": "#000000",
+    "scope": "css,scss"
+  },
+
+  "var(--BG-Light-Primary)": {
+    "prefix": "--BG-Light-Primary",
+    "body": ["--BG-Light-Primary"],
+    "description": "var(--Gray-0)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Secondary)": {
+    "prefix": "--BG-Light-Secondary",
+    "body": ["--BG-Light-Secondary"],
+    "description": "var(--Gray-50)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Tertiary)": {
+    "prefix": "--BG-Light-Tertiary",
+    "body": ["--BG-Light-Tertiary"],
+    "description": "var(--Gray-100)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Quaternary)": {
+    "prefix": "--BG-Light-Quaternary",
+    "body": ["--BG-Light-Quaternary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Disabled)": {
+    "prefix": "--BG-Light-Disabled",
+    "body": ["--BG-Light-Disabled"],
+    "description": "var(--Gray-500)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Primary)": {
+    "prefix": "--BG-Dark-Primary",
+    "body": ["--BG-Dark-Primary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Secondary)": {
+    "prefix": "--BG-Dark-Secondary",
+    "body": ["--BG-Dark-Secondary"],
+    "description": "var(--Gray-1150)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Tertiary)": {
+    "prefix": "--BG-Dark-Tertiary",
+    "body": ["--BG-Dark-Tertiary"],
+    "description": "var(--Gray-1250)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Quaternary)": {
+    "prefix": "--BG-Dark-Quaternary",
+    "body": ["--BG-Dark-Quaternary"],
+    "description": "var(--Gray-1300)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Disabled)": {
+    "prefix": "--BG-Dark-Disabled",
+    "body": ["--BG-Dark-Disabled"],
+    "description": "var(--Gray-1500)",
+    "scope": "css,scss"
+  },
+
+  "var(--Border-Light-Primary)": {
+    "prefix": "--Border-Light-Primary",
+    "body": ["--Border-Light-Primary"],
+    "description": "var(--Gray-0)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Secondary)": {
+    "prefix": "--Border-Light-Secondary",
+    "body": ["--Border-Light-Secondary"],
+    "description": "var(--Gray-50)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Tertiary)": {
+    "prefix": "--Border-Light-Tertiary",
+    "body": ["--Border-Light-Tertiary"],
+    "description": "var(--Gray-100)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Quaternary)": {
+    "prefix": "--Border-Light-Quaternary",
+    "body": ["--Border-Light-Quaternary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Disabled)": {
+    "prefix": "--Border-Light-Disabled",
+    "body": ["--Border-Light-Disabled"],
+    "description": "var(--Gray-500)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Primary)": {
+    "prefix": "--Border-Dark-Primary",
+    "body": ["--Border-Dark-Primary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Secondary)": {
+    "prefix": "--Border-Dark-Secondary",
+    "body": ["--Border-Dark-Secondary"],
+    "description": "var(--Gray-1150)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Tertiary)": {
+    "prefix": "--Border-Dark-Tertiary",
+    "body": ["--Border-Dark-Tertiary"],
+    "description": "var(--Gray-1250)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Quaternary)": {
+    "prefix": "--Border-Dark-Quaternary",
+    "body": ["--Border-Dark-Quaternary"],
+    "description": "var(--Gray-1300)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Disabled)": {
+    "prefix": "--Border-Dark-Disabled",
+    "body": ["--Border-Dark-Disabled"],
+    "description": "var(--Gray-1500)",
+    "scope": "css,scss"
+  },
+
+  "var(--Text-Light-Primary)": {
+    "prefix": "--Text-Light-Primary",
+    "body": ["--Text-Light-Primary"],
+    "description": "var(--Gray-0)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Secondary)": {
+    "prefix": "--Text-Light-Secondary",
+    "body": ["--Text-Light-Secondary"],
+    "description": "var(--Gray-50)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Tertiary)": {
+    "prefix": "--Text-Light-Tertiary",
+    "body": ["--Text-Light-Tertiary"],
+    "description": "var(--Gray-100)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Quaternary)": {
+    "prefix": "--Text-Light-Quaternary",
+    "body": ["--Text-Light-Quaternary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Disabled)": {
+    "prefix": "--Text-Light-Disabled",
+    "body": ["--Text-Light-Disabled"],
+    "description": "var(--Gray-500)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Primary)": {
+    "prefix": "--Text-Dark-Primary",
+    "body": ["--Text-Dark-Primary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Secondary)": {
+    "prefix": "--Text-Dark-Secondary",
+    "body": ["--Text-Dark-Secondary"],
+    "description": "var(--Gray-1150)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Tertiary)": {
+    "prefix": "--Text-Dark-Tertiary",
+    "body": ["--Text-Dark-Tertiary"],
+    "description": "var(--Gray-1250)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Quaternary)": {
+    "prefix": "--Text-Dark-Quaternary",
+    "body": ["--Text-Dark-Quaternary"],
+    "description": "var(--Gray-1300)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Disabled)": {
+    "prefix": "--Text-Dark-Disabled",
+    "body": ["--Text-Dark-Disabled"],
+    "description": "var(--Gray-1500)",
     "scope": "css,scss"
   }
 }

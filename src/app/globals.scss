@@ -1,4 +1,11 @@
 :root {
+  --Primary-Light: #1d83f8;
+  --Primary-Dark: #8a2be2;
+
+  --Success: #53c253;
+  --Warning: #e0b53f;
+  --Danger: #db4747;
+
   --Gray-0: #ffffff;
   --Gray-50: #f6f6f6;
   --Gray-100: #eeeeee;
@@ -30,6 +37,39 @@
   --Gray-1400: #111111;
   --Gray-1450: #090909;
   --Gray-1500: #000000;
+
+  --BG-Light-Primary: var(--Gray-0);
+  --BG-Light-Secondary: var(--Gray-50);
+  --BG-Light-Tertiary: var(--Gray-100);
+  --BG-Light-Quaternary: var(--Gray-200);
+  --BG-Light-Disabled: var(--Gray-500);
+  --BG-Dark-Primary: var(--Gray-1000);
+  --BG-Dark-Secondary: var(--Gray-1150);
+  --BG-Dark-Tertiary: var(--Gray-1250);
+  --BG-Dark-Quaternary: var(--Gray-1300);
+  --BG-Dark-Disabled: var(--Gray-1500);
+
+  --Border-Light-Primary: var(--Gray-0);
+  --Border-Light-Secondary: var(--Gray-50);
+  --Border-Light-Tertiary: var(--Gray-100);
+  --Border-Light-Quaternary: var(--Gray-200);
+  --Border-Light-Disabled: var(--Gray-500);
+  --Border-Dark-Primary: var(--Gray-1000);
+  --Border-Dark-Secondary: var(--Gray-1150);
+  --Border-Dark-Tertiary: var(--Gray-1250);
+  --Border-Dark-Quaternary: var(--Gray-1300);
+  --Border-Dark-Disabled: var(--Gray-1500);
+
+  --Text-Light-Primary: var(--Gray-0);
+  --Text-Light-Secondary: var(--Gray-50);
+  --Text-Light-Tertiary: var(--Gray-100);
+  --Text-Light-Quaternary: var(--Gray-200);
+  --Text-Light-Disabled: var(--Gray-500);
+  --Text-Dark-Primary: var(--Gray-1000);
+  --Text-Dark-Secondary: var(--Gray-1150);
+  --Text-Dark-Tertiary: var(--Gray-1250);
+  --Text-Dark-Quaternary: var(--Gray-1300);
+  --Text-Dark-Disabled: var(--Gray-1500);
 }
 
 html,

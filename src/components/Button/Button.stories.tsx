@@ -13,10 +13,34 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     label: "버튼",
     size: "small",
     type: "primary",
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "secondary",
+  },
+};
+
+export const Tertiary: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "tertiary",
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "danger",
   },
 };

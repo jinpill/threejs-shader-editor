@@ -51,7 +51,7 @@
   &.primary {
     border-color: transparent;
     background-color: var(--Primary-Light);
-    color: var(--Gray-0);
+    color: var(--Text-Dark-Primary);
 
     &:not(:disabled) {
       &:hover {
@@ -71,7 +71,7 @@
   &.secondary {
     border-color: var(--Gray-400);
     background-color: var(--BG-Light-Secondary);
-    color: var(--gray-1200);
+    color: var(--Text-Light-Primary);
 
     &:not(:disabled) {
       &:hover {
@@ -85,34 +85,34 @@
 
     &:disabled {
       background-color: to-darkness(var(--BG-Light-Secondary), 0.05);
-      color: to-brightness(var(--Gray-1200), 0.35);
+      color: var(--Text-Light-Disabled);
     }
   }
 
   &.tertiary {
     border-color: transparent;
     background-color: transparent;
-    color: var(--gray-1200);
+    color: var(--Text-Light-Primary);
 
     &:not(:disabled) {
       &:hover {
-        background-color: to-opacity(var(--Gray-1500), 0.95);
+        background-color: to-opacity(black, 0.95);
       }
 
       &:active {
-        background-color: to-opacity(var(--Gray-1500), 0.9);
+        background-color: to-opacity(black, 0.9);
       }
     }
 
     &:disabled {
-      color: to-brightness(var(--Gray-1200), 0.35);
+      color: var(--Text-Light-Disabled);
     }
   }
 
   &.danger {
     border-color: transparent;
     background-color: var(--Danger);
-    color: var(--Gray-0);
+    color: var(--Text-Dark-Primary);
 
     &:not(:disabled) {
       &:hover {

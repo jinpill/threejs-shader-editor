@@ -17,28 +17,26 @@ export type ButtonProps = {
 export type ButtonSize = "small" | "large";
 export type ButtonType = "primary" | "secondary" | "tertiary" | "danger";
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  return (
-    <button
-      ref={ref}
-      className={classNames(
-        style.button,
-        style[props.size ?? "small"],
-        style[props.type ?? "secondary"],
-        {
-          [style.fullWidth]: props.isFullWidth,
-          [style.minWidthNone]: props.minWidth === "none",
-        },
-      )}
-      tabIndex={props.tabIndex}
-      disabled={props.isDisabled}
-      onClick={props.onClick}
-    >
-      {props.children}
-      {props.label}
-    </button>
-  );
-});
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
+  <button
+    ref={ref}
+    className={classNames(
+      style.button,
+      style[props.size ?? "small"],
+      style[props.type ?? "secondary"],
+      {
+        [style.fullWidth]: props.isFullWidth,
+        [style.minWidthNone]: props.minWidth === "none",
+      },
+    )}
+    tabIndex={props.tabIndex}
+    disabled={props.isDisabled}
+    onClick={props.onClick}
+  >
+    {props.children}
+    {props.label}
+  </button>
+));
 
 Button.displayName = "Button";
 export default Button;

@@ -344,31 +344,31 @@
   "var(--Border-Light-Primary)": {
     "prefix": "--Border-Light-Primary",
     "body": ["--Border-Light-Primary"],
-    "description": "var(--Gray-0)",
+    "description": "var(--Gray-400)",
     "scope": "css,scss"
   },
   "var(--Border-Light-Secondary)": {
     "prefix": "--Border-Light-Secondary",
     "body": ["--Border-Light-Secondary"],
-    "description": "var(--Gray-50)",
+    "description": "var(--Gray-300)",
     "scope": "css,scss"
   },
   "var(--Border-Light-Tertiary)": {
     "prefix": "--Border-Light-Tertiary",
     "body": ["--Border-Light-Tertiary"],
-    "description": "var(--Gray-100)",
+    "description": "var(--Gray-200)",
     "scope": "css,scss"
   },
   "var(--Border-Light-Quaternary)": {
     "prefix": "--Border-Light-Quaternary",
     "body": ["--Border-Light-Quaternary"],
-    "description": "var(--Gray-200)",
+    "description": "var(--Gray-100)",
     "scope": "css,scss"
   },
   "var(--Border-Light-Disabled)": {
     "prefix": "--Border-Light-Disabled",
     "body": ["--Border-Light-Disabled"],
-    "description": "var(--Gray-500)",
+    "description": "var(--Gray-200)",
     "scope": "css,scss"
   },
   "var(--Border-Dark-Primary)": {
@@ -405,61 +405,61 @@
   "var(--Text-Light-Primary)": {
     "prefix": "--Text-Light-Primary",
     "body": ["--Text-Light-Primary"],
-    "description": "var(--Gray-0)",
+    "description": "var(--Gray-1200)",
     "scope": "css,scss"
   },
   "var(--Text-Light-Secondary)": {
     "prefix": "--Text-Light-Secondary",
     "body": ["--Text-Light-Secondary"],
-    "description": "var(--Gray-50)",
+    "description": "var(--Gray-1000)",
     "scope": "css,scss"
   },
   "var(--Text-Light-Tertiary)": {
     "prefix": "--Text-Light-Tertiary",
     "body": ["--Text-Light-Tertiary"],
-    "description": "var(--Gray-100)",
+    "description": "var(--Gray-800)",
     "scope": "css,scss"
   },
   "var(--Text-Light-Quaternary)": {
     "prefix": "--Text-Light-Quaternary",
     "body": ["--Text-Light-Quaternary"],
-    "description": "var(--Gray-200)",
+    "description": "var(--Gray-600)",
     "scope": "css,scss"
   },
   "var(--Text-Light-Disabled)": {
     "prefix": "--Text-Light-Disabled",
     "body": ["--Text-Light-Disabled"],
-    "description": "var(--Gray-500)",
+    "description": "var(--Gray-800)",
     "scope": "css,scss"
   },
   "var(--Text-Dark-Primary)": {
     "prefix": "--Text-Dark-Primary",
     "body": ["--Text-Dark-Primary"],
-    "description": "var(--Gray-1000)",
+    "description": "var(--Gray-0)",
     "scope": "css,scss"
   },
   "var(--Text-Dark-Secondary)": {
     "prefix": "--Text-Dark-Secondary",
     "body": ["--Text-Dark-Secondary"],
-    "description": "var(--Gray-1150)",
+    "description": "var(--Gray-200)",
     "scope": "css,scss"
   },
   "var(--Text-Dark-Tertiary)": {
     "prefix": "--Text-Dark-Tertiary",
     "body": ["--Text-Dark-Tertiary"],
-    "description": "var(--Gray-1250)",
+    "description": "var(--Gray-400)",
     "scope": "css,scss"
   },
   "var(--Text-Dark-Quaternary)": {
     "prefix": "--Text-Dark-Quaternary",
     "body": ["--Text-Dark-Quaternary"],
-    "description": "var(--Gray-1300)",
+    "description": "var(--Gray-600)",
     "scope": "css,scss"
   },
   "var(--Text-Dark-Disabled)": {
     "prefix": "--Text-Dark-Disabled",
     "body": ["--Text-Dark-Disabled"],
-    "description": "var(--Gray-1500)",
+    "description": "var(--Gray-400)",
     "scope": "css,scss"
   }
 }

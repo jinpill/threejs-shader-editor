@@ -1,4 +1,18 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
 :root {
+  --Radius-Extra-Small: 0.25rem;
+  --Radius-Small: 0.5rem;
+  --Radius-Medium: 0.75rem;
+  --Radius-Large: 1rem;
+  --Radius-Extra-Large: 1.75rem;
+
+  --Text-Extra-Small: 0.625rem;
+  --Text-Small: 0.75rem;
+  --Text-Medium: 0.875rem;
+  --Text-Large: 1rem;
+  --Text-Extra-Large: 1.25rem;
+
   --Primary-Light: #1d83f8;
   --Primary-Dark: #8a2be2;
 
@@ -106,4 +120,13 @@ a {
 
 html.dark {
   color-scheme: dark;
+}
+
+body,
+button,
+select,
+input,
+textarea {
+  font-family: "Pretendard Variable", sans-serif;
+  font-weight: 500;
 }

@@ -13,8 +13,28 @@
   },
   "var(--variable)": {
     "prefix": "var()",
-    "body": ["var(--${1:variable})"],
+    "body": ["var(--${1:variable});"],
     "description": "var(--variable)",
     "scope": "css,scss"
+  },
+  "Import Utilities": {
+    "prefix": "import-utilities",
+    "body": ["@import \"@/styles/utils.scss\";"],
+    "description": "Import Utilities"
+  },
+  "To Brightness": {
+    "prefix": "to-brightness",
+    "body": ["to-brightness(${1:$color}, ${2:$weight});"],
+    "description": "to-brightness"
+  },
+  "To Darkness": {
+    "prefix": "to-darkness",
+    "body": ["to-darkness(${1:$color}, ${2:$weight});"],
+    "description": "to-darkness"
+  },
+  "To Opacity": {
+    "prefix": "to-opacity",
+    "body": ["to-opacity(${1:$color}, ${2:$weight});"],
+    "description": "to-opacity"
   }
 }

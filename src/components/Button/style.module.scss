@@ -1,0 +1,131 @@
+@import "@/styles/utils.scss";
+
+.button {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  border-radius: var(--Radius-Small);
+  border: 0.0625rem solid;
+
+  letter-spacing: 0.03125rem;
+  user-select: none;
+
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  transition-property: border-color, background-color, color;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.small {
+    height: 2.25rem;
+    padding: 0 0.875rem;
+    font-size: var(--Text-Small);
+  }
+
+  &.large {
+    height: 3.25rem;
+    padding: 0 1.25rem;
+    font-size: var(--Text-Large);
+  }
+
+  &:not(.minWidthNone) {
+    &.small {
+      min-width: 5rem;
+    }
+
+    &.large {
+      min-width: 7rem;
+    }
+  }
+
+  &.primary {
+    border-color: transparent;
+    background-color: var(--Primary-Light);
+    color: var(--Gray-0);
+
+    &:not(:disabled) {
+      &:hover {
+        background-color: to-darkness(var(--Primary-Light), 0.1);
+      }
+
+      &:active {
+        background-color: to-darkness(var(--Primary-Light), 0.2);
+      }
+    }
+
+    &:disabled {
+      background-color: to-brightness(var(--Primary-Light), 0.25);
+    }
+  }
+
+  &.secondary {
+    border-color: var(--Gray-400);
+    background-color: var(--BG-Light-Secondary);
+    color: var(--gray-1200);
+
+    &:not(:disabled) {
+      &:hover {
+        background-color: to-darkness(var(--BG-Light-Secondary), 0.05);
+      }
+
+      &:active {
+        background-color: to-darkness(var(--BG-Light-Secondary), 0.1);
+      }
+    }
+
+    &:disabled {
+      background-color: to-darkness(var(--BG-Light-Secondary), 0.05);
+      color: to-brightness(var(--Gray-1200), 0.35);
+    }
+  }
+
+  &.tertiary {
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--gray-1200);
+
+    &:not(:disabled) {
+      &:hover {
+        background-color: to-opacity(var(--Gray-1500), 0.95);
+      }
+
+      &:active {
+        background-color: to-opacity(var(--Gray-1500), 0.9);
+      }
+    }
+
+    &:disabled {
+      color: to-brightness(var(--Gray-1200), 0.35);
+    }
+  }
+
+  &.danger {
+    border-color: transparent;
+    background-color: var(--Danger);
+    color: var(--Gray-0);
+
+    &:not(:disabled) {
+      &:hover {
+        background-color: to-darkness(var(--Danger), 0.1);
+      }
+
+      &:active {
+        background-color: to-darkness(var(--Danger), 0.2);
+      }
+    }
+
+    &:disabled {
+      background-color: to-brightness(var(--Danger), 0.25);
+    }
+  }
+}

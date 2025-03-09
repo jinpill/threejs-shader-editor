@@ -1,4 +1,66 @@
 {
+  "var(--Radius-Extra-Small)": {
+    "prefix": "--Radius-Extra-Small",
+    "body": ["--Radius-Extra-Small"],
+    "description": "0.25rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Small)": {
+    "prefix": "--Radius-Small",
+    "body": ["--Radius-Small"],
+    "description": "0.5rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Medium)": {
+    "prefix": "--Radius-Medium",
+    "body": ["--Radius-Medium"],
+    "description": "0.75rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Large)": {
+    "prefix": "--Radius-Large",
+    "body": ["--Radius-Large"],
+    "description": "1rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Extra-Large)": {
+    "prefix": "--Radius-Extra-Large",
+    "body": ["--Radius-Extra-Large"],
+    "description": "1.75rem",
+    "scope": "css,scss"
+  },
+
+  "var(--Text-Extra-Small)": {
+    "prefix": "--Text-Extra-Small",
+    "body": ["--Text-Extra-Small"],
+    "description": "0.625rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Small)": {
+    "prefix": "--Text-Small",
+    "body": ["--Text-Small"],
+    "description": "0.75rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Medium)": {
+    "prefix": "--Text-Medium",
+    "body": ["--Text-Medium"],
+    "description": "0.875rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Large)": {
+    "prefix": "--Text-Large",
+    "body": ["--Text-Large"],
+    "description": "1rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Extra-Large)": {
+    "prefix": "--Text-Extra-Large",
+    "body": ["--Text-Extra-Large"],
+    "description": "1.25rem",
+    "scope": "css,scss"
+  },
+
   "var(--Primary-Light)": {
     "prefix": "--Primary-Light",
     "body": ["--Primary-Light"],

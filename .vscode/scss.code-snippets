@@ -1,0 +1,20 @@
+{
+  "Variable": {
+    "prefix": "new-scss-variable",
+    "body": [
+      "  \"var(${TM_SELECTED_TEXT})\": {",
+      "    \"prefix\": \"${TM_SELECTED_TEXT}\",",
+      "    \"body\": [\"${TM_SELECTED_TEXT}\"],",
+      "    \"description\": \"${2:#ffffff}\",",
+      "    \"scope\": \"css,scss\",",
+      "  },"
+    ],
+    "description": "Variable"
+  },
+  "var(--variable)": {
+    "prefix": "var()",
+    "body": ["var(--${1:variable})"],
+    "description": "var(--variable)",
+    "scope": "css,scss"
+  }
+}

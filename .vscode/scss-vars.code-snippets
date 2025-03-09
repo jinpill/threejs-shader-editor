@@ -1,206 +1,187 @@
 {
-  "Variable": {
-    "prefix": "new-scss-variable",
-    "body": [
-      "  \"var(${TM_SELECTED_TEXT})\": {",
-      "    \"prefix\": \"${TM_SELECTED_TEXT}\",",
-      "    \"body\": [\"${TM_SELECTED_TEXT}\"],",
-      "    \"description\": \"${2:#ffffff}\",",
-      "    \"scope\": \"css,scss\",",
-      "  },"
-    ],
-    "description": "Variable"
-  },
-  "var(--variable)": {
-    "prefix": "var()",
-    "body": ["var(--${1:variable})"],
-    "description": "var(--variable)",
+  "var(--Gray-0)": {
+    "prefix": "--Gray-0",
+    "body": ["--Gray-0"],
+    "description": "#ffffff",
     "scope": "css,scss"
   },
-
-  "var(Gray-0)": {
-    "prefix": "Gray-0",
-    "body": ["Gray-0"],
-    "description": "#FFFFFF",
+  "var(--Gray-50)": {
+    "prefix": "--Gray-50",
+    "body": ["--Gray-50"],
+    "description": "#f6f6f6",
     "scope": "css,scss"
   },
-  "var(Gray-50)": {
-    "prefix": "Gray-50",
-    "body": ["Gray-50"],
-    "description": "#F6F6F6",
+  "var(--Gray-100)": {
+    "prefix": "--Gray-100",
+    "body": ["--Gray-100"],
+    "description": "#eeeeee",
     "scope": "css,scss"
   },
-  "var(Gray-100)": {
-    "prefix": "Gray-100",
-    "body": ["Gray-100"],
-    "description": "#EEEEEE",
+  "var(--Gray-150)": {
+    "prefix": "--Gray-150",
+    "body": ["--Gray-150"],
+    "description": "#e6e6e6",
     "scope": "css,scss"
   },
-  "var(Gray-150)": {
-    "prefix": "Gray-150",
-    "body": ["Gray-150"],
-    "description": "#E6E6E6",
+  "var(--Gray-200)": {
+    "prefix": "--Gray-200",
+    "body": ["--Gray-200"],
+    "description": "#dddddd",
     "scope": "css,scss"
   },
-  "var(Gray-200)": {
-    "prefix": "Gray-200",
-    "body": ["Gray-200"],
-    "description": "#DDDDDD",
+  "var(--Gray-250)": {
+    "prefix": "--Gray-250",
+    "body": ["--Gray-250"],
+    "description": "#d5d5d5",
     "scope": "css,scss"
   },
-  "var(Gray-250)": {
-    "prefix": "Gray-250",
-    "body": ["Gray-250"],
-    "description": "#D5D5D5",
+  "var(--Gray-300)": {
+    "prefix": "--Gray-300",
+    "body": ["--Gray-300"],
+    "description": "#cccccc",
     "scope": "css,scss"
   },
-  "var(Gray-300)": {
-    "prefix": "Gray-300",
-    "body": ["Gray-300"],
-    "description": "#CCCCCC",
+  "var(--Gray-350)": {
+    "prefix": "--Gray-350",
+    "body": ["--Gray-350"],
+    "description": "#c4c4c4",
     "scope": "css,scss"
   },
-  "var(Gray-350)": {
-    "prefix": "Gray-350",
-    "body": ["Gray-350"],
-    "description": "#C4C4C4",
+  "var(--Gray-400)": {
+    "prefix": "--Gray-400",
+    "body": ["--Gray-400"],
+    "description": "#bbbbbb",
     "scope": "css,scss"
   },
-  "var(Gray-400)": {
-    "prefix": "Gray-400",
-    "body": ["Gray-400"],
-    "description": "#BBBBBB",
+  "var(--Gray-450)": {
+    "prefix": "--Gray-450",
+    "body": ["--Gray-450"],
+    "description": "#b3b3b3",
     "scope": "css,scss"
   },
-  "var(Gray-450)": {
-    "prefix": "Gray-450",
-    "body": ["Gray-450"],
-    "description": "#B3B3B3",
+  "var(--Gray-500)": {
+    "prefix": "--Gray-500",
+    "body": ["--Gray-500"],
+    "description": "#aaaaaa",
     "scope": "css,scss"
   },
-  "var(Gray-500)": {
-    "prefix": "Gray-500",
-    "body": ["Gray-500"],
-    "description": "#AAAAAA",
+  "var(--Gray-550)": {
+    "prefix": "--Gray-550",
+    "body": ["--Gray-550"],
+    "description": "#a2a2a2",
     "scope": "css,scss"
   },
-  "var(Gray-550)": {
-    "prefix": "Gray-550",
-    "body": ["Gray-550"],
-    "description": "#A2A2A2",
-    "scope": "css,scss"
-  },
-  "var(Gray-600)": {
-    "prefix": "Gray-600",
-    "body": ["Gray-600"],
+  "var(--Gray-600)": {
+    "prefix": "--Gray-600",
+    "body": ["--Gray-600"],
     "description": "#999999",
     "scope": "css,scss"
   },
-  "var(Gray-650)": {
-    "prefix": "Gray-650",
-    "body": ["Gray-650"],
+  "var(--Gray-650)": {
+    "prefix": "--Gray-650",
+    "body": ["--Gray-650"],
     "description": "#919191",
     "scope": "css,scss"
   },
-  "var(Gray-700)": {
-    "prefix": "Gray-700",
-    "body": ["Gray-700"],
+  "var(--Gray-700)": {
+    "prefix": "--Gray-700",
+    "body": ["--Gray-700"],
     "description": "#888888",
     "scope": "css,scss"
   },
-  "var(Gray-750)": {
-    "prefix": "Gray-750",
-    "body": ["Gray-750"],
+  "var(--Gray-750)": {
+    "prefix": "--Gray-750",
+    "body": ["--Gray-750"],
     "description": "#808080",
     "scope": "css,scss"
   },
-  "var(Gray-800)": {
-    "prefix": "Gray-800",
-    "body": ["Gray-800"],
+  "var(--Gray-800)": {
+    "prefix": "--Gray-800",
+    "body": ["--Gray-800"],
     "description": "#777777",
     "scope": "css,scss"
   },
-  "var(Gray-850)": {
-    "prefix": "Gray-850",
-    "body": ["Gray-850"],
-    "description": "#6F6F6F",
+  "var(--Gray-850)": {
+    "prefix": "--Gray-850",
+    "body": ["--Gray-850"],
+    "description": "#6f6f6f",
     "scope": "css,scss"
   },
-  "var(Gray-900)": {
-    "prefix": "Gray-900",
-    "body": ["Gray-900"],
+  "var(--Gray-900)": {
+    "prefix": "--Gray-900",
+    "body": ["--Gray-900"],
     "description": "#666666",
     "scope": "css,scss"
   },
-  "var(Gray-950)": {
-    "prefix": "Gray-950",
-    "body": ["Gray-950"],
-    "description": "#5E5E5E",
+  "var(--Gray-950)": {
+    "prefix": "--Gray-950",
+    "body": ["--Gray-950"],
+    "description": "#5e5e5e",
     "scope": "css,scss"
   },
-  "var(Gray-1000)": {
-    "prefix": "Gray-1000",
-    "body": ["Gray-1000"],
+  "var(--Gray-1000)": {
+    "prefix": "--Gray-1000",
+    "body": ["--Gray-1000"],
     "description": "#555555",
     "scope": "css,scss"
   },
-  "var(Gray-1050)": {
-    "prefix": "Gray-1050",
-    "body": ["Gray-1050"],
-    "description": "#4D4D4D",
+  "var(--Gray-1050)": {
+    "prefix": "--Gray-1050",
+    "body": ["--Gray-1050"],
+    "description": "#4d4d4d",
     "scope": "css,scss"
   },
-  "var(Gray-1100)": {
-    "prefix": "Gray-1100",
-    "body": ["Gray-1100"],
+  "var(--Gray-1100)": {
+    "prefix": "--Gray-1100",
+    "body": ["--Gray-1100"],
     "description": "#444444",
     "scope": "css,scss"
   },
-  "var(Gray-1150)": {
-    "prefix": "Gray-1150",
-    "body": ["Gray-1150"],
-    "description": "#3C3C3C",
+  "var(--Gray-1150)": {
+    "prefix": "--Gray-1150",
+    "body": ["--Gray-1150"],
+    "description": "#3c3c3c",
     "scope": "css,scss"
   },
-  "var(Gray-1200)": {
-    "prefix": "Gray-1200",
-    "body": ["Gray-1200"],
+  "var(--Gray-1200)": {
+    "prefix": "--Gray-1200",
+    "body": ["--Gray-1200"],
     "description": "#333333",
     "scope": "css,scss"
   },
-  "var(Gray-1250)": {
-    "prefix": "Gray-1250",
-    "body": ["Gray-1250"],
-    "description": "#2B2B2B",
+  "var(--Gray-1250)": {
+    "prefix": "--Gray-1250",
+    "body": ["--Gray-1250"],
+    "description": "#2b2b2b",
     "scope": "css,scss"
   },
-  "var(Gray-1300)": {
-    "prefix": "Gray-1300",
-    "body": ["Gray-1300"],
+  "var(--Gray-1300)": {
+    "prefix": "--Gray-1300",
+    "body": ["--Gray-1300"],
     "description": "#222222",
     "scope": "css,scss"
   },
-  "var(Gray-1350)": {
-    "prefix": "Gray-1350",
-    "body": ["Gray-1350"],
-    "description": "#1A1A1A",
+  "var(--Gray-1350)": {
+    "prefix": "--Gray-1350",
+    "body": ["--Gray-1350"],
+    "description": "#1a1a1a",
     "scope": "css,scss"
   },
-  "var(Gray-1400)": {
-    "prefix": "Gray-1400",
-    "body": ["Gray-1400"],
+  "var(--Gray-1400)": {
+    "prefix": "--Gray-1400",
+    "body": ["--Gray-1400"],
     "description": "#111111",
     "scope": "css,scss"
   },
-  "var(Gray-1450)": {
-    "prefix": "Gray-1450",
-    "body": ["Gray-1450"],
+  "var(--Gray-1450)": {
+    "prefix": "--Gray-1450",
+    "body": ["--Gray-1450"],
     "description": "#090909",
     "scope": "css,scss"
   },
-  "var(Gray-1500)": {
-    "prefix": "Gray-1500",
-    "body": ["Gray-1500"],
+  "var(--Gray-1500)": {
+    "prefix": "--Gray-1500",
+    "body": ["--Gray-1500"],
     "description": "#000000",
     "scope": "css,scss"
   }

@@ -7,7 +7,7 @@ export type ButtonProps = {
   tabIndex?: number;
   size?: ButtonSize;
   type?: ButtonType;
-  minWidth?: "none";
+  minWidth?: "auto" | "none";
   isFullWidth?: boolean;
   isDisabled?: boolean;
   children?: React.ReactNode;

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { getDarkModeConfigs } from "@/stories/utils";
 import Button from ".";
 
+const darkModeConfigs = getDarkModeConfigs();
 const meta = {
   title: "Reusable/Button",
   component: Button,
@@ -43,4 +45,40 @@ export const Danger: Story = {
     size: "small",
     type: "danger",
   },
+};
+
+export const PrimaryDark: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "primary",
+  },
+  ...darkModeConfigs,
+};
+
+export const SecondaryDark: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "secondary",
+  },
+  ...darkModeConfigs,
+};
+
+export const TertiaryDark: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "tertiary",
+  },
+  ...darkModeConfigs,
+};
+
+export const DangerDark: Story = {
+  args: {
+    label: "버튼",
+    size: "small",
+    type: "danger",
+  },
+  ...darkModeConfigs,
 };

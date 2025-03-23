@@ -5,6 +5,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import ThemeProvider from "./Initializer";
 import Header from "./Header";
+
+import "material-icons/iconfont/material-icons.css";
 import "./globals.scss";
 
 const notoSansKr = Noto_Sans_KR({

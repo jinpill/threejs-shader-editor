@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Context from "@/components/MountAnimation/context";
 
-const useUnmountAnimation = () => {
+const useMountAnimation = () => {
   const { state, unmount } = useContext(Context);
   const isUnmounting = state === "unmounting";
 
@@ -16,4 +16,4 @@ const useUnmountAnimation = () => {
   };
 };
 
-export default useUnmountAnimation;
+export default useMountAnimation;

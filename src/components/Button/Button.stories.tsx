@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { getDarkModeConfigs } from "@/stories/utils";
+import { getContainerConfigs } from "@/stories/utils";
 import Button from ".";
 
-const darkModeConfigs = getDarkModeConfigs();
+const darkModeConfigs = getContainerConfigs({
+  theme: "dark",
+});
+
 const meta = {
   title: "Reusable/Button",
   component: Button,

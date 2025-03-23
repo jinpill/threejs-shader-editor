@@ -1,16 +1,16 @@
 import type { Parameters, Decorator } from "@storybook/react";
-import DarkMode from "./DarkMode";
+import Container, { ContainerProps } from "./Container";
 
-export const getDarkModeConfigs = () => {
+export const getContainerConfigs = (params?: Omit<ContainerProps, "children">) => {
   const parameters: Parameters = {
     layout: "fullscreen",
   };
 
   const decorators: Decorator[] = [
     (Story) => (
-      <DarkMode>
+      <Container {...params}>
         <Story />
-      </DarkMode>
+      </Container>
     ),
   ];
 

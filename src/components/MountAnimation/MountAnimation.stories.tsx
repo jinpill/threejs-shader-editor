@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import MountAnimation from ".";
 
 import style from "./style.module.scss";
-import useUnmountAnimation from "@/hooks/useUnmountAnimation";
+import useMountAnimation from "@/hooks/useMountAnimation";
 
 const meta = {
   title: "Reusable/MountAnimation",
@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const Children = (props: React.PropsWithChildren) => {
-  const { isUnmounting, handleAnimationEnd } = useUnmountAnimation();
+  const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
   return (
     <div

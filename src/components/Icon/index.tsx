@@ -4,11 +4,12 @@ import type { MaterialIcon } from "material-icons";
 import style from "./style.module.scss";
 
 export type IconProps = {
-  icon: MaterialIcon;
+  icon: IconName;
   type?: IconType;
   className?: string;
 };
 
+export type IconName = MaterialIcon;
 export type IconType = "filled" | "outlined" | "round" | "sharp" | "two-tone";
 
 const Icon = (props: IconProps) => {

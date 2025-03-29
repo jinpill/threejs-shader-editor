@@ -1,12 +1,15 @@
+import { useCallback, useEffect } from "react";
 import classNames from "classnames";
+
 import Scrim from "@/components/Scrim";
 import Icon, { type IconName } from "@/components/Icon";
+import Button, { type ButtonType } from "@/components/Button";
 import useMountAnimation from "@/hooks/useMountAnimation";
+
 import style from "./style.module.scss";
-import { useCallback, useEffect } from "react";
 
 export type DialogProps<V> = {
-  icon: IconName;
+  type: DialogType;
   title: string;
   message: string;
   defaultValue: V;
@@ -14,9 +17,12 @@ export type DialogProps<V> = {
   callback: (value: V) => void;
 };
 
+export type DialogType = "info" | "success" | "warning" | "error";
+
 export type DialogButton<V> = {
   icon: IconName;
   label: string;
+  type: ButtonType;
   value: V;
 };
 
@@ -43,17 +49,18 @@ const Dialog = <V,>(props: DialogProps<V>) => {
   return (
     <Scrim onClick={handleClickAway}>
       <div
-        className={classNames(style.dialog, {
+        className={classNames(style.dialog, style[props.type], {
           [style.unmounting]: isUnmounting,
         })}
         onTransitionEnd={handleAnimationEnd}
-        onClick={() => props.callback(props.buttons[0].value)}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className={style.icon}>
-          <Icon icon={props.icon} />
+        <div className={style.iconWrapper}>
+          <Icon className={style.icon} icon="info" type="outlined" />
         </div>
-        <button tabIndex={-1} onClick={handleClickAway}>
-          <Icon icon="close" />
+
+        <button tabIndex={-1} className={style.closeButton} onClick={handleClickAway}>
+          <Icon className={style.icon} icon="close" />
         </button>
 
         <div className={style.title}>{props.title}</div>
@@ -61,10 +68,14 @@ const Dialog = <V,>(props: DialogProps<V>) => {
 
         <div className={style.buttons}>
           {props.buttons.map((button, i) => (
-            <button key={i} onClick={() => props.callback(button.value)}>
-              <Icon icon={button.icon} />
-              {button.label}
-            </button>
+            <Button
+              key={i}
+              className={style.button}
+              type={button.type}
+              icon={button.icon}
+              label={button.label}
+              onClick={() => props.callback(button.value)}
+            />
           ))}
         </div>
       </div>

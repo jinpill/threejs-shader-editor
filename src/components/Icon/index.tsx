@@ -7,6 +7,7 @@ export type IconProps = {
   icon: IconName;
   type?: IconType;
   className?: string;
+  style?: React.CSSProperties;
 };
 
 export type IconName = MaterialIcon;
@@ -21,7 +22,12 @@ const Icon = (props: IconProps) => {
   }, [props.type]);
 
   return (
-    <div className={classNames(style.icon, className, props.className)}>{props.icon}</div>
+    <div
+      className={classNames(style.icon, className, props.className)}
+      style={props.style}
+    >
+      {props.icon}
+    </div>
   );
 };
 

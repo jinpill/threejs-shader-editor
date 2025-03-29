@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import Icon, { type IconName } from "@/components/Icon";
 import style from "./style.module.scss";
 
 export type ButtonProps = {
@@ -8,10 +9,12 @@ export type ButtonProps = {
   size?: ButtonSize;
   type?: ButtonType;
   minWidth?: "auto" | "none";
+  icon?: IconName;
   isFullWidth?: boolean;
   isDisabled?: boolean;
-  children?: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  children?: React.ReactNode;
+  className?: string;
 };
 
 export type ButtonSize = "small" | "large";
@@ -22,6 +25,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     ref={ref}
     className={classNames(
       style.button,
+      props.className,
       style[props.size ?? "small"],
       style[props.type ?? "secondary"],
       {
@@ -33,8 +37,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     disabled={props.isDisabled}
     onClick={props.onClick}
   >
-    {props.children}
+    {props.icon && <Icon className={style.icon} icon={props.icon} />}
     {props.label}
+    {props.children}
   </button>
 ));
 

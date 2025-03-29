@@ -1,3 +1,5 @@
+@import "@/styles/utils.scss";
+
 @keyframes appear {
   from {
     transform: translate(-50%, calc(-50% - 0.5rem));
@@ -19,6 +21,12 @@
 }
 
 .dialog {
+  width: 25rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -32,5 +40,114 @@
 
   &.disappear {
     animation: disappear 0.2s ease-in-out forwards;
+  }
+}
+
+.iconWrapper {
+  width: 4rem;
+  height: 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+
+  border-radius: 50%;
+
+  .icon {
+    display: block;
+    font-size: 2rem;
+  }
+
+  .dialog.info & {
+    background-color: to-opacity(var(--Primary-Light), 0.85);
+
+    .icon {
+      color: var(--Primary-Light);
+    }
+  }
+
+  .dialog.success & {
+    background-color: to-opacity(var(--Success), 0.85);
+
+    .icon {
+      color: var(--Success);
+    }
+  }
+
+  .dialog.warning & {
+    background-color: to-opacity(var(--Warning), 0.85);
+
+    .icon {
+      color: var(--Warning);
+    }
+  }
+
+  .dialog.error & {
+    background-color: to-opacity(var(--Danger), 0.85);
+
+    .icon {
+      color: var(--Danger);
+    }
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+
+  display: block;
+  padding: 0.25rem;
+
+  border-radius: var(--Radius-Small);
+  border: none;
+  background-color: var(--BG-Light-Primary);
+
+  cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+
+  &:active {
+    filter: brightness(0.9);
+  }
+
+  .icon {
+    display: block;
+    color: var(--Text-Light-Primary);
+  }
+}
+
+.title,
+.message {
+  font-size: var(--Text-Medium);
+  text-align: center;
+}
+
+.title {
+  margin-top: 1rem;
+  color: var(--Text-Light-Primary);
+  font-weight: 700;
+}
+
+.message {
+  margin-top: 0.5rem;
+  color: var(--Text-Light-Secondary);
+}
+
+.buttons {
+  width: 100%;
+
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+
+  .button {
+    width: 0;
+    flex: 1 1 0;
   }
 }

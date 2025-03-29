@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { getContainerConfigs } from "@/stories/utils";
 import Button from "@/components/Button";
@@ -43,6 +43,13 @@ export const Default: Story = {
       console.log("value:", value);
     };
 
+    useEffect(() => {
+      setProps((prev) => ({
+        ...(args as DialogProps<boolean>),
+        callback: prev.callback,
+      }));
+    }, [args]);
+
     return (
       <>
         <Button label="다이얼로그 열기" onClick={handleClick} />
@@ -54,18 +61,21 @@ export const Default: Story = {
     );
   },
   args: {
-    icon: "info",
-    title: "제목입니다",
-    message: "메세지입니다.",
+    type: "info",
+    title: "Lorem Ipsum Dolor Sit Amet",
+    message:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     defaultValue: false,
     buttons: [
       {
-        icon: "cancel",
+        icon: "close",
+        type: "secondary",
         label: "취소",
         value: false,
       },
       {
         icon: "check",
+        type: "primary",
         label: "확인",
         value: true,
       },

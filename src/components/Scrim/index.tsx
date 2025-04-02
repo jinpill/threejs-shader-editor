@@ -12,6 +12,11 @@ type ScrimProps = {
 const Scrim = (props: ScrimProps) => {
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.currentTarget !== event.target) return;
+    props.onClick?.(event);
+  };
+
   return (
     <div
       className={classNames(style.scrim, props.className, {
@@ -20,7 +25,7 @@ const Scrim = (props: ScrimProps) => {
       style={{
         backgroundColor: `rgba(0, 0, 0, ${props.opacity ?? 0.5})`,
       }}
-      onClick={props.onClick}
+      onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
     >
       {props.children}

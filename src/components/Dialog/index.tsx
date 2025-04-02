@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import classNames from "classnames";
 
 import Scrim from "@/components/Scrim";
@@ -28,6 +28,8 @@ export type DialogButton<V> = {
 };
 
 const Dialog = <V,>(props: DialogProps<V>) => {
+  const buttonsRef = useRef<HTMLDivElement>(null);
+
   const { callback } = props;
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
@@ -47,7 +49,43 @@ const Dialog = <V,>(props: DialogProps<V>) => {
       if (event.code === "Escape") {
         event.preventDefault();
         handleClickAway();
+        return;
       }
+
+      if (event.code === "ArrowLeft") {
+        event.preventDefault();
+        focusButton(-1);
+        return;
+      }
+
+      if (event.code === "ArrowRight") {
+        event.preventDefault();
+        focusButton(+1);
+        return;
+      }
+
+      if (event.code === "Tab") {
+        if (event.shiftKey) {
+          event.preventDefault();
+          focusButton(-1);
+        } else {
+          event.preventDefault();
+          focusButton(+1);
+        }
+        return;
+      }
+    };
+
+    const focusButton = (direction: number) => {
+      const $activeElement = document.activeElement;
+      const $buttons = Array.from(buttonsRef.current?.querySelectorAll("button") ?? []);
+
+      let index = $buttons.indexOf($activeElement as HTMLButtonElement);
+      if (direction === -1 && index === -1) {
+        index = $buttons.length;
+      }
+
+      $buttons[index + direction]?.focus();
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -61,7 +99,6 @@ const Dialog = <V,>(props: DialogProps<V>) => {
           [style.unmounting]: isUnmounting,
         })}
         onTransitionEnd={handleAnimationEnd}
-        onClick={(e) => e.stopPropagation()}
       >
         <div className={style.iconWrapper}>
           <Icon
@@ -81,7 +118,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
         <div className={style.title}>{props.title}</div>
         <div className={style.message}>{props.message}</div>
 
-        <div className={style.buttons}>
+        <div ref={buttonsRef} className={style.buttons}>
           {props.buttons.map((button, i) => (
             <Button
               key={i}

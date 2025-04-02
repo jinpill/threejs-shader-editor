@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import classNames from "classnames";
 
 import Scrim from "@/components/Scrim";
@@ -30,6 +30,13 @@ const Dialog = <V,>(props: DialogProps<V>) => {
   const { callback } = props;
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
+  const icon: IconName = useMemo(() => {
+    if (props.type === "info") return "info";
+    if (props.type === "success") return "check_circle";
+    if (props.type === "warning") return "warning_amber";
+    return "error_outline";
+  }, [props.type]);
+
   const handleClickAway = useCallback(() => {
     callback(props.defaultValue);
   }, [callback, props.defaultValue]);
@@ -56,7 +63,14 @@ const Dialog = <V,>(props: DialogProps<V>) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className={style.iconWrapper}>
-          <Icon className={style.icon} icon="info" type="outlined" />
+          <Icon
+            className={style.icon}
+            style={{
+              top: props.type === "warning" ? "-0.125rem" : "0",
+            }}
+            icon={icon}
+            type="outlined"
+          />
         </div>
 
         <button tabIndex={-1} className={style.closeButton} onClick={handleClickAway}>

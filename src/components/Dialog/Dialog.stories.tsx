@@ -66,6 +66,7 @@ export const Info: Story = {
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     defaultValue: false,
+    defaultFocus: 1,
     buttons: [
       {
         icon: "close",
@@ -133,6 +134,7 @@ export const Success: Story = {
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     defaultValue: false,
+    defaultFocus: 1,
     buttons: [
       {
         icon: "close",
@@ -200,6 +202,7 @@ export const Warning: Story = {
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     defaultValue: false,
+    defaultFocus: 0,
     buttons: [
       {
         icon: "close",
@@ -267,6 +270,7 @@ export const Error: Story = {
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     defaultValue: false,
+    defaultFocus: 0,
     buttons: [
       {
         icon: "close",

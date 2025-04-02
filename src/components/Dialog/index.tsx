@@ -13,6 +13,7 @@ export type DialogProps<V> = {
   title: string;
   message: string;
   defaultValue: V;
+  defaultFocus: number;
   buttons: DialogButton<V>[];
   callback: (value: V) => void;
 };
@@ -88,6 +89,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
               type={button.type}
               icon={button.icon}
               label={button.label}
+              useAutoFocus={i === props.defaultFocus}
               onClick={() => props.callback(button.value)}
             />
           ))}

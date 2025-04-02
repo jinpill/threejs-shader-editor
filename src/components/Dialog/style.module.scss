@@ -41,6 +41,10 @@
   &.disappear {
     animation: disappear 0.2s ease-in-out forwards;
   }
+
+  [data-theme="dark"] & {
+    background-color: var(--BG-Dark-Primary);
+  }
 }
 
 .iconWrapper {
@@ -120,6 +124,22 @@
     display: block;
     color: var(--Text-Light-Primary);
   }
+
+  [data-theme="dark"] & {
+    background-color: var(--BG-Dark-Primary);
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    &:active {
+      filter: brightness(1.2);
+    }
+
+    .icon {
+      color: var(--Text-Dark-Primary);
+    }
+  }
 }
 
 .title,
@@ -132,11 +152,19 @@
   margin-top: 1rem;
   color: var(--Text-Light-Primary);
   font-weight: 700;
+
+  [data-theme="dark"] & {
+    color: var(--Text-Dark-Primary);
+  }
 }
 
 .message {
   margin-top: 0.5rem;
   color: var(--Text-Light-Secondary);
+
+  [data-theme="dark"] & {
+    color: var(--Text-Dark-Secondary);
+  }
 }
 
 .buttons {

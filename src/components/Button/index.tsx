@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useImperativeHandle, useRef } from "react";
 import classNames from "classnames";
 import Icon, { type IconName } from "@/components/Icon";

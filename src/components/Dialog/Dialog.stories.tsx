@@ -487,7 +487,7 @@ export const WarningDark: Story = {
       },
       {
         icon: "check",
-        type: "primary",
+        type: "danger",
         label: "확인",
         value: true,
       },

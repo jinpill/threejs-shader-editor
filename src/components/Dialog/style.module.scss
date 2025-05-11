@@ -47,54 +47,8 @@
   }
 }
 
-.iconWrapper {
-  width: 4rem;
-  height: 4rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.statusIcon {
   margin-top: 0.5rem;
-
-  border-radius: 50%;
-
-  .icon {
-    display: block;
-    position: relative;
-    font-size: 2rem;
-  }
-
-  .dialog.info & {
-    background-color: to-opacity(var(--Primary-Light), 0.85);
-
-    .icon {
-      color: var(--Primary-Light);
-    }
-  }
-
-  .dialog.success & {
-    background-color: to-opacity(var(--Success), 0.85);
-
-    .icon {
-      color: var(--Success);
-    }
-  }
-
-  .dialog.warning & {
-    background-color: to-opacity(var(--Warning), 0.85);
-
-    .icon {
-      color: var(--Warning);
-    }
-  }
-
-  .dialog.error & {
-    background-color: to-opacity(var(--Danger), 0.85);
-
-    .icon {
-      color: var(--Danger);
-    }
-  }
 }
 
 .closeButton {

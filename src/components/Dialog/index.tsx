@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import classNames from "classnames";
 
 import Scrim from "@/components/Scrim";
+import StatusIcon, { type IconStatus } from "@/components/StatusIcon";
 import Icon, { type IconName } from "@/components/Icon";
 import Button, { type ButtonType } from "@/components/Button";
 import useMountAnimation from "@/hooks/useMountAnimation";
@@ -20,7 +21,7 @@ export type DialogProps<V> = {
   callback: (value: V) => void;
 };
 
-export type DialogStatus = "info" | "success" | "warning" | "error";
+export type DialogStatus = IconStatus;
 
 export type DialogButton<V> = {
   icon: IconName;
@@ -34,13 +35,6 @@ const Dialog = <V,>(props: DialogProps<V>) => {
 
   const { callback } = props;
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
-
-  const icon: IconName = useMemo(() => {
-    if (props.status === "info") return "info";
-    if (props.status === "success") return "check_circle";
-    if (props.status === "warning") return "warning_amber";
-    return "error_outline";
-  }, [props.status]);
 
   const handleClickAway = useCallback(() => {
     callback(props.defaultValue);
@@ -102,16 +96,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
         })}
         onTransitionEnd={handleAnimationEnd}
       >
-        <div className={style.iconWrapper}>
-          <Icon
-            className={style.icon}
-            style={{
-              top: props.status === "warning" ? "-0.125rem" : "0",
-            }}
-            icon={icon}
-            type="outlined"
-          />
-        </div>
+        <StatusIcon className={style.statusIcon} status={props.status} />
 
         <button tabIndex={-1} className={style.closeButton} onClick={handleClickAway}>
           <Icon className={style.icon} icon="close" />

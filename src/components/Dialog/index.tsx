@@ -11,7 +11,7 @@ import useMountAnimation from "@/hooks/useMountAnimation";
 import style from "./style.module.scss";
 
 export type DialogProps<V> = {
-  type: DialogType;
+  status: DialogStatus;
   title: string;
   message: string;
   defaultValue: V;
@@ -20,7 +20,7 @@ export type DialogProps<V> = {
   callback: (value: V) => void;
 };
 
-export type DialogType = "info" | "success" | "warning" | "error";
+export type DialogStatus = "info" | "success" | "warning" | "error";
 
 export type DialogButton<V> = {
   icon: IconName;
@@ -36,11 +36,11 @@ const Dialog = <V,>(props: DialogProps<V>) => {
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
   const icon: IconName = useMemo(() => {
-    if (props.type === "info") return "info";
-    if (props.type === "success") return "check_circle";
-    if (props.type === "warning") return "warning_amber";
+    if (props.status === "info") return "info";
+    if (props.status === "success") return "check_circle";
+    if (props.status === "warning") return "warning_amber";
     return "error_outline";
-  }, [props.type]);
+  }, [props.status]);
 
   const handleClickAway = useCallback(() => {
     callback(props.defaultValue);
@@ -97,7 +97,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
   return (
     <Scrim onClick={handleClickAway}>
       <div
-        className={classNames(style.dialog, style[props.type], {
+        className={classNames(style.dialog, style[props.status], {
           [style.unmounting]: isUnmounting,
         })}
         onTransitionEnd={handleAnimationEnd}
@@ -106,7 +106,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
           <Icon
             className={style.icon}
             style={{
-              top: props.type === "warning" ? "-0.125rem" : "0",
+              top: props.status === "warning" ? "-0.125rem" : "0",
             }}
             icon={icon}
             type="outlined"

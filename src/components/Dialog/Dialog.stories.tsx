@@ -61,7 +61,7 @@ export const Info: Story = {
     );
   },
   args: {
-    type: "info",
+    status: "info",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -129,7 +129,7 @@ export const Success: Story = {
     );
   },
   args: {
-    type: "success",
+    status: "success",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -197,7 +197,7 @@ export const Warning: Story = {
     );
   },
   args: {
-    type: "warning",
+    status: "warning",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -265,7 +265,7 @@ export const Error: Story = {
     );
   },
   args: {
-    type: "error",
+    status: "error",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -334,7 +334,7 @@ export const InfoDark: Story = {
     );
   },
   args: {
-    type: "info",
+    status: "info",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -403,7 +403,7 @@ export const SuccessDark: Story = {
     );
   },
   args: {
-    type: "success",
+    status: "success",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -472,7 +472,7 @@ export const WarningDark: Story = {
     );
   },
   args: {
-    type: "warning",
+    status: "warning",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -541,7 +541,7 @@ export const ErrorDark: Story = {
     );
   },
   args: {
-    type: "error",
+    status: "error",
     title: "Lorem Ipsum Dolor Sit Amet",
     message:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

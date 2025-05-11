@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { DialogProps, DialogType } from "@/components/Dialog";
+import type { DialogProps, DialogStatus } from "@/components/Dialog";
 import type { IconName } from "@/components/Icon";
 
 export type DialogStore = {
@@ -12,7 +12,7 @@ export type DialogStore = {
 };
 
 export type AlertOptions = {
-  type?: DialogType;
+  status?: DialogStatus;
   title: string;
   message: string;
   buttons?: [DialogButtonOption];
@@ -20,7 +20,7 @@ export type AlertOptions = {
 };
 
 export type ConfirmOptions = {
-  type?: DialogType;
+  status?: DialogStatus;
   title: string;
   message: string;
   buttons?: [DialogButtonOption, DialogButtonOption?];
@@ -34,7 +34,7 @@ export type DialogButtonOption = {
 
 export const useDialogStore = create<DialogStore>((set, get) => ({
   dialogProps: {
-    type: "info",
+    status: "info",
     title: "",
     message: "",
     defaultValue: undefined,
@@ -59,7 +59,7 @@ export const useDialogStore = create<DialogStore>((set, get) => ({
     const { promise, resolve } = Promise.withResolvers<void>();
 
     const dialogProps: DialogProps<void> = {
-      type: options.type ?? "info",
+      status: options.status ?? "info",
       title: options.title,
       message: options.message,
       defaultValue: undefined,
@@ -89,7 +89,7 @@ export const useDialogStore = create<DialogStore>((set, get) => ({
     const { promise, resolve } = Promise.withResolvers<boolean>();
 
     const dialogProps: DialogProps<boolean> = {
-      type: options.type ?? "info",
+      status: options.status ?? "info",
       title: options.title,
       message: options.message,
       defaultValue: false,

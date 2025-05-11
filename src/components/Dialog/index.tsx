@@ -91,7 +91,7 @@ const Dialog = <V,>(props: DialogProps<V>) => {
   return (
     <Scrim onClick={handleClickAway}>
       <div
-        className={classNames(style.dialog, style[props.status], {
+        className={classNames(style.dialog, {
           [style.unmounting]: isUnmounting,
         })}
         onTransitionEnd={handleAnimationEnd}

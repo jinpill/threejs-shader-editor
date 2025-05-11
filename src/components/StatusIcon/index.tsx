@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Icon, { type IconName } from "@/components/Icon";
 import style from "./style.module.scss";
 
-type StatusIconProps = {
+export type StatusIconProps = {
   status: IconStatus;
   className?: string;
 };

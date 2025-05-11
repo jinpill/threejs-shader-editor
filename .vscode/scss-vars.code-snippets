@@ -461,5 +461,11 @@
     "body": ["--Text-Dark-Disabled"],
     "description": "var(--Gray-400)",
     "scope": "css,scss"
+  },
+  "var(--Shadow-1)": {
+    "prefix": "--Shadow-1",
+    "body": ["--Shadow-1"],
+    "description": "0 0.1875rem 0.5rem 0 rgba(0, 0, 0, 0.25)",
+    "scope": "css,scss"
   }
 }

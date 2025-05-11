@@ -13,6 +13,54 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {},
+export const Info: Story = {
+  args: {
+    status: "info",
+    title: "Info",
+    message: "This is an info toast.",
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    buttons: [
+      {
+        type: "secondary",
+        icon: "pan_tool",
+        label: "No!!",
+        onClick: () => {
+          console.log("Umm...");
+        },
+      },
+      {
+        type: "primary",
+        icon: "check",
+        label: "Yes!!",
+        onClick: () => {
+          console.log("OK clicked!!");
+        },
+      },
+    ],
+  },
+};
+
+export const Success: Story = {
+  args: {
+    status: "success",
+    title: "Success",
+    message: "This is a success toast.",
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    status: "warning",
+    title: "Warning",
+    message: "This is a warning toast.",
+  },
+};
+
+export const Error: Story = {
+  args: {
+    status: "error",
+    title: "Error",
+    message: "This is an error toast.",
+  },
 };

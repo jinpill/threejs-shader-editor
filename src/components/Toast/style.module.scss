@@ -1,0 +1,107 @@
+.toast {
+  width: 30rem;
+
+  display: flex;
+  padding: 1.5rem;
+
+  border-radius: var(--Radius-Small);
+  background-color: var(--BG-Light-Primary);
+  box-shadow: var(--Shadow-1);
+}
+
+.statusIcon {
+  flex: none;
+  margin-right: 1rem;
+}
+
+.contents {
+  width: 0;
+
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  position: relative;
+
+  > * {
+    flex: none;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+
+  color: var(--Text-Light-Primary);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.subTitle {
+  display: flex;
+  align-items: center;
+
+  color: var(--Text-Light-Tertiary);
+  font-size: 0.875rem;
+  font-weight: 300;
+
+  &::before {
+    height: 14px;
+    margin: 0 0.5rem;
+    content: "";
+    border-left: 0.0625rem solid var(--Border-Light-Primary);
+  }
+}
+
+.message,
+.details,
+.showDetailsButton {
+  max-width: calc(100% - 1.25rem);
+  color: var(--Text-Light-Tertiary);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.details {
+  margin-top: 0.5rem;
+}
+
+.showDetailsButton {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0;
+
+  border: none;
+  background: none;
+
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.closeButton {
+  padding: 0.5rem;
+
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+
+  display: block;
+
+  border: none;
+  background: none;
+
+  color: var(--Text-Light-Tertiary);
+  font-size: 1.25rem;
+
+  cursor: pointer;
+}

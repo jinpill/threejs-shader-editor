@@ -1,6 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Item from "./parts/Item";
+import { useToastStore } from "@/stores/useToastStore";
 import style from "./style.module.scss";
 
 type ToastProps = {
@@ -9,23 +10,16 @@ type ToastProps = {
 };
 
 const Toasts = (props: ToastProps) => {
-  const [list, setList] = useState<number[]>([]);
-  const [indicesToRemove, setIndicesToRemove] = useState<number[]>([]);
+  const [idsToRemove, setIdsToRemove] = useState<number[]>([]);
+  const { list, addToast, removeToast } = useToastStore();
 
   const handleAddToast = () => {
-    const lastIndex = list[list.length - 1] ?? -1;
-    setList([...list, lastIndex + 1]);
+    addToast({});
   };
 
   const handleRemoveToast = () => {
     const index = Math.floor(Math.random() * list.length);
-    setIndicesToRemove([...indicesToRemove, list[index]]);
-  };
-
-  const handleDisappear = (index: number) => {
-    const filter = (arr: number[]) => arr.filter((i) => i !== index);
-    setIndicesToRemove((prev) => filter(prev));
-    setList((prev) => filter(prev));
+    setIdsToRemove([...idsToRemove, list[index].id]);
   };
 
   return (
@@ -36,14 +30,14 @@ const Toasts = (props: ToastProps) => {
       </div>
 
       <ul className={style.list}>
-        {list.map((i) => (
+        {list.map((toast) => (
           <Item
-            key={i}
-            index={i}
-            isDisappearing={indicesToRemove.includes(i)}
-            onDisappear={handleDisappear}
+            key={toast.id}
+            id={toast.id}
+            isDisappearing={idsToRemove.includes(toast.id)}
+            onDisappear={removeToast}
           >
-            안녕하세요 {i}
+            안녕하세요 {toast.id}
           </Item>
         ))}
       </ul>

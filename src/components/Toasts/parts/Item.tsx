@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import style from "../style.module.scss";
 
 type ItemProps = {
-  index: number;
+  id: number;
   isDisappearing: boolean;
-  onDisappear: (index: number) => void;
+  onDisappear: (id: number) => void;
   children?: React.ReactNode;
 };
 
@@ -14,7 +14,7 @@ const Item = (props: ItemProps) => {
 
   const handleTransitionEnd = () => {
     if (!props.isDisappearing) return;
-    props.onDisappear(props.index);
+    props.onDisappear(props.id);
   };
 
   useEffect(() => {

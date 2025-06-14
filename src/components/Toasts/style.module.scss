@@ -14,7 +14,12 @@
 
 .item {
   overflow: hidden;
-  transition: height 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  transition-property: height, opacity;
+
+  &.disappearing {
+    opacity: 0;
+  }
 }
 
 .itemWrapper {

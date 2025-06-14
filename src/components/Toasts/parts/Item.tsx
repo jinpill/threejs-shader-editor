@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../style.module.scss";
 import { useToastStore } from "@/stores/useToastStore";
+import classNames from "classnames";
 
 type ItemProps = {
   id: number;
@@ -33,7 +34,13 @@ const Item = (props: ItemProps) => {
   }, [props.isDisappearing]);
 
   return (
-    <li style={{ height }} className={style.item} onTransitionEnd={handleTransitionEnd}>
+    <li
+      style={{ height }}
+      className={classNames(style.item, {
+        [style.disappearing]: props.isDisappearing,
+      })}
+      onTransitionEnd={handleTransitionEnd}
+    >
       <div ref={wrapperRef} className={style.itemWrapper}>
         <div>{props.children}</div>
       </div>

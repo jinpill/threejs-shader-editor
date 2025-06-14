@@ -64,7 +64,21 @@
 }
 
 .details {
-  margin-top: 0.5rem;
+  overflow: hidden;
+  transition: height 0.2s ease-in-out;
+}
+
+.detailsWrapper {
+  transition: opacity 0.2s ease-in-out;
+
+  &.hidden {
+    height: 0;
+    opacity: 0;
+  }
+
+  > div {
+    padding-top: 0.5rem;
+  }
 }
 
 .showDetailsButton {

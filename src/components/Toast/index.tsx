@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import StatusIcon, { type IconStatus } from "@/components/StatusIcon";
 import Button, { type ButtonType } from "@/components/Button";
 import Icon, { type IconName } from "@/components/Icon";
@@ -23,7 +24,25 @@ export type ToastButton = {
 };
 
 const Toast = (props: ToastProps) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState("auto");
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+
+  useEffect(() => {
+    const $wrapper = wrapperRef.current;
+    if (!$wrapper) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const rect = entry.target.getBoundingClientRect();
+        const height = `${rect.height}px`;
+        setHeight(height);
+      }
+    });
+
+    observer.observe($wrapper);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className={style.toast}>
@@ -36,17 +55,28 @@ const Toast = (props: ToastProps) => {
         </div>
         <div className={style.message}>
           {props.message}
-          {props.details && !isDetailsVisible && (
+
+          {props.details && (
+            <div style={{ height }} className={style.details}>
+              <div
+                ref={wrapperRef}
+                className={classNames(style.detailsWrapper, {
+                  [style.hidden]: !isDetailsVisible,
+                })}
+              >
+                <div>{props.details}</div>
+              </div>
+            </div>
+          )}
+
+          {props.details && (
             <button
               className={style.showDetailsButton}
               tabIndex={-1}
-              onClick={() => setIsDetailsVisible(true)}
+              onClick={() => setIsDetailsVisible(!isDetailsVisible)}
             >
-              Show details
+              {isDetailsVisible ? "Hide details" : "Show details"}
             </button>
-          )}
-          {props.details && isDetailsVisible && (
-            <div className={style.details}>{props.details}</div>
           )}
 
           {props.buttons && props.buttons.length > 0 && (

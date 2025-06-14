@@ -1,0 +1,18 @@
+.toasts {
+  position: fixed;
+  inset: 0;
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.item {
+  overflow: hidden;
+  transition: height 0.2s ease-in-out;
+}

@@ -1,5 +1,5 @@
-import { useState } from "react";
 import classNames from "classnames";
+import Toast from "@/components/Toast";
 import Item from "./parts/Item";
 import { useToastStore } from "@/stores/useToastStore";
 import style from "./style.module.scss";
@@ -10,23 +10,20 @@ type ToastProps = {
 };
 
 const Toasts = (props: ToastProps) => {
-  const [idsToRemove, setIdsToRemove] = useState<number[]>([]);
-  const { list, addToast, removeToast } = useToastStore();
+  const { list, idsToRemove, addToast } = useToastStore();
 
   const handleAddToast = () => {
-    addToast({});
-  };
-
-  const handleRemoveToast = () => {
-    const index = Math.floor(Math.random() * list.length);
-    setIdsToRemove([...idsToRemove, list[index].id]);
+    addToast({
+      status: "info",
+      title: "우와 신기하다",
+      message: "참 쉽죠?",
+    });
   };
 
   return (
     <div style={props.style} className={classNames(style.toasts, props.className)}>
       <div className={style.buttons}>
         <button onClick={handleAddToast}>추가</button>
-        <button onClick={handleRemoveToast}>제거</button>
       </div>
 
       <ul className={style.list}>
@@ -35,9 +32,8 @@ const Toasts = (props: ToastProps) => {
             key={toast.id}
             id={toast.id}
             isDisappearing={idsToRemove.includes(toast.id)}
-            onDisappear={removeToast}
           >
-            안녕하세요 {toast.id}
+            <Toast {...toast} />
           </Item>
         ))}
       </ul>

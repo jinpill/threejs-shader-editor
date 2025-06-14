@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../style.module.scss";
+import { useToastStore } from "@/stores/useToastStore";
 
 type ItemProps = {
   id: number;
   isDisappearing: boolean;
-  onDisappear: (id: number) => void;
   children?: React.ReactNode;
 };
 
 const Item = (props: ItemProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState("0px");
+  const { removeToast } = useToastStore();
 
   const handleTransitionEnd = () => {
     if (!props.isDisappearing) return;
-    props.onDisappear(props.id);
+    removeToast(props.id);
   };
 
   useEffect(() => {

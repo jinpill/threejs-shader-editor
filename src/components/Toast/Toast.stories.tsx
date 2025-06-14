@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
+    id: 1,
     status: "info",
     title: "Info",
     message: "This is an info toast.",
@@ -43,6 +44,7 @@ export const Info: Story = {
 
 export const Success: Story = {
   args: {
+    id: 1,
     status: "success",
     title: "Success",
     message: "This is a success toast.",
@@ -51,6 +53,7 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
+    id: 1,
     status: "warning",
     title: "Warning",
     message: "This is a warning toast.",
@@ -59,6 +62,7 @@ export const Warning: Story = {
 
 export const Error: Story = {
   args: {
+    id: 1,
     status: "error",
     title: "Error",
     message: "This is an error toast.",

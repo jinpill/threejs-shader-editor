@@ -4,8 +4,10 @@ import StatusIcon, { type IconStatus } from "@/components/StatusIcon";
 import Button, { type ButtonType } from "@/components/Button";
 import Icon, { type IconName } from "@/components/Icon";
 import style from "./style.module.scss";
+import { useToastStore } from "@/stores/useToastStore";
 
 export type ToastProps = {
+  id: number;
   status: ToastStatus;
   title: string;
   subTitle?: string;
@@ -27,6 +29,11 @@ const Toast = (props: ToastProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState("auto");
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const { addIdsToRemove } = useToastStore();
+
+  const handleClose = () => {
+    addIdsToRemove(props.id);
+  };
 
   useEffect(() => {
     const $wrapper = wrapperRef.current;
@@ -94,7 +101,7 @@ const Toast = (props: ToastProps) => {
           )}
         </div>
 
-        <button className={style.closeButton} tabIndex={-1}>
+        <button className={style.closeButton} tabIndex={-1} onClick={handleClose}>
           <Icon icon="close" />
         </button>
       </div>

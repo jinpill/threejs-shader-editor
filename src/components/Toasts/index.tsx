@@ -10,23 +10,10 @@ type ToastProps = {
 };
 
 const Toasts = (props: ToastProps) => {
-  const { list, idsToRemove, addToast, addIdsToRemove } = useToastStore();
-
-  const handleAddToast = () => {
-    addToast({
-      status: "info",
-      title: "우와 신기하다",
-      message: "참 쉽죠?",
-      duration: 3000,
-    });
-  };
+  const { list, idsToRemove, addIdsToRemove } = useToastStore();
 
   return (
     <div style={props.style} className={classNames(style.toasts, props.className)}>
-      <div className={style.buttons}>
-        <button onClick={handleAddToast}>추가</button>
-      </div>
-
       <ul className={style.list}>
         {list.map((toast) => (
           <Item

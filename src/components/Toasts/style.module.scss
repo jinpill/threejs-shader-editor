@@ -1,6 +1,7 @@
 .toasts {
   position: fixed;
   inset: 0;
+  pointer-events: none;
 }
 
 .list {
@@ -16,6 +17,7 @@
   overflow: hidden;
   transition: 0.2s ease-in-out;
   transition-property: height, opacity;
+  pointer-events: all;
 
   &.disappearing {
     opacity: 0;

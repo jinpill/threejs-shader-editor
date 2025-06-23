@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Toast from ".";
 
+const handleTimeout = (id: number) => {
+  console.log("timeout:", id);
+};
+
 const meta = {
   title: "Reusable/Toast",
   component: Toast,
@@ -21,6 +25,7 @@ export const Info: Story = {
     message: "This is an info toast.",
     details:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    duration: 5000,
     buttons: [
       {
         type: "secondary",
@@ -39,6 +44,7 @@ export const Info: Story = {
         },
       },
     ],
+    onTimeout: handleTimeout,
   },
 };
 
@@ -48,6 +54,8 @@ export const Success: Story = {
     status: "success",
     title: "Success",
     message: "This is a success toast.",
+    duration: null,
+    onTimeout: handleTimeout,
   },
 };
 
@@ -57,6 +65,8 @@ export const Warning: Story = {
     status: "warning",
     title: "Warning",
     message: "This is a warning toast.",
+    duration: null,
+    onTimeout: handleTimeout,
   },
 };
 
@@ -66,5 +76,7 @@ export const Error: Story = {
     status: "error",
     title: "Error",
     message: "This is an error toast.",
+    duration: null,
+    onTimeout: handleTimeout,
   },
 };

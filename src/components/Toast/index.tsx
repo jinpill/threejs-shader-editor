@@ -5,6 +5,7 @@ import Button, { type ButtonType } from "@/components/Button";
 import Icon, { type IconName } from "@/components/Icon";
 import style from "./style.module.scss";
 import { useToastStore } from "@/stores/useToastStore";
+import useStateRef from "@/hooks/useStateRef";
 
 export type ToastProps = {
   id: number;
@@ -14,6 +15,8 @@ export type ToastProps = {
   message: string;
   details?: string;
   buttons?: ToastButton[];
+  duration: number | null;
+  onTimeout: (id: number) => void;
 };
 
 export type ToastStatus = IconStatus;
@@ -27,9 +30,16 @@ export type ToastButton = {
 
 const Toast = (props: ToastProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const onTimeoutRef = useStateRef(props.onTimeout);
+
   const [height, setHeight] = useState("auto");
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const { addIdsToRemove } = useToastStore();
+
+  const lastTimeRef = useRef(Date.now());
+  const spentTimeRef = useRef(0);
+  const isHoverRef = useRef(false);
+  const [spentTimeWidth, setSpentTimeWidth] = useState("0%");
 
   const handleClose = () => {
     addIdsToRemove(props.id);
@@ -51,10 +61,46 @@ const Toast = (props: ToastProps) => {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div className={style.toast}>
-      <StatusIcon className={style.statusIcon} status={props.status} />
+  useEffect(() => {
+    const duration = props.duration;
+    if (duration === null) return;
 
+    let id: number | null = null;
+    const animate = () => {
+      id = requestAnimationFrame(() => {
+        if (isHoverRef.current) {
+          lastTimeRef.current = Date.now();
+          animate();
+        } else {
+          spentTimeRef.current += Date.now() - lastTimeRef.current;
+          const percentage = (spentTimeRef.current / duration) * 100;
+          lastTimeRef.current = Date.now();
+
+          if (percentage > 100) {
+            setSpentTimeWidth("100%");
+            onTimeoutRef.current(props.id);
+          } else {
+            setSpentTimeWidth(`${percentage}%`);
+            animate();
+          }
+        }
+      });
+    };
+
+    animate();
+    return () => {
+      if (id === null) return;
+      cancelAnimationFrame(id);
+    };
+  }, [props.duration, props.id, onTimeoutRef]);
+
+  return (
+    <div
+      className={classNames(style.toast, style[props.status])}
+      onPointerEnter={() => (isHoverRef.current = true)}
+      onPointerLeave={() => (isHoverRef.current = false)}
+    >
+      <StatusIcon className={style.statusIcon} status={props.status} />
       <div className={style.contents}>
         <div className={style.title}>
           {props.title}
@@ -105,6 +151,12 @@ const Toast = (props: ToastProps) => {
           <Icon icon="close" />
         </button>
       </div>
+
+      {props.duration !== null && (
+        <div className={style.spentTime}>
+          <div style={{ width: spentTimeWidth }} />
+        </div>
+      )}
     </div>
   );
 };

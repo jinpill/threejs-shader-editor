@@ -1,12 +1,17 @@
+@import "@/styles/utils.scss";
+
 .toast {
   width: 30rem;
 
   display: flex;
   padding: 1.5rem;
 
+  position: relative;
+
   border-radius: var(--Radius-Small);
   background-color: var(--BG-Light-Primary);
   box-shadow: var(--Shadow-1);
+  overflow: hidden;
 }
 
 .statusIcon {
@@ -118,4 +123,41 @@
   font-size: 1.25rem;
 
   cursor: pointer;
+}
+
+.spentTime {
+  width: 100%;
+  height: 0.25rem;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  @mixin set-color($color) {
+    background-color: to-brightness($color, 0.75);
+
+    > div {
+      background-color: $color;
+    }
+  }
+
+  .info & {
+    @include set-color(var(--Primary-Light));
+  }
+
+  .success & {
+    @include set-color(var(--Success));
+  }
+
+  .warning & {
+    @include set-color(var(--Warning));
+  }
+
+  .error & {
+    @include set-color(var(--Danger));
+  }
+
+  > div {
+    height: 100%;
+  }
 }

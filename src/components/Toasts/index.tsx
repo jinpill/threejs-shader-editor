@@ -10,13 +10,14 @@ type ToastProps = {
 };
 
 const Toasts = (props: ToastProps) => {
-  const { list, idsToRemove, addToast } = useToastStore();
+  const { list, idsToRemove, addToast, addIdsToRemove } = useToastStore();
 
   const handleAddToast = () => {
     addToast({
       status: "info",
       title: "우와 신기하다",
       message: "참 쉽죠?",
+      duration: 3000,
     });
   };
 
@@ -33,7 +34,7 @@ const Toasts = (props: ToastProps) => {
             id={toast.id}
             isDisappearing={idsToRemove.includes(toast.id)}
           >
-            <Toast {...toast} />
+            <Toast {...toast} onTimeout={addIdsToRemove} />
           </Item>
         ))}
       </ul>

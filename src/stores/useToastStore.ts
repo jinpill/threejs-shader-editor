@@ -5,25 +5,35 @@ type ToastStore = {
   lastId: number;
   list: ToastConfig[];
   idsToRemove: number[];
-  addToast: (config: Omit<ToastConfig, "id">) => void;
+  addToast: (params: AddParams) => void;
   removeToast: (id: number) => void;
   addIdsToRemove: (id: number) => void;
 };
 
-type ToastConfig = ToastProps & {
+type ToastConfig = Omit<ToastProps, "onTimeout"> & {
   id: number;
+};
+
+type AddParams = Omit<ToastConfig, "id" | "duration"> & {
+  duration?: number | null;
 };
 
 export const useToastStore = create<ToastStore>((set, get) => ({
   lastId: 0,
   list: [],
   idsToRemove: [],
-  addToast: (config) => {
+  addToast: (params) => {
     const newId = get().lastId + 1;
     const newToast: ToastConfig = {
       id: newId,
-      ...config,
+      ...params,
+      duration: null,
     };
+
+    if (params.duration !== null) {
+      newToast.duration = params.duration ?? 5000;
+    }
+
     const newList = [...get().list, newToast];
 
     set({

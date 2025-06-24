@@ -4,7 +4,7 @@ import StatusIcon, { type IconStatus } from "@/components/StatusIcon";
 import Button, { type ButtonType } from "@/components/Button";
 import Icon, { type IconName } from "@/components/Icon";
 import style from "./style.module.scss";
-import { useToastStore } from "@/stores/useToastStore";
+import { useToastStore, type ToastConfig } from "@/stores/useToastStore";
 import useStateRef from "@/hooks/useStateRef";
 
 export type ToastProps = {
@@ -26,7 +26,13 @@ export type ToastButton = {
   icon: IconName;
   label: string;
   type: ButtonType;
-  onClick: () => void;
+  onClick: (event: ToastButtonEvent) => void;
+};
+
+export type ToastButtonEvent = {
+  id: number;
+  updateToast: (params: Partial<Omit<ToastConfig, "id">>) => void;
+  removeToast: () => void;
 };
 
 const Toast = (props: ToastProps) => {
@@ -35,7 +41,7 @@ const Toast = (props: ToastProps) => {
 
   const [height, setHeight] = useState("auto");
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-  const { addIdsToRemove } = useToastStore();
+  const { addIdsToRemove, updateToast } = useToastStore();
 
   const lastTimeRef = useRef(Date.now());
   const spentTimeRef = useRef(0);
@@ -73,6 +79,8 @@ const Toast = (props: ToastProps) => {
     if (duration === null) return;
 
     let id: number | null = null;
+    lastTimeRef.current = Date.now();
+
     const animate = () => {
       id = requestAnimationFrame(() => {
         if (isHoverRef.current) {
@@ -157,16 +165,24 @@ const Toast = (props: ToastProps) => {
                   type={button.type}
                   label={button.label}
                   icon={button.icon}
-                  onClick={button.onClick}
+                  onClick={() => {
+                    button.onClick({
+                      id: props.id,
+                      updateToast: (params) => updateToast(props.id, params),
+                      removeToast: () => addIdsToRemove(props.id),
+                    });
+                  }}
                 />
               ))}
             </div>
           )}
         </div>
 
-        <button className={style.closeButton} tabIndex={-1} onClick={handleClose}>
-          <Icon icon="close" />
-        </button>
+        {(!progress || progress === "100%") && (
+          <button className={style.closeButton} tabIndex={-1} onClick={handleClose}>
+            <Icon icon="close" />
+          </button>
+        )}
       </div>
 
       {props.duration !== null && (

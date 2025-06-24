@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import classNames from "classnames";
 import StatusIcon, { type IconStatus } from "@/components/StatusIcon";
 import Button, { type ButtonType } from "@/components/Button";
@@ -15,6 +15,7 @@ export type ToastProps = {
   message: string;
   details?: string;
   buttons?: ToastButton[];
+  progress?: number;
   duration: number | null;
   onTimeout: (id: number) => void;
 };
@@ -40,6 +41,12 @@ const Toast = (props: ToastProps) => {
   const spentTimeRef = useRef(0);
   const isHoverRef = useRef(false);
   const [spentTimeWidth, setSpentTimeWidth] = useState("0%");
+
+  const progress = useMemo(() => {
+    if (typeof props.progress !== "number") return "";
+    if (props.progress >= 1) return "100%";
+    return (props.progress * 100).toFixed(1) + "%";
+  }, [props.progress]);
 
   const handleClose = () => {
     addIdsToRemove(props.id);
@@ -130,6 +137,16 @@ const Toast = (props: ToastProps) => {
             >
               {isDetailsVisible ? "Hide details" : "Show details"}
             </button>
+          )}
+
+          {progress && (
+            <div className={style.progress}>
+              <div className={style.track}>
+                <div style={{ width: progress }} />
+              </div>
+
+              <div className={style.value}>{progress}</div>
+            </div>
           )}
 
           {props.buttons && props.buttons.length > 0 && (

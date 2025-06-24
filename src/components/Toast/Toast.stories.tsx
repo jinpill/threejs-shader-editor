@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Toast from ".";
 
@@ -78,5 +79,46 @@ export const Error: Story = {
     message: "This is an error toast.",
     duration: null,
     onTimeout: handleTimeout,
+  },
+};
+
+export const Progress: Story = {
+  args: {
+    id: 1,
+    status: "info",
+    title: "Progress",
+    message: "Update in progress...",
+    progress: 0.5,
+    duration: null,
+    onTimeout: handleTimeout,
+  },
+  render: (args) => {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+      let timeoutId: number | null = null;
+
+      const updateProgress = () => {
+        setProgress((prev) => {
+          const progress = prev + Math.random() / 10;
+
+          if (progress > 1) {
+            return 1;
+          } else {
+            timeoutId = window.setTimeout(updateProgress, 500);
+            return progress;
+          }
+        });
+      };
+      updateProgress();
+
+      return () => {
+        if (timeoutId === null) return;
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      };
+    }, []);
+
+    return <Toast {...args} progress={progress} />;
   },
 };

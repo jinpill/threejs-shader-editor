@@ -26,9 +26,27 @@ const meta = {
         <div
           style={{
             height: "500px",
+            position: "relative",
           }}
         >
-          <button onClick={handleAddToast}>추가</button>
+          <button
+            style={{
+              width: "12.5rem",
+              height: "2.5rem",
+              position: "absolute",
+              top: "50%",
+              right: "20%",
+              transform: "translate(50%, -50%)",
+              borderRadius: "0.25rem",
+              border: "0.0625rem solid #d3d3d3",
+              backgroundColor: "#f4f4f4",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddToast}
+          >
+            추가
+          </button>
           <Story />
         </div>
       );

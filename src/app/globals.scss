@@ -1,3 +1,93 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+:root {
+  --Radius-Extra-Small: 0.25rem;
+  --Radius-Small: 0.5rem;
+  --Radius-Medium: 0.75rem;
+  --Radius-Large: 1rem;
+  --Radius-Extra-Large: 1.75rem;
+
+  --Text-Extra-Small: 0.625rem;
+  --Text-Small: 0.75rem;
+  --Text-Medium: 0.875rem;
+  --Text-Large: 1rem;
+  --Text-Extra-Large: 1.25rem;
+
+  --Primary-Light: #1d83f8;
+  --Primary-Dark: #8a2be2;
+
+  --Success: #53c253;
+  --Warning: #e0b53f;
+  --Danger: #db4747;
+
+  --Gray-0: #ffffff;
+  --Gray-50: #f6f6f6;
+  --Gray-100: #eeeeee;
+  --Gray-150: #e6e6e6;
+  --Gray-200: #dddddd;
+  --Gray-250: #d5d5d5;
+  --Gray-300: #cccccc;
+  --Gray-350: #c4c4c4;
+  --Gray-400: #bbbbbb;
+  --Gray-450: #b3b3b3;
+  --Gray-500: #aaaaaa;
+  --Gray-550: #a2a2a2;
+  --Gray-600: #999999;
+  --Gray-650: #919191;
+  --Gray-700: #888888;
+  --Gray-750: #808080;
+  --Gray-800: #777777;
+  --Gray-850: #6f6f6f;
+  --Gray-900: #666666;
+  --Gray-950: #5e5e5e;
+  --Gray-1000: #555555;
+  --Gray-1050: #4d4d4d;
+  --Gray-1100: #444444;
+  --Gray-1150: #3c3c3c;
+  --Gray-1200: #333333;
+  --Gray-1250: #2b2b2b;
+  --Gray-1300: #222222;
+  --Gray-1350: #1a1a1a;
+  --Gray-1400: #111111;
+  --Gray-1450: #090909;
+  --Gray-1500: #000000;
+
+  --BG-Light-Primary: var(--Gray-0);
+  --BG-Light-Secondary: var(--Gray-50);
+  --BG-Light-Tertiary: var(--Gray-100);
+  --BG-Light-Quaternary: var(--Gray-200);
+  --BG-Light-Disabled: var(--Gray-500);
+  --BG-Dark-Primary: var(--Gray-1000);
+  --BG-Dark-Secondary: var(--Gray-1150);
+  --BG-Dark-Tertiary: var(--Gray-1250);
+  --BG-Dark-Quaternary: var(--Gray-1300);
+  --BG-Dark-Disabled: var(--Gray-1500);
+
+  --Border-Light-Primary: var(--Gray-400);
+  --Border-Light-Secondary: var(--Gray-300);
+  --Border-Light-Tertiary: var(--Gray-200);
+  --Border-Light-Quaternary: var(--Gray-100);
+  --Border-Light-Disabled: var(--Gray-200);
+  --Border-Dark-Primary: var(--Gray-1000);
+  --Border-Dark-Secondary: var(--Gray-1150);
+  --Border-Dark-Tertiary: var(--Gray-1250);
+  --Border-Dark-Quaternary: var(--Gray-1300);
+  --Border-Dark-Disabled: var(--Gray-1500);
+
+  --Text-Light-Primary: var(--Gray-1200);
+  --Text-Light-Secondary: var(--Gray-1000);
+  --Text-Light-Tertiary: var(--Gray-800);
+  --Text-Light-Quaternary: var(--Gray-600);
+  --Text-Light-Disabled: var(--Gray-800);
+  --Text-Dark-Primary: var(--Gray-0);
+  --Text-Dark-Secondary: var(--Gray-200);
+  --Text-Dark-Tertiary: var(--Gray-400);
+  --Text-Dark-Quaternary: var(--Gray-600);
+  --Text-Dark-Disabled: var(--Gray-400);
+
+  --Shadow-1: 0 0.1875rem 0.5rem 0 rgba(0, 0, 0, 0.25);
+}
+
 html,
 body {
   max-width: 100vw;
@@ -32,4 +122,13 @@ a {
 
 html.dark {
   color-scheme: dark;
+}
+
+body,
+button,
+select,
+input,
+textarea {
+  font-family: "Pretendard Variable", sans-serif;
+  font-weight: 500;
 }

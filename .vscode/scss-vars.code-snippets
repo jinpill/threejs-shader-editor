@@ -1,0 +1,471 @@
+{
+  "var(--Radius-Extra-Small)": {
+    "prefix": "--Radius-Extra-Small",
+    "body": ["--Radius-Extra-Small"],
+    "description": "0.25rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Small)": {
+    "prefix": "--Radius-Small",
+    "body": ["--Radius-Small"],
+    "description": "0.5rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Medium)": {
+    "prefix": "--Radius-Medium",
+    "body": ["--Radius-Medium"],
+    "description": "0.75rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Large)": {
+    "prefix": "--Radius-Large",
+    "body": ["--Radius-Large"],
+    "description": "1rem",
+    "scope": "css,scss"
+  },
+  "var(--Radius-Extra-Large)": {
+    "prefix": "--Radius-Extra-Large",
+    "body": ["--Radius-Extra-Large"],
+    "description": "1.75rem",
+    "scope": "css,scss"
+  },
+
+  "var(--Text-Extra-Small)": {
+    "prefix": "--Text-Extra-Small",
+    "body": ["--Text-Extra-Small"],
+    "description": "0.625rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Small)": {
+    "prefix": "--Text-Small",
+    "body": ["--Text-Small"],
+    "description": "0.75rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Medium)": {
+    "prefix": "--Text-Medium",
+    "body": ["--Text-Medium"],
+    "description": "0.875rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Large)": {
+    "prefix": "--Text-Large",
+    "body": ["--Text-Large"],
+    "description": "1rem",
+    "scope": "css,scss"
+  },
+  "var(--Text-Extra-Large)": {
+    "prefix": "--Text-Extra-Large",
+    "body": ["--Text-Extra-Large"],
+    "description": "1.25rem",
+    "scope": "css,scss"
+  },
+
+  "var(--Primary-Light)": {
+    "prefix": "--Primary-Light",
+    "body": ["--Primary-Light"],
+    "description": "#1d83f8",
+    "scope": "css,scss"
+  },
+  "var(--Primary-Dark)": {
+    "prefix": "--Primary-Dark",
+    "body": ["--Primary-Dark"],
+    "description": "#8a2be2",
+    "scope": "css,scss"
+  },
+
+  "var(--Success)": {
+    "prefix": "--Success",
+    "body": ["--Success"],
+    "description": "#53c253",
+    "scope": "css,scss"
+  },
+  "var(--Warning)": {
+    "prefix": "--Warning",
+    "body": ["--Warning"],
+    "description": "#e0b53f",
+    "scope": "css,scss"
+  },
+  "var(--Danger)": {
+    "prefix": "--Danger",
+    "body": ["--Danger"],
+    "description": "#db4747",
+    "scope": "css,scss"
+  },
+
+  "var(--Gray-0)": {
+    "prefix": "--Gray-0",
+    "body": ["--Gray-0"],
+    "description": "#ffffff",
+    "scope": "css,scss"
+  },
+  "var(--Gray-50)": {
+    "prefix": "--Gray-50",
+    "body": ["--Gray-50"],
+    "description": "#f6f6f6",
+    "scope": "css,scss"
+  },
+  "var(--Gray-100)": {
+    "prefix": "--Gray-100",
+    "body": ["--Gray-100"],
+    "description": "#eeeeee",
+    "scope": "css,scss"
+  },
+  "var(--Gray-150)": {
+    "prefix": "--Gray-150",
+    "body": ["--Gray-150"],
+    "description": "#e6e6e6",
+    "scope": "css,scss"
+  },
+  "var(--Gray-200)": {
+    "prefix": "--Gray-200",
+    "body": ["--Gray-200"],
+    "description": "#dddddd",
+    "scope": "css,scss"
+  },
+  "var(--Gray-250)": {
+    "prefix": "--Gray-250",
+    "body": ["--Gray-250"],
+    "description": "#d5d5d5",
+    "scope": "css,scss"
+  },
+  "var(--Gray-300)": {
+    "prefix": "--Gray-300",
+    "body": ["--Gray-300"],
+    "description": "#cccccc",
+    "scope": "css,scss"
+  },
+  "var(--Gray-350)": {
+    "prefix": "--Gray-350",
+    "body": ["--Gray-350"],
+    "description": "#c4c4c4",
+    "scope": "css,scss"
+  },
+  "var(--Gray-400)": {
+    "prefix": "--Gray-400",
+    "body": ["--Gray-400"],
+    "description": "#bbbbbb",
+    "scope": "css,scss"
+  },
+  "var(--Gray-450)": {
+    "prefix": "--Gray-450",
+    "body": ["--Gray-450"],
+    "description": "#b3b3b3",
+    "scope": "css,scss"
+  },
+  "var(--Gray-500)": {
+    "prefix": "--Gray-500",
+    "body": ["--Gray-500"],
+    "description": "#aaaaaa",
+    "scope": "css,scss"
+  },
+  "var(--Gray-550)": {
+    "prefix": "--Gray-550",
+    "body": ["--Gray-550"],
+    "description": "#a2a2a2",
+    "scope": "css,scss"
+  },
+  "var(--Gray-600)": {
+    "prefix": "--Gray-600",
+    "body": ["--Gray-600"],
+    "description": "#999999",
+    "scope": "css,scss"
+  },
+  "var(--Gray-650)": {
+    "prefix": "--Gray-650",
+    "body": ["--Gray-650"],
+    "description": "#919191",
+    "scope": "css,scss"
+  },
+  "var(--Gray-700)": {
+    "prefix": "--Gray-700",
+    "body": ["--Gray-700"],
+    "description": "#888888",
+    "scope": "css,scss"
+  },
+  "var(--Gray-750)": {
+    "prefix": "--Gray-750",
+    "body": ["--Gray-750"],
+    "description": "#808080",
+    "scope": "css,scss"
+  },
+  "var(--Gray-800)": {
+    "prefix": "--Gray-800",
+    "body": ["--Gray-800"],
+    "description": "#777777",
+    "scope": "css,scss"
+  },
+  "var(--Gray-850)": {
+    "prefix": "--Gray-850",
+    "body": ["--Gray-850"],
+    "description": "#6f6f6f",
+    "scope": "css,scss"
+  },
+  "var(--Gray-900)": {
+    "prefix": "--Gray-900",
+    "body": ["--Gray-900"],
+    "description": "#666666",
+    "scope": "css,scss"
+  },
+  "var(--Gray-950)": {
+    "prefix": "--Gray-950",
+    "body": ["--Gray-950"],
+    "description": "#5e5e5e",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1000)": {
+    "prefix": "--Gray-1000",
+    "body": ["--Gray-1000"],
+    "description": "#555555",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1050)": {
+    "prefix": "--Gray-1050",
+    "body": ["--Gray-1050"],
+    "description": "#4d4d4d",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1100)": {
+    "prefix": "--Gray-1100",
+    "body": ["--Gray-1100"],
+    "description": "#444444",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1150)": {
+    "prefix": "--Gray-1150",
+    "body": ["--Gray-1150"],
+    "description": "#3c3c3c",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1200)": {
+    "prefix": "--Gray-1200",
+    "body": ["--Gray-1200"],
+    "description": "#333333",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1250)": {
+    "prefix": "--Gray-1250",
+    "body": ["--Gray-1250"],
+    "description": "#2b2b2b",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1300)": {
+    "prefix": "--Gray-1300",
+    "body": ["--Gray-1300"],
+    "description": "#222222",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1350)": {
+    "prefix": "--Gray-1350",
+    "body": ["--Gray-1350"],
+    "description": "#1a1a1a",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1400)": {
+    "prefix": "--Gray-1400",
+    "body": ["--Gray-1400"],
+    "description": "#111111",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1450)": {
+    "prefix": "--Gray-1450",
+    "body": ["--Gray-1450"],
+    "description": "#090909",
+    "scope": "css,scss"
+  },
+  "var(--Gray-1500)": {
+    "prefix": "--Gray-1500",
+    "body": ["--Gray-1500"],
+    "description": "#000000",
+    "scope": "css,scss"
+  },
+
+  "var(--BG-Light-Primary)": {
+    "prefix": "--BG-Light-Primary",
+    "body": ["--BG-Light-Primary"],
+    "description": "var(--Gray-0)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Secondary)": {
+    "prefix": "--BG-Light-Secondary",
+    "body": ["--BG-Light-Secondary"],
+    "description": "var(--Gray-50)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Tertiary)": {
+    "prefix": "--BG-Light-Tertiary",
+    "body": ["--BG-Light-Tertiary"],
+    "description": "var(--Gray-100)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Quaternary)": {
+    "prefix": "--BG-Light-Quaternary",
+    "body": ["--BG-Light-Quaternary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Light-Disabled)": {
+    "prefix": "--BG-Light-Disabled",
+    "body": ["--BG-Light-Disabled"],
+    "description": "var(--Gray-500)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Primary)": {
+    "prefix": "--BG-Dark-Primary",
+    "body": ["--BG-Dark-Primary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Secondary)": {
+    "prefix": "--BG-Dark-Secondary",
+    "body": ["--BG-Dark-Secondary"],
+    "description": "var(--Gray-1150)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Tertiary)": {
+    "prefix": "--BG-Dark-Tertiary",
+    "body": ["--BG-Dark-Tertiary"],
+    "description": "var(--Gray-1250)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Quaternary)": {
+    "prefix": "--BG-Dark-Quaternary",
+    "body": ["--BG-Dark-Quaternary"],
+    "description": "var(--Gray-1300)",
+    "scope": "css,scss"
+  },
+  "var(--BG-Dark-Disabled)": {
+    "prefix": "--BG-Dark-Disabled",
+    "body": ["--BG-Dark-Disabled"],
+    "description": "var(--Gray-1500)",
+    "scope": "css,scss"
+  },
+
+  "var(--Border-Light-Primary)": {
+    "prefix": "--Border-Light-Primary",
+    "body": ["--Border-Light-Primary"],
+    "description": "var(--Gray-400)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Secondary)": {
+    "prefix": "--Border-Light-Secondary",
+    "body": ["--Border-Light-Secondary"],
+    "description": "var(--Gray-300)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Tertiary)": {
+    "prefix": "--Border-Light-Tertiary",
+    "body": ["--Border-Light-Tertiary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Quaternary)": {
+    "prefix": "--Border-Light-Quaternary",
+    "body": ["--Border-Light-Quaternary"],
+    "description": "var(--Gray-100)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Light-Disabled)": {
+    "prefix": "--Border-Light-Disabled",
+    "body": ["--Border-Light-Disabled"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Primary)": {
+    "prefix": "--Border-Dark-Primary",
+    "body": ["--Border-Dark-Primary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Secondary)": {
+    "prefix": "--Border-Dark-Secondary",
+    "body": ["--Border-Dark-Secondary"],
+    "description": "var(--Gray-1150)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Tertiary)": {
+    "prefix": "--Border-Dark-Tertiary",
+    "body": ["--Border-Dark-Tertiary"],
+    "description": "var(--Gray-1250)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Quaternary)": {
+    "prefix": "--Border-Dark-Quaternary",
+    "body": ["--Border-Dark-Quaternary"],
+    "description": "var(--Gray-1300)",
+    "scope": "css,scss"
+  },
+  "var(--Border-Dark-Disabled)": {
+    "prefix": "--Border-Dark-Disabled",
+    "body": ["--Border-Dark-Disabled"],
+    "description": "var(--Gray-1500)",
+    "scope": "css,scss"
+  },
+
+  "var(--Text-Light-Primary)": {
+    "prefix": "--Text-Light-Primary",
+    "body": ["--Text-Light-Primary"],
+    "description": "var(--Gray-1200)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Secondary)": {
+    "prefix": "--Text-Light-Secondary",
+    "body": ["--Text-Light-Secondary"],
+    "description": "var(--Gray-1000)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Tertiary)": {
+    "prefix": "--Text-Light-Tertiary",
+    "body": ["--Text-Light-Tertiary"],
+    "description": "var(--Gray-800)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Quaternary)": {
+    "prefix": "--Text-Light-Quaternary",
+    "body": ["--Text-Light-Quaternary"],
+    "description": "var(--Gray-600)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Light-Disabled)": {
+    "prefix": "--Text-Light-Disabled",
+    "body": ["--Text-Light-Disabled"],
+    "description": "var(--Gray-800)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Primary)": {
+    "prefix": "--Text-Dark-Primary",
+    "body": ["--Text-Dark-Primary"],
+    "description": "var(--Gray-0)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Secondary)": {
+    "prefix": "--Text-Dark-Secondary",
+    "body": ["--Text-Dark-Secondary"],
+    "description": "var(--Gray-200)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Tertiary)": {
+    "prefix": "--Text-Dark-Tertiary",
+    "body": ["--Text-Dark-Tertiary"],
+    "description": "var(--Gray-400)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Quaternary)": {
+    "prefix": "--Text-Dark-Quaternary",
+    "body": ["--Text-Dark-Quaternary"],
+    "description": "var(--Gray-600)",
+    "scope": "css,scss"
+  },
+  "var(--Text-Dark-Disabled)": {
+    "prefix": "--Text-Dark-Disabled",
+    "body": ["--Text-Dark-Disabled"],
+    "description": "var(--Gray-400)",
+    "scope": "css,scss"
+  },
+  "var(--Shadow-1)": {
+    "prefix": "--Shadow-1",
+    "body": ["--Shadow-1"],
+    "description": "0 0.1875rem 0.5rem 0 rgba(0, 0, 0, 0.25)",
+    "scope": "css,scss"
+  }
+}

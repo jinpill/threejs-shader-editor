@@ -1,0 +1,51 @@
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 0.5rem));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 0.5rem));
+  }
+}
+
+.children {
+  width: 10rem;
+  height: 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 10rem);
+  transform: translate(-50%, -50%);
+
+  border-radius: var(--Radius-Small);
+  border: 0.0625rem solid var(--Border-Light-Primary);
+  background-color: var(--BG-Light-Primary);
+
+  color: var(--Text-Light-Primary);
+  font-size: 0.875rem;
+  user-select: none;
+
+  animation: appear 0.4s ease-in-out forwards;
+
+  &.unmounting {
+    animation: disappear 0.4s ease-in-out forwards;
+  }
+}

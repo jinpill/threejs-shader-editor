@@ -1,0 +1,17 @@
+@function mix-color($color1, $color2, $weight) {
+  $weight1: (1 - $weight) * 100%;
+  $weight2: $weight * 100%;
+  @return color-mix(in srgb, $color1 $weight1, $color2 $weight2);
+}
+
+@function to-brightness($color, $weight) {
+  @return mix-color($color, white, $weight);
+}
+
+@function to-darkness($color, $weight) {
+  @return mix-color($color, black, $weight);
+}
+
+@function to-opacity($color, $weight) {
+  @return mix-color($color, transparent, $weight);
+}

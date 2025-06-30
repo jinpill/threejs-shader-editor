@@ -1,0 +1,31 @@
+.toasts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.item {
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
+  transition-property: height, opacity;
+  pointer-events: all;
+
+  &.disappearing {
+    opacity: 0;
+  }
+}
+
+.itemWrapper {
+  > div {
+    padding: 0.75rem;
+  }
+}

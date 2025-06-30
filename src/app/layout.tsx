@@ -5,6 +5,9 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import ThemeProvider from "./Initializer";
 import Header from "./Header";
+import DialogManager from "./DialogManager";
+
+import "material-icons/iconfont/material-icons.css";
 import "./globals.scss";
 
 const notoSansKr = Noto_Sans_KR({
@@ -43,6 +46,7 @@ const RootLayout = (props: React.PropsWithChildren) => (
         <ThemeProvider>
           <Header />
           {props.children}
+          <DialogManager />
         </ThemeProvider>
       </AppRouterCacheProvider>
     </body>

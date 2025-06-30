@@ -173,30 +173,23 @@
   }
 }
 
+.progress .track,
+.spentTime {
+  @include set-color(var(--Toast-Color));
+}
+
 .info {
-  .progress .track,
-  .spentTime {
-    @include set-color(var(--Primary-Light));
-  }
+  --Toast-Color: var(--Primary-Light);
 }
 
 .success {
-  .progress .track,
-  .spentTime {
-    @include set-color(var(--Success));
-  }
+  --Toast-Color: var(--Success);
 }
 
 .warning {
-  .progress .track,
-  .spentTime {
-    @include set-color(var(--Warning));
-  }
+  --Toast-Color: var(--Warning);
 }
 
 .error {
-  .progress .track,
-  .spentTime {
-    @include set-color(var(--Danger));
-  }
+  --Toast-Color: var(--Danger);
 }

@@ -122,3 +122,16 @@ export const Progress: Story = {
     return <Toast {...args} progress={progress} />;
   },
 };
+
+export const Custom: Story = {
+  args: {
+    id: 1,
+    status: "error",
+    icon: "outlet",
+    color: "purple",
+    title: "Custom Error",
+    message: "Something went wrong.",
+    duration: 100_000,
+    onTimeout: handleTimeout,
+  },
+};

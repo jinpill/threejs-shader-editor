@@ -64,7 +64,6 @@ export const Default: Story = {
         status: "success",
         title: "우와 신기하다",
         message: "참 쉽죠?",
-        duration: 3000,
       });
     };
 

@@ -9,42 +9,28 @@
   justify-content: center;
 
   border-radius: 50%;
+  background-color: to-opacity(var(--Icon-Color), 0.85);
 
   .icon {
     display: block;
     position: relative;
+    color: var(--Icon-Color);
     font-size: 2rem;
   }
 
   &.info {
-    background-color: to-opacity(var(--Primary-Light), 0.85);
-
-    .icon {
-      color: var(--Primary-Light);
-    }
+    --Icon-Color: var(--Primary-Light);
   }
 
   &.success {
-    background-color: to-opacity(var(--Success), 0.85);
-
-    .icon {
-      color: var(--Success);
-    }
+    --Icon-Color: var(--Success);
   }
 
   &.warning {
-    background-color: to-opacity(var(--Warning), 0.85);
-
-    .icon {
-      color: var(--Warning);
-    }
+    --Icon-Color: var(--Warning);
   }
 
   &.error {
-    background-color: to-opacity(var(--Danger), 0.85);
-
-    .icon {
-      color: var(--Danger);
-    }
+    --Icon-Color: var(--Danger);
   }
 }

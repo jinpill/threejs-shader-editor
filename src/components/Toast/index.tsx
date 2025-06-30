@@ -10,6 +10,8 @@ import useStateRef from "@/hooks/useStateRef";
 export type ToastProps = {
   id: number;
   status: ToastStatus;
+  icon?: IconName;
+  color?: string;
   title: string;
   subTitle?: string;
   message: string;
@@ -47,6 +49,10 @@ const Toast = (props: ToastProps) => {
   const spentTimeRef = useRef(0);
   const isHoverRef = useRef(false);
   const [spentTimeWidth, setSpentTimeWidth] = useState("0%");
+
+  const variables = {
+    "--Toast-Color": props.color,
+  } as React.CSSProperties;
 
   const progress = useMemo(() => {
     if (typeof props.progress !== "number") return "";
@@ -114,8 +120,14 @@ const Toast = (props: ToastProps) => {
       className={classNames(style.toast, style[props.status])}
       onPointerEnter={() => (isHoverRef.current = true)}
       onPointerLeave={() => (isHoverRef.current = false)}
+      style={variables}
     >
-      <StatusIcon className={style.statusIcon} status={props.status} />
+      <StatusIcon
+        className={style.statusIcon}
+        status={props.status}
+        icon={props.icon}
+        color={props.color}
+      />
       <div className={style.contents}>
         <div className={style.title}>
           {props.title}

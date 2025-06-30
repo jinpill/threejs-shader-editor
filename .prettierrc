@@ -7,5 +7,6 @@
   "semi": true,
   "useTabs": false,
   "tabWidth": 2,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "quoteProps": "consistent"
 }

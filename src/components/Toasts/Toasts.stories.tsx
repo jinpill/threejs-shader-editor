@@ -93,7 +93,7 @@ export const Default: Story = {
             message: "STL 파일을 성공적으로 불러왔습니다!",
             progress: 1,
             status: "success",
-            duration: 3000,
+            duration: null,
             buttons: [
               {
                 label: "3D 모델 보기",

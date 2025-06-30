@@ -23,9 +23,15 @@ const Item = (props: ItemProps) => {
     const $wrapper = wrapperRef.current;
     if (!$wrapper) return;
 
-    const rect = $wrapper.getBoundingClientRect();
-    const height = `${rect.height}px`;
-    setHeight(height);
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const rect = entry.target.getBoundingClientRect();
+        const height = `${rect.height}px`;
+        setHeight(height);
+      }
+    });
+
+    observer.observe($wrapper);
   }, []);
 
   useEffect(() => {

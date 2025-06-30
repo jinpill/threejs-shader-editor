@@ -1,0 +1,25 @@
+.scrollbar {
+  .contents {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .track {
+    width: 1rem;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .thumb {
+    width: 0.75rem;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: red;
+  }
+}

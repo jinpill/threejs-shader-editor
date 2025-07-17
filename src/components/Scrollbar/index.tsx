@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import { useIsHover } from "./hooks";
+import { useIsHover, useDragScrollbar } from "./hooks";
 import style from "./style.module.scss";
 
 export type ScrollbarProps = {
@@ -20,22 +20,34 @@ const Scrollbar = (props: ScrollbarProps) => {
   const [needScrollbar, setNeedScrollbar] = useState(false);
   const { isHover, handlePointerEnter, handlePointerLeave } = useIsHover();
 
-  useEffect(() => {
+  const updatePosition = () => {
     const $container = containerRef.current;
     const $contents = contentsRef.current;
     const $thumb = thumbRef.current;
     if (!$container || !$contents || !$thumb) return;
 
+    const containerRect = $container.getBoundingClientRect();
+    const thumbRect = $thumb.getBoundingClientRect();
+
+    const ratio = $contents.scrollTop / ($contents.scrollHeight - containerRect.height);
+    const spaceHeight = containerRect.height - thumbRect.height;
+    setPosition(`${ratio * spaceHeight}px`);
+  };
+
+  const { isScrolling, handlePointerDown } = useDragScrollbar(
+    contentsRef,
+    thumbRef,
+    updatePosition,
+  );
+
+  useEffect(() => {
+    const $container = containerRef.current;
+    const $contents = contentsRef.current;
+    if (!$container || !$contents) return;
+
     const handleWheel = (event: WheelEvent) => {
       $contents.scrollTop += event.deltaY;
-
-      const containerRect = $container.getBoundingClientRect();
-      const thumbRect = $thumb.getBoundingClientRect();
-
-      const percentage =
-        $contents.scrollTop / ($contents.scrollHeight - containerRect.height);
-      const freeSpaace = containerRect.height - thumbRect.height;
-      setPosition(`${percentage * freeSpaace}px`);
+      updatePosition();
 
       event.preventDefault();
       event.stopPropagation();
@@ -67,7 +79,9 @@ const Scrollbar = (props: ScrollbarProps) => {
   return (
     <div
       ref={containerRef}
-      className={classNames(style.scrollbar, props.className)}
+      className={classNames(style.scrollbar, props.className, {
+        [style.scrolling]: isScrolling,
+      })}
       style={props.style}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
@@ -78,7 +92,7 @@ const Scrollbar = (props: ScrollbarProps) => {
 
       <div
         className={classNames(style.track, {
-          [style.hidden]: !needScrollbar || !isHover,
+          [style.hidden]: !isScrolling && (!needScrollbar || !isHover),
         })}
       >
         <div
@@ -88,7 +102,9 @@ const Scrollbar = (props: ScrollbarProps) => {
             height: height,
             top: position,
           }}
-        />
+        >
+          <div onPointerDown={handlePointerDown} />
+        </div>
       </div>
     </div>
   );

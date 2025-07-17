@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
+import { useIsHover } from "./hooks";
 import style from "./style.module.scss";
 
 export type ScrollbarProps = {
@@ -15,6 +16,9 @@ const Scrollbar = (props: ScrollbarProps) => {
 
   const [height, setHeight] = useState("0%");
   const [position, setPosition] = useState("0px");
+
+  const [needScrollbar, setNeedScrollbar] = useState(false);
+  const { isHover, handlePointerEnter, handlePointerLeave } = useIsHover();
 
   useEffect(() => {
     const $container = containerRef.current;
@@ -49,7 +53,10 @@ const Scrollbar = (props: ScrollbarProps) => {
       for (const entry of entries) {
         const rect = entry.target.getBoundingClientRect();
         const height = (rect.height / entry.target.scrollHeight) * 100 + "%";
+        const needScrollbar = rect.height < entry.target.scrollHeight;
+
         setHeight(height);
+        setNeedScrollbar(needScrollbar);
       }
     });
 
@@ -62,12 +69,18 @@ const Scrollbar = (props: ScrollbarProps) => {
       ref={containerRef}
       className={classNames(style.scrollbar, props.className)}
       style={props.style}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       <div ref={contentsRef} className={style.contents}>
         {props.children}
       </div>
 
-      <div className={style.track}>
+      <div
+        className={classNames(style.track, {
+          [style.hidden]: !needScrollbar || !isHover,
+        })}
+      >
         <div
           ref={thumbRef}
           className={style.thumb}

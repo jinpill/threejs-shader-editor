@@ -32,6 +32,7 @@ const Item = (props: ItemProps) => {
     });
 
     observer.observe($wrapper);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {

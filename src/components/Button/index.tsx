@@ -23,6 +23,23 @@ export type ButtonProps = {
 export type ButtonSize = "small" | "large";
 export type ButtonType = "primary" | "secondary" | "tertiary" | "danger";
 
+/**
+ * `--btn-border-color`: 버튼 보더의 색상을 지정
+ *
+ * `--btn-bg-color`: 버튼 배경의 색상을 지정
+ *
+ * `--btn-text-color`: 버튼 텍스트의 색상을 지정
+ *
+ * `--btn-outline-color`: 버튼 아웃라인의 색상을 지정
+ *
+ * `--btn-hover-bg-color`: 호버 상태일 때, 버튼 배경의 색상을 지정
+ *
+ * `--btn-active-bg-color`: 액티브 상태일 때, 버튼 배경의 색상을 지정
+ *
+ * `--btn-disabled-bg-color`: 비활성화 상태일 때, 버튼 배경의 색상을 지정
+ *
+ * `--btn-disabled-text-color`: 비활성화 상태일 때, 버튼 텍스트의 색상을 지정
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   useImperativeHandle(ref, () => buttonRef.current!, []);

@@ -1,0 +1,21 @@
+.dropdown {
+  --btn-bg-color: white;
+  --btn-hover-bg-color: color-mix(in srgb, white 95%, black);
+
+  width: 200px;
+  justify-content: space-between;
+
+  .icon {
+    position: relative;
+  }
+
+  &.small .icon {
+    font-size: 1rem;
+    left: 0.25rem;
+  }
+
+  &.large .icon {
+    font-size: 1.25rem;
+    left: 0.375rem;
+  }
+}

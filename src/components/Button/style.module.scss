@@ -59,173 +59,128 @@
     }
   }
 
-  &.primary {
-    border-color: transparent;
-    background-color: var(--Primary-Light);
-    color: var(--Text-Dark-Primary);
+  @mixin set-colors(
+    $btn-border-color,
+    $btn-bg-color,
+    $btn-text-color,
+    $btn-outline-color,
+    $btn-hover-bg-color,
+    $btn-active-bg-color,
+    $btn-disabled-bg-color,
+    $btn-disabled-text-color
+  ) {
+    border-color: var(--btn-border-color, $btn-border-color);
+    background-color: var(--btn-bg-color, $btn-bg-color);
+    color: var(--btn-text-color, $btn-text-color);
 
     &:focus {
-      outline-color: to-opacity(var(--Primary-Light), 0.7);
+      outline-color: var(--btn-outline-color, $btn-outline-color);
     }
 
     &:not(:disabled) {
       &:hover {
-        background-color: to-darkness(var(--Primary-Light), 0.1);
+        background-color: var(--btn-hover-bg-color, $btn-hover-bg-color);
       }
 
       &:active {
-        background-color: to-darkness(var(--Primary-Light), 0.2);
+        background-color: var(--btn-active-bg-color, $btn-active-bg-color);
       }
     }
 
     &:disabled {
-      background-color: to-brightness(var(--Primary-Light), 0.25);
+      background-color: var(--btn-disabled-bg-color, $btn-disabled-bg-color);
+      color: var(--btn-disabled-text-color, $btn-disabled-text-color);
     }
+  }
+
+  &.primary {
+    @include set-colors(
+      transparent,
+      var(--Primary-Light),
+      var(--Text-Dark-Primary),
+      color-mix(in srgb, var(--Primary-Light) 70%, transparent),
+      color-mix(in srgb, var(--Primary-Light) 90%, black),
+      color-mix(in srgb, var(--Primary-Light) 80%, black),
+      color-mix(in srgb, var(--Primary-Light) 75%, white),
+      var(--Text-Dark-Primary)
+    );
 
     [data-theme="dark"] & {
-      border-color: transparent;
-      background-color: var(--Primary-Dark);
-      color: var(--Text-Dark-Primary);
-
-      &:focus {
-        outline-color: to-opacity(var(--Primary-Dark), 0.7);
-      }
-
-      &:not(:disabled) {
-        &:hover {
-          background-color: to-darkness(var(--Primary-Dark), 0.1);
-        }
-
-        &:active {
-          background-color: to-darkness(var(--Primary-Dark), 0.2);
-        }
-      }
-
-      &:disabled {
-        background-color: to-brightness(var(--Primary-Dark), 0.25);
-      }
+      @include set-colors(
+        transparent,
+        var(--Primary-Dark),
+        var(--Text-Dark-Primary),
+        color-mix(in srgb, var(--Primary-Dark) 70%, transparent),
+        color-mix(in srgb, var(--Primary-Dark) 90%, black),
+        color-mix(in srgb, var(--Primary-Dark) 80%, black),
+        color-mix(in srgb, var(--Primary-Dark) 75%, white),
+        var(--Text-Dark-Primary)
+      );
     }
   }
 
   &.secondary {
-    border-color: var(--Border-Light-Primary);
-    background-color: var(--BG-Light-Secondary);
-    color: var(--Text-Light-Primary);
-
-    &:focus {
-      outline-color: to-opacity(var(--Gray-1500), 0.9);
-    }
-
-    &:not(:disabled) {
-      &:hover {
-        background-color: to-darkness(var(--BG-Light-Secondary), 0.05);
-      }
-
-      &:active {
-        background-color: to-darkness(var(--BG-Light-Secondary), 0.1);
-      }
-    }
-
-    &:disabled {
-      background-color: to-darkness(var(--BG-Light-Secondary), 0.05);
-      color: var(--Text-Light-Disabled);
-    }
+    @include set-colors(
+      var(--Border-Light-Primary),
+      var(--BG-Light-Secondary),
+      var(--Text-Light-Primary),
+      color-mix(in srgb, var(--Gray-1500) 10%, transparent),
+      color-mix(in srgb, var(--BG-Light-Secondary) 95%, black),
+      color-mix(in srgb, var(--BG-Light-Secondary) 90%, black),
+      color-mix(in srgb, var(--BG-Light-Secondary) 95%, black),
+      var(--Text-Light-Disabled)
+    );
 
     [data-theme="dark"] & {
-      border-color: var(--Border-Dark-Primary);
-      background-color: var(--BG-Dark-Secondary);
-      color: var(--Text-Dark-Primary);
-
-      &:focus {
-        outline-color: to-opacity(var(--Gray-0), 0.95);
-      }
-
-      &:not(:disabled) {
-        &:hover {
-          background-color: to-darkness(var(--BG-Dark-Secondary), 0.05);
-        }
-
-        &:active {
-          background-color: to-darkness(var(--BG-Dark-Secondary), 0.1);
-        }
-      }
-
-      &:disabled {
-        background-color: to-darkness(var(--BG-Dark-Secondary), 0.05);
-        color: var(--Text-Dark-Disabled);
-      }
+      @include set-colors(
+        var(--Border-Dark-Primary),
+        var(--BG-Dark-Secondary),
+        var(--Text-Dark-Primary),
+        color-mix(in srgb, var(--Gray-0) 5%, transparent),
+        color-mix(in srgb, var(--BG-Dark-Secondary) 95%, black),
+        color-mix(in srgb, var(--BG-Dark-Secondary) 90%, black),
+        color-mix(in srgb, var(--BG-Dark-Secondary) 95%, black),
+        var(--Text-Dark-Disabled)
+      );
     }
   }
 
   &.tertiary {
-    border-color: transparent;
-    background-color: transparent;
-    color: var(--Text-Light-Primary);
-
-    &:focus {
-      outline-color: to-opacity(var(--Gray-1500), 0.9);
-    }
-
-    &:not(:disabled) {
-      &:hover {
-        background-color: to-opacity(black, 0.95);
-      }
-
-      &:active {
-        background-color: to-opacity(black, 0.9);
-      }
-    }
-
-    &:disabled {
-      color: var(--Text-Light-Disabled);
-    }
+    @include set-colors(
+      transparent,
+      transparent,
+      var(--Text-Light-Primary),
+      color-mix(in srgb, var(--Gray-1500) 10%, transparent),
+      color-mix(in srgb, black 5%, transparent),
+      color-mix(in srgb, black 10%, transparent),
+      transparent,
+      var(--Text-Light-Disabled)
+    );
 
     [data-theme="dark"] & {
-      border-color: transparent;
-      background-color: transparent;
-      color: var(--Text-Dark-Primary);
-
-      &:focus {
-        outline-color: to-opacity(var(--Gray-0), 0.95);
-      }
-
-      &:not(:disabled) {
-        &:hover {
-          background-color: to-opacity(white, 0.95);
-        }
-
-        &:active {
-          background-color: to-opacity(white, 0.9);
-        }
-      }
-
-      &:disabled {
-        color: var(--Text-Dark-Disabled);
-      }
+      @include set-colors(
+        transparent,
+        transparent,
+        var(--Text-Dark-Primary),
+        color-mix(in srgb, var(--Gray-0) 5%, transparent),
+        color-mix(in srgb, white 5%, transparent),
+        color-mix(in srgb, white 10%, transparent),
+        transparent,
+        var(--Text-Dark-Disabled)
+      );
     }
   }
 
   &.danger {
-    border-color: transparent;
-    background-color: var(--Danger);
-    color: var(--Text-Dark-Primary);
-
-    &:focus {
-      outline-color: to-opacity(var(--Danger), 0.7);
-    }
-
-    &:not(:disabled) {
-      &:hover {
-        background-color: to-darkness(var(--Danger), 0.1);
-      }
-
-      &:active {
-        background-color: to-darkness(var(--Danger), 0.2);
-      }
-    }
-
-    &:disabled {
-      background-color: to-brightness(var(--Danger), 0.25);
-    }
+    @include set-colors(
+      transparent,
+      var(--Danger),
+      var(--Text-Dark-Primary),
+      color-mix(in srgb, var(--Danger) 30%, transparent),
+      color-mix(in srgb, var(--Danger) 90%, black),
+      color-mix(in srgb, var(--Danger) 80%, black),
+      color-mix(in srgb, var(--Danger) 75%, white),
+      var(--Text-Dark-Primary)
+    );
   }
 }

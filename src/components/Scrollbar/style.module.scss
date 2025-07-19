@@ -1,16 +1,20 @@
 .scrollbar {
+  position: relative;
+
   &.scrolling {
     pointer-events: none;
   }
 }
 
 .contents {
-  height: 100%;
+  padding: inherit;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 
 .track {
-  width: 1rem;
+  width: 0.875rem;
 
   position: absolute;
   top: 0;
@@ -27,7 +31,7 @@
 }
 
 .thumb {
-  width: 0.875rem;
+  width: inherit;
 
   padding: 0.25rem;
 

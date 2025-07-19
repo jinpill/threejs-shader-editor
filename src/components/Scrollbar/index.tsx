@@ -21,16 +21,15 @@ const Scrollbar = (props: ScrollbarProps) => {
   const { isHover, handlePointerEnter, handlePointerLeave } = useIsHover();
 
   const updatePosition = () => {
-    const $container = containerRef.current;
     const $contents = contentsRef.current;
     const $thumb = thumbRef.current;
-    if (!$container || !$contents || !$thumb) return;
+    if (!$contents || !$thumb) return;
 
-    const containerRect = $container.getBoundingClientRect();
+    const contentsRect = $contents.getBoundingClientRect();
     const thumbRect = $thumb.getBoundingClientRect();
 
-    const ratio = $contents.scrollTop / ($contents.scrollHeight - containerRect.height);
-    const spaceHeight = containerRect.height - thumbRect.height;
+    const ratio = $contents.scrollTop / ($contents.scrollHeight - contentsRect.height);
+    const spaceHeight = contentsRect.height - thumbRect.height;
     setPosition(`${ratio * spaceHeight}px`);
   };
 

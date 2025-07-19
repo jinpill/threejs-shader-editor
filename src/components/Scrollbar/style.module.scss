@@ -1,0 +1,56 @@
+.scrollbar {
+  position: relative;
+
+  &.scrolling {
+    pointer-events: none;
+  }
+}
+
+.contents {
+  padding: inherit;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.track {
+  width: 0.875rem;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.thumb {
+  width: inherit;
+
+  padding: 0.25rem;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  transition: padding 0.2s ease-in-out;
+
+  &:hover,
+  .scrolling & {
+    padding: 0.125rem;
+  }
+
+  > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    background-color: var(--Gray-600);
+    pointer-events: auto;
+  }
+}

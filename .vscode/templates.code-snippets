@@ -26,6 +26,23 @@
     ],
     "scope": "typescriptreact"
   },
+  "Create new store": {
+    "prefix": "create-new-store",
+    "description": "새로운 Zustand 스토어를 생성합니다.",
+    "body": [
+      "import { create } from \"zustand\";",
+      "",
+      "type ${1:Some}Store = {",
+      "  ${2}",
+      "};",
+      "",
+      "export const use${1:Some}Store = create<${1:Some}Store>((set, get) => ({",
+      "  ${3}",
+      "}));",
+      ""
+    ],
+    "scope": "typescript"
+  },
   "Import Utilities": {
     "prefix": "import-utilities",
     "description": "유틸리티를 불러옵니다.",

@@ -3,7 +3,6 @@ import classNames from "classnames";
 
 import Button, { type ButtonSize } from "@/components/Button";
 import Icon from "@/components/Icon";
-import DropdownOptions from "./parts/DropdownOptions";
 import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
 
 import style from "./style.module.scss";
@@ -64,5 +63,4 @@ const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
   );
 };
 
-Dropdown.Options = DropdownOptions;
 export default Dropdown;

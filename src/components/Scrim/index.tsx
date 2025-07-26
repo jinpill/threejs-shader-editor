@@ -1,3 +1,4 @@
+import React from "react";
 import classNames from "classnames";
 import style from "./style.module.scss";
 import useMountAnimation from "@/hooks/useMountAnimation";
@@ -9,7 +10,7 @@ type ScrimProps = {
   children?: React.ReactNode;
 };
 
-const Scrim = (props: ScrimProps) => {
+const Scrim = React.forwardRef<HTMLDivElement, ScrimProps>((props, ref) => {
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -19,6 +20,7 @@ const Scrim = (props: ScrimProps) => {
 
   return (
     <div
+      ref={ref}
       className={classNames(style.scrim, props.className, {
         [style.unmounting]: isUnmounting,
       })}
@@ -31,6 +33,7 @@ const Scrim = (props: ScrimProps) => {
       {props.children}
     </div>
   );
-};
+});
 
+Scrim.displayName = "Scrim";
 export default Scrim;

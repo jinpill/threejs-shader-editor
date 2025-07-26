@@ -1,0 +1,24 @@
+.options {
+  list-style: none;
+
+  position: absolute;
+  transform: translateY(0.5rem);
+
+  border-radius: var(--Radius-Small);
+  border: 0.0625rem solid var(--Border-Light-Primary);
+  overflow: hidden;
+}
+
+.option {
+  padding: 0 0.875rem;
+
+  color: var(--Text-Light-Primary);
+  font-size: var(--Text-Small);
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 0.03125rem;
+
+  &:hover {
+    background-color: rgba(black, 0.1);
+  }
+}

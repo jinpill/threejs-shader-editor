@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import { fn } from "@storybook/test";
 import Dropdown, { DropdownProps } from ".";
+import Options from "@/components/Options";
 
 const meta = {
   title: "Reusable/Dropdown",
@@ -28,7 +29,7 @@ const meta = {
         >
           <Story />
         </div>
-        <Dropdown.Options />
+        <Options />
       </div>
     ),
   ],

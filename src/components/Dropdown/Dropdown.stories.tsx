@@ -7,10 +7,31 @@ const meta = {
   title: "Reusable/Dropdown",
   component: Dropdown,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
   tags: ["autodocs"],
   args: { onChange: fn() },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          height: "25rem",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "1rem",
+          }}
+        >
+          <Story />
+        </div>
+        <Dropdown.Options />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Dropdown>;
 
 export default meta;

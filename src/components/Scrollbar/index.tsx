@@ -4,6 +4,7 @@ import { useIsHover, useDragScrollbar } from "./hooks";
 import style from "./style.module.scss";
 
 export type ScrollbarProps = {
+  onAnimationEnd?: (event: React.AnimationEvent<HTMLDivElement>) => void;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
@@ -84,6 +85,7 @@ const Scrollbar = (props: ScrollbarProps) => {
       style={props.style}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
+      onAnimationEnd={props.onAnimationEnd}
     >
       <div ref={contentsRef} className={style.contents}>
         {props.children}

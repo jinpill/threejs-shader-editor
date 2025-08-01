@@ -2,10 +2,11 @@ import { create } from "zustand";
 
 type OptionsStore = {
   options: Options<string | number> | null;
+  getOptions: () => Options<string | number> | null;
   setOptions: (options: Options<string | number> | null) => void;
 };
 
-type Options<V extends string | number> = {
+export type Options<V extends string | number> = {
   id: string;
   rect: DOMRect;
   list: Option<V>[];
@@ -17,8 +18,9 @@ export type Option<V extends string | number> = {
   label: string;
 };
 
-export const useOptionsStore = create<OptionsStore>((set) => ({
+export const useOptionsStore = create<OptionsStore>((set, get) => ({
   options: null,
+  getOptions: () => get().options,
   setOptions: (options) => {
     set({ options });
   },

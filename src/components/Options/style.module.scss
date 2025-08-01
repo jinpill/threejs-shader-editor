@@ -4,11 +4,40 @@
   box-sizing: content-box;
 
   position: absolute;
-  transform: translateY(0.5rem);
 
   border-radius: var(--Radius-Small);
   border: 0.0625rem solid var(--Border-Light-Primary);
   overflow: hidden;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateY(0rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0.5rem);
+    }
+  }
+
+  @keyframes disappear {
+    from {
+      opacity: 1;
+      transform: translateY(0.5rem);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(0rem);
+    }
+  }
+
+  animation: appear 0.2s ease-in-out forwards;
+
+  &.unmounting {
+    animation: disappear 0.2s ease-in-out forwards;
+  }
 }
 
 .list {
@@ -23,6 +52,7 @@
   font-weight: 500;
   line-height: 2rem;
   letter-spacing: 0.03125rem;
+  user-select: none;
 
   &:hover {
     background-color: rgba(black, 0.1);

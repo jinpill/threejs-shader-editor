@@ -1,5 +1,7 @@
 .options {
-  list-style: none;
+  max-height: 15rem;
+
+  box-sizing: content-box;
 
   position: absolute;
   transform: translateY(0.5rem);
@@ -9,7 +11,11 @@
   overflow: hidden;
 }
 
-.option {
+.list {
+  list-style: none;
+}
+
+.item {
   padding: 0 0.875rem;
 
   color: var(--Text-Light-Primary);

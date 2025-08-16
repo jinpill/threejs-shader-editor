@@ -6,7 +6,7 @@ import Scrollbar from "@/components/Scrollbar";
 import Icon from "@/components/Icon";
 
 import useMountAnimation from "@/hooks/useMountAnimation";
-import { useOptionsStore } from "@/stores/useOptionsStore";
+import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
 
 import style from "../style.module.scss";
 
@@ -18,6 +18,12 @@ const Contents = () => {
   const [styles, setStyles] = useState<React.CSSProperties>({});
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
   const options = useMemo(() => getOptions()!, [getOptions]);
+
+  const getTitleAttr = (option: Option<string | number>) => {
+    let title = option.label;
+    if (option.description) title += ` - ${option.description}`;
+    return title;
+  };
 
   useEffect(() => {
     const $scrim = scrimRef.current;
@@ -137,6 +143,7 @@ const Contents = () => {
               key={option.value}
               className={style.item}
               tabIndex={-1}
+              title={getTitleAttr(option)}
               onClick={() => {
                 options.callback(option.value);
                 setOptions(null);
@@ -146,7 +153,16 @@ const Contents = () => {
                 $target.focus();
               }}
             >
-              <span>{option.label}</span>
+              <div className={style.contents}>
+                {option.icon && <Icon className={style.icon} icon={option.icon} />}
+                <div className={style.text}>
+                  <span className={style.label}>{option.label}</span>
+                  {option.description && (
+                    <span className={style.description}>{option.description}</span>
+                  )}
+                </div>
+              </div>
+
               {option.value === options.value && (
                 <Icon className={style.checkIcon} icon="check" />
               )}

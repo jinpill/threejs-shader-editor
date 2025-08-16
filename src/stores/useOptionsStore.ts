@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { IconName } from "@/components/Icon";
 
 type OptionsStore = {
   options: Options<string | number> | null;
@@ -15,8 +16,10 @@ export type Options<V extends string | number> = {
 };
 
 export type Option<V extends string | number> = {
+  icon?: IconName;
   value: V;
   label: string;
+  description?: string;
 };
 
 export const useOptionsStore = create<OptionsStore>((set, get) => ({

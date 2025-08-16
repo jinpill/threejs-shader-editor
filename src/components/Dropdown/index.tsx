@@ -13,6 +13,7 @@ export type DropdownProps<V extends string | number> = {
   options?: Option<V>[];
   placeholder?: string;
   isDisabled?: boolean;
+  isFullWidth?: boolean;
   onChange?: (value: V) => void;
   className?: string;
 };
@@ -37,6 +38,7 @@ const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
 
     setOptions({
       id: id,
+      size: props.size ?? "small",
       rect: rect,
       value: props.value as V,
       list: options,
@@ -54,6 +56,7 @@ const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
       type="secondary"
       size={size}
       isDisabled={isDisabled}
+      isFullWidth={props.isFullWidth}
       onClick={handleClick}
     >
       <div className={style.label}>

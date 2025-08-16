@@ -129,9 +129,14 @@ const Contents = () => {
   }, [setOptions]);
 
   return (
-    <Scrim ref={scrimRef} opacity={0} onClick={() => setOptions(null)}>
+    <Scrim
+      ref={scrimRef}
+      className={style.scrim}
+      opacity={0}
+      onClick={() => setOptions(null)}
+    >
       <Scrollbar
-        className={classNames(style.options, {
+        className={classNames(style.options, style[options.size], {
           [style.unmounting]: isUnmounting,
         })}
         style={styles}

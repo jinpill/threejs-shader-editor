@@ -28,7 +28,9 @@ const meta = {
             padding: "1rem",
           }}
         >
-          <Story />
+          <div style={{ width: "15rem" }}>
+            <Story />
+          </div>
         </div>
         <Options />
       </div>
@@ -41,6 +43,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    size: "small",
     value: 1,
     options: Array.from({ length: 10 }).map((_, i) => {
       const option: Option<number> = {
@@ -57,6 +60,7 @@ export const Default: Story = {
 
       return option;
     }),
+    isFullWidth: true,
   },
   render: (args) => {
     const [{ value }, setValue] = useArgs();

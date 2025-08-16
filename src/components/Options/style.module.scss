@@ -1,6 +1,8 @@
-.options {
-  max-height: 15rem;
+.scrim {
+  overflow: hidden;
+}
 
+.options {
   box-sizing: content-box;
 
   position: absolute;
@@ -9,6 +11,14 @@
   border: 0.0625rem solid var(--Border-Light-Primary);
   background-color: var(--BG-Light-Primary);
   overflow: hidden;
+
+  &.small {
+    max-height: 15rem;
+  }
+
+  &.large {
+    max-height: 24rem;
+  }
 
   @keyframes appear {
     from {
@@ -46,20 +56,27 @@
 }
 
 .item {
-  height: 2rem;
-
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin: 0.25rem;
   padding: 0 0.875rem;
 
-  border-radius: var(--Radius-Extra-Small);
-
-  font-size: var(--Text-Small);
   user-select: none;
 
   cursor: pointer;
+
+  .small & {
+    height: 2rem;
+    border-radius: var(--Radius-Extra-Small);
+    font-size: var(--Text-Small);
+  }
+
+  .large & {
+    height: 3rem;
+    border-radius: var(--Radius-Small);
+    font-size: var(--Text-Large);
+  }
 
   &:focus {
     outline: none;
@@ -75,7 +92,7 @@
 
     .icon {
       color: var(--Text-Light-Secondary);
-      font-size: 0.875rem;
+      font-size: 1.17em;
     }
 
     .text {
@@ -108,7 +125,7 @@
   .checkIcon {
     position: relative;
     left: 0.125rem;
-    font-size: 0.875rem;
+    font-size: 1.17em;
     color: var(--Primary-Light);
   }
 }

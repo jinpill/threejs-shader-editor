@@ -9,11 +9,14 @@ type OptionsStore = {
 
 export type Options<V extends string | number> = {
   id: string;
+  size: OptionSize;
   rect: DOMRect;
   value: V;
   list: Option<V>[];
   callback: (value: V) => void;
 };
+
+export type OptionSize = "small" | "large";
 
 export type Option<V extends string | number> = {
   icon?: IconName;

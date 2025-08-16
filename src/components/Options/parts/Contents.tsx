@@ -59,13 +59,68 @@ const Contents = () => {
 
   useEffect(() => {
     const $list = listRef.current;
-    const $scrollbar = $list?.parentElement;
-    if (!$list || !$scrollbar) return;
+    if (!$list) return;
 
     const index = options.list.findIndex((option) => option.value === options.value);
     const $option = $list.children[index] as HTMLElement;
     $option?.focus();
   }, [options]);
+
+  useEffect(() => {
+    const $list = listRef.current;
+    const $options = Array.from($list?.children ?? []);
+    if (!$list || !$options) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab") {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "Escape") {
+        setOptions(null);
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "ArrowUp") {
+        const activeElement = getActiveElement();
+        focusOption(activeElement, -1);
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
+        const activeElement = getActiveElement();
+        focusOption(activeElement, +1);
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "Enter") {
+        const activeElement = getActiveElement();
+        activeElement?.click();
+        event.preventDefault();
+        return;
+      }
+    };
+
+    const getActiveElement = () => {
+      const activeElement = $list.querySelector(":focus");
+      if (!activeElement) return null;
+      return activeElement as HTMLElement;
+    };
+
+    const focusOption = (activeElement: HTMLElement | null, direction: number) => {
+      const index = activeElement ? $options.indexOf(activeElement) : -1;
+      const targetIndex = index === -1 ? 0 : index + direction;
+      const $option = $options[targetIndex] as HTMLElement;
+      $option?.focus();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [setOptions]);
 
   return (
     <Scrim ref={scrimRef} opacity={0} onClick={() => setOptions(null)}>

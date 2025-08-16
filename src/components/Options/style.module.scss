@@ -48,7 +48,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0.25rem;
   padding: 0 0.875rem;
+
+  border-radius: var(--Radius-Extra-Small);
 
   color: var(--Text-Light-Primary);
   font-size: var(--Text-Small);
@@ -57,8 +60,11 @@
   letter-spacing: 0.03125rem;
   user-select: none;
 
-  &:hover {
-    background-color: rgba(black, 0.1);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    background-color: color-mix(in srgb, var(--Primary-Light) 15%, transparent);
   }
 
   .checkIcon {

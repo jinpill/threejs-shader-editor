@@ -57,6 +57,16 @@ const Contents = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const $list = listRef.current;
+    const $scrollbar = $list?.parentElement;
+    if (!$list || !$scrollbar) return;
+
+    const index = options.list.findIndex((option) => option.value === options.value);
+    const $option = $list.children[index] as HTMLElement;
+    $option?.focus();
+  }, [options]);
+
   return (
     <Scrim ref={scrimRef} opacity={0} onClick={() => setOptions(null)}>
       <Scrollbar
@@ -71,9 +81,14 @@ const Contents = () => {
             <li
               key={option.value}
               className={style.item}
+              tabIndex={-1}
               onClick={() => {
                 options.callback(option.value);
                 setOptions(null);
+              }}
+              onPointerEnter={(event) => {
+                const $target = event.target as HTMLElement;
+                $target.focus();
               }}
             >
               <span>{option.label}</span>

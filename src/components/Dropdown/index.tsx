@@ -38,6 +38,7 @@ const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
     setOptions({
       id: id,
       rect: rect,
+      value: props.value as V,
       list: options,
       callback: (value) => {
         if (props.value === value) return;

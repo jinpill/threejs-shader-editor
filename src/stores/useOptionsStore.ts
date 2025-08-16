@@ -9,6 +9,7 @@ type OptionsStore = {
 export type Options<V extends string | number> = {
   id: string;
   rect: DOMRect;
+  value: V;
   list: Option<V>[];
   callback: (value: V) => void;
 };

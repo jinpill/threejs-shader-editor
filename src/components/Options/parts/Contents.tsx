@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import Scrim from "@/components/Scrim";
 import Scrollbar from "@/components/Scrollbar";
+import Icon from "@/components/Icon";
 
 import useMountAnimation from "@/hooks/useMountAnimation";
 import { useOptionsStore } from "@/stores/useOptionsStore";
@@ -75,7 +76,10 @@ const Contents = () => {
                 setOptions(null);
               }}
             >
-              {option.label}
+              <span>{option.label}</span>
+              {option.value === options.value && (
+                <Icon className={style.checkIcon} icon="check" />
+              )}
             </li>
           ))}
         </ul>

@@ -45,6 +45,9 @@
 }
 
 .item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 0.875rem;
 
   color: var(--Text-Light-Primary);
@@ -56,5 +59,12 @@
 
   &:hover {
     background-color: rgba(black, 0.1);
+  }
+
+  .checkIcon {
+    position: relative;
+    left: 0.125rem;
+    font-size: 0.875rem;
+    color: var(--Primary-Light);
   }
 }

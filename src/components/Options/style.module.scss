@@ -1,9 +1,17 @@
+$translate-y: 0.5rem;
+
 .scrim {
   overflow: hidden;
 }
 
+.translateHelper {
+  height: $translate-y;
+  position: absolute;
+  visibility: hidden;
+}
+
 .options {
-  box-sizing: content-box;
+  box-sizing: border-box;
 
   position: absolute;
 
@@ -20,34 +28,42 @@
     max-height: 24rem;
   }
 
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: translateY(0rem);
+  @mixin animate($name, $translate-y) {
+    @keyframes appear-#{$name} {
+      from {
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY($translate-y);
+      }
     }
 
-    to {
-      opacity: 1;
-      transform: translateY(0.5rem);
+    @keyframes disappear-#{$name} {
+      from {
+        opacity: 1;
+        transform: translateY($translate-y);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(0);
+      }
+    }
+
+    animation: appear-#{$name} 0.2s ease-in-out forwards;
+
+    &.unmounting {
+      animation: disappear-#{$name} 0.2s ease-in-out forwards;
     }
   }
 
-  @keyframes disappear {
-    from {
-      opacity: 1;
-      transform: translateY(0.5rem);
-    }
+  @include animate(bottom, $translate-y);
 
-    to {
-      opacity: 0;
-      transform: translateY(0rem);
-    }
-  }
-
-  animation: appear 0.2s ease-in-out forwards;
-
-  &.unmounting {
-    animation: disappear 0.2s ease-in-out forwards;
+  &.top {
+    @include animate(top, -$translate-y);
   }
 }
 
@@ -67,7 +83,7 @@
   cursor: pointer;
 
   .small & {
-    height: 2rem;
+    height: 2.25rem;
     border-radius: var(--Radius-Extra-Small);
     font-size: var(--Text-Small);
   }

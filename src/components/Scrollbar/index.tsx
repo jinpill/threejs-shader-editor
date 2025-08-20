@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import classNames from "classnames";
 import { useIsHover, useDragScrollbar } from "./hooks";
 import style from "./style.module.scss";
@@ -10,10 +10,11 @@ export type ScrollbarProps = {
   children?: React.ReactNode;
 };
 
-const Scrollbar = (props: ScrollbarProps) => {
+const Scrollbar = React.forwardRef<HTMLDivElement, ScrollbarProps>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentsRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
+  useImperativeHandle(ref, () => containerRef.current!, []);
 
   const [height, setHeight] = useState("0%");
   const [position, setPosition] = useState("0px");
@@ -109,6 +110,7 @@ const Scrollbar = (props: ScrollbarProps) => {
       </div>
     </div>
   );
-};
+});
 
+Scrollbar.displayName = "Scrollbar";
 export default Scrollbar;

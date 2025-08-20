@@ -12,12 +12,14 @@ import style from "../style.module.scss";
 
 const Contents = () => {
   const scrimRef = useRef<HTMLDivElement>(null);
+  const helperRef = useRef<HTMLDivElement>(null);
+  const scrollbarRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
   const { getOptions, setOptions } = useOptionsStore();
-  const [styles, setStyles] = useState<React.CSSProperties>({});
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
   const options = useMemo(() => getOptions()!, [getOptions]);
+  const [isTop, setIsTop] = useState(false);
 
   const getTitleAttr = (option: Option<string | number>) => {
     let title = option.label;
@@ -26,42 +28,121 @@ const Contents = () => {
   };
 
   useEffect(() => {
+    const $scrollbar = scrollbarRef.current;
+    if (!$scrollbar) return;
+
     const $scrim = scrimRef.current;
     const scrimRect = $scrim?.getBoundingClientRect();
     if (!scrimRect) {
-      setStyles({});
+      $scrollbar.style.width = "";
+      $scrollbar.style.height = "";
+      $scrollbar.style.top = "";
+      $scrollbar.style.left = "";
       return;
     }
 
     const rect = options.rect;
-    const width = rect.width;
-    const top = rect.top - scrimRect.top + rect.height;
-    const left = rect.left - scrimRect.left;
-
-    setStyles({
-      width,
-      top,
-      left,
-    });
+    $scrollbar.style.width = `${rect.width}px`;
+    $scrollbar.style.top = `${rect.top - scrimRect.top + rect.height}px`;
+    $scrollbar.style.left = `${rect.left - scrimRect.left}px`;
   }, [options]);
 
   useEffect(() => {
+    const $scrim = scrimRef.current;
+    const $helper = helperRef.current;
+    const $scrollbar = scrollbarRef.current;
     const $list = listRef.current;
-    if (!$list) return;
+    if (!$scrim || !$helper || !$scrollbar || !$list) return;
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        const height = entry.target.clientHeight;
-        setStyles((prev) => ({
-          ...prev,
-          height,
-        }));
+        $scrollbar.style.height = `${entry.target.clientHeight}px`;
+
+        const d = getDimension();
+        const remainingSpace = calcRemainingSpace(d);
+
+        // 아래에 공간이 충분함
+        if (remainingSpace.bottom >= 0) return;
+
+        // 위에 공간이 충분함
+        if (remainingSpace.top >= 0) {
+          $scrollbar.style.top = `${remainingSpace.top + d.margin * 2}px`;
+          setIsTop(true);
+          return;
+        }
+
+        // 아래의 공간이 더 넓음
+        if (remainingSpace.top <= remainingSpace.bottom) {
+          const { height } = calcForBottomDirection(d);
+          $scrollbar.style.height = `${height}px`;
+          return;
+        }
+
+        // 위의 공간이 더 넓음
+        const { height, top } = calcForTopDirection(d);
+        $scrollbar.style.top = `${top}px`;
+        $scrollbar.style.height = `${height}px`;
+        setIsTop(true);
       }
     });
 
+    type Dimension = {
+      rect: DOMRect;
+      scrimRect: DOMRect;
+      scrollbarRect: DOMRect;
+      margin: number;
+    };
+
+    const getDimension = (): Dimension => {
+      const rect = options.rect;
+      const scrimRect = $scrim.getBoundingClientRect();
+      const helperRect = $helper.getBoundingClientRect();
+      const scrollbarRect = $scrollbar.getBoundingClientRect();
+      const margin = helperRect.height;
+
+      return {
+        rect,
+        scrimRect,
+        scrollbarRect,
+        margin,
+      };
+    };
+
+    const calcRemainingSpace = (d: Dimension) => {
+      const actualHeight = d.scrollbarRect.height;
+      const actualTop = d.scrollbarRect.top - d.scrimRect.top + d.margin;
+
+      const bottom = d.scrimRect.height - actualTop - actualHeight - d.margin;
+      const top = d.rect.top - d.scrimRect.top - d.scrollbarRect.height - d.margin * 2;
+
+      return {
+        bottom: Math.round(bottom),
+        top: Math.round(top),
+      };
+    };
+
+    const calcForBottomDirection = (d: Dimension) => {
+      const height =
+        d.scrimRect.height + d.scrimRect.top - d.rect.top - d.rect.height - d.margin * 2;
+
+      return {
+        height,
+      };
+    };
+
+    const calcForTopDirection = (d: Dimension) => {
+      const height = d.rect.top - d.scrimRect.top - d.margin * 2;
+      const top = d.margin * 2;
+
+      return {
+        height,
+        top,
+      };
+    };
+
     observer.observe($list);
     return () => observer.disconnect();
-  }, []);
+  }, [options.rect]);
 
   useEffect(() => {
     const $list = listRef.current;
@@ -135,11 +216,14 @@ const Contents = () => {
       opacity={0}
       onClick={() => setOptions(null)}
     >
+      <div ref={helperRef} className={style.translateHelper} />
+
       <Scrollbar
+        ref={scrollbarRef}
         className={classNames(style.options, style[options.size], {
           [style.unmounting]: isUnmounting,
+          [style.top]: isTop,
         })}
-        style={styles}
         onAnimationEnd={handleAnimationEnd}
       >
         <ul ref={listRef} className={style.list}>

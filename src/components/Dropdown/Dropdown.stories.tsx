@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import { fn } from "@storybook/test";
 import Dropdown, { DropdownProps } from ".";
 import Options from "@/components/Options";
+import Button from "@/components/Button";
 import type { Option } from "@/stores/useOptionsStore";
 
 const meta = {
@@ -14,27 +16,58 @@ const meta = {
   tags: ["autodocs"],
   args: { onChange: fn() },
   decorators: [
-    (Story) => (
-      <div
-        style={{
-          height: "25rem",
-        }}
-      >
+    (Story) => {
+      const containerRef = useRef<HTMLDivElement>(null);
+
+      const setJustifyContent = (
+        justifyContent: "flex-start" | "center" | "flex-end",
+      ) => {
+        if (!containerRef.current) return;
+        containerRef.current.style.justifyContent = justifyContent;
+      };
+
+      return (
         <div
+          ref={containerRef}
           style={{
+            height: "25rem",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            padding: "1rem",
+            position: "relative",
           }}
         >
-          <div style={{ width: "15rem" }}>
-            <Story />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              position: "absolute",
+              top: "50%",
+              left: "1rem",
+              transform: "translateY(-50%)",
+            }}
+          >
+            <Button label="위" onClick={() => setJustifyContent("flex-start")} />
+            <Button label="중간" onClick={() => setJustifyContent("center")} />
+            <Button label="아래" onClick={() => setJustifyContent("flex-end")} />
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "1rem",
+            }}
+          >
+            <div style={{ width: "15rem" }}>
+              <Story />
+            </div>
+          </div>
+          <Options />
         </div>
-        <Options />
-      </div>
-    ),
+      );
+    },
   ],
 } satisfies Meta<typeof Dropdown>;
 

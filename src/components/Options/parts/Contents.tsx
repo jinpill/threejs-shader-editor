@@ -6,6 +6,7 @@ import Scrollbar from "@/components/Scrollbar";
 import Icon from "@/components/Icon";
 
 import useMountAnimation from "@/hooks/useMountAnimation";
+import useScrollbar from "@/hooks/useScrollbar";
 import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
 
 import style from "../style.module.scss";
@@ -13,13 +14,18 @@ import style from "../style.module.scss";
 const Contents = () => {
   const scrimRef = useRef<HTMLDivElement>(null);
   const helperRef = useRef<HTMLDivElement>(null);
-  const scrollbarRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const scrollbarRef = useRef<HTMLDivElement>(null);
+  const setScrollTop = useScrollbar();
 
   const { getOptions, setOptions } = useOptionsStore();
   const { isUnmounting, handleAnimationEnd } = useMountAnimation();
   const options = useMemo(() => getOptions()!, [getOptions]);
+
   const [isTop, setIsTop] = useState(false);
+  const index = useMemo(() => {
+    return options.list.findIndex((option) => option.value === options.value);
+  }, [options.value, options.list]);
 
   const getTitleAttr = (option: Option<string | number>) => {
     let title = option.label;
@@ -45,7 +51,7 @@ const Contents = () => {
     $scrollbar.style.width = `${rect.width}px`;
     $scrollbar.style.top = `${rect.top - scrimRect.top + rect.height}px`;
     $scrollbar.style.left = `${rect.left - scrimRect.left}px`;
-  }, [options]);
+  }, [options, scrollbarRef]);
 
   useEffect(() => {
     const $scrim = scrimRef.current;
@@ -57,6 +63,18 @@ const Contents = () => {
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         $scrollbar.style.height = `${entry.target.clientHeight}px`;
+
+        setScrollTop($scrollbar, (data) => {
+          const $firstOption = data.$contents.querySelector("li:first-child");
+          const $selectedOption = data.$contents.querySelector(
+            `li:nth-child(${index + 1})`,
+          );
+
+          const firstOptionRect = $firstOption?.getBoundingClientRect();
+          const selectedOptionRect = $selectedOption?.getBoundingClientRect();
+          if (!firstOptionRect || !selectedOptionRect) return null;
+          return selectedOptionRect.top - firstOptionRect.top;
+        });
 
         const d = getDimension();
         const remainingSpace = calcRemainingSpace(d);
@@ -142,16 +160,15 @@ const Contents = () => {
 
     observer.observe($list);
     return () => observer.disconnect();
-  }, [options.rect]);
+  }, [options.rect, index, setScrollTop]);
 
   useEffect(() => {
     const $list = listRef.current;
     if (!$list) return;
 
-    const index = options.list.findIndex((option) => option.value === options.value);
     const $option = $list.children[index] as HTMLElement;
     $option?.focus();
-  }, [options]);
+  }, [index]);
 
   useEffect(() => {
     const $list = listRef.current;
@@ -227,7 +244,7 @@ const Contents = () => {
         onAnimationEnd={handleAnimationEnd}
       >
         <ul ref={listRef} className={style.list}>
-          {options.list.map((option) => (
+          {options.list.map((option, i) => (
             <li
               key={option.value}
               className={style.item}
@@ -252,9 +269,7 @@ const Contents = () => {
                 </div>
               </div>
 
-              {option.value === options.value && (
-                <Icon className={style.checkIcon} icon="check" />
-              )}
+              {i === index && <Icon className={style.checkIcon} icon="check" />}
             </li>
           ))}
         </ul>

@@ -33,11 +33,13 @@ $translate-y: 0.5rem;
       from {
         opacity: 0;
         transform: translateY(0);
+        pointer-events: none;
       }
 
       to {
         opacity: 1;
         transform: translateY($translate-y);
+        pointer-events: auto;
       }
     }
 
@@ -57,6 +59,7 @@ $translate-y: 0.5rem;
 
     &.unmounting {
       animation: disappear-#{$name} 0.2s ease-in-out forwards;
+      pointer-events: none;
     }
   }
 

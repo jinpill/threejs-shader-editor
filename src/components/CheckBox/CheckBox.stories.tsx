@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
-import Dropdown from "@/components/Dropdown";
 import { fn } from "@storybook/test";
 import CheckBox from ".";
 
@@ -29,17 +28,6 @@ export const Default: Story = {
       args.onChange?.(value);
     };
 
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "1rem",
-        }}
-      >
-        <Dropdown size={args.size} />
-        <CheckBox {...args} value={value} onChange={handleChange} />
-      </div>
-    );
+    return <CheckBox {...args} value={value} onChange={handleChange} />;
   },
 };

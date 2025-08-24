@@ -1,3 +1,64 @@
+$transition: 0.1s ease-in-out;
+
 .checkBox {
-  width: fit-content;
+  border-radius: var(--Radius-Extra-Small);
+  border: 0.0625rem solid var(--Border-Light-Primary);
+  outline: 0.1875rem solid transparent;
+  background-color: var(--BG-Light-Primary);
+
+  cursor: pointer;
+  transition: $transition;
+  transition-property: border-color, outline-color, background-color;
+
+  &.small {
+    width: 1.25rem;
+    height: 1.25rem;
+
+    .icon {
+      font-size: 0.875rem;
+    }
+  }
+
+  &.large {
+    width: 1.75rem;
+    height: 1.75rem;
+
+    .icon {
+      font-size: 1.25rem;
+    }
+  }
+
+  .icon {
+    color: var(--Gray-0);
+    opacity: 0;
+    transition: opacity $transition;
+  }
+
+  &.checked {
+    border-color: var(--Primary-Light);
+    background-color: var(--Primary-Light);
+
+    .icon {
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    outline-color: color-mix(in srgb, var(--Gray-1500) 10%, transparent);
+
+    &.checked {
+      outline-color: color-mix(in srgb, var(--Primary-Light) 70%, transparent);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    border-color: var(--BG-Light-Disabled);
+    background-color: var(--Gray-100);
+
+    &.checked {
+      background-color: var(--BG-Light-Disabled);
+    }
+  }
 }

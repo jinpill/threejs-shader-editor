@@ -1,0 +1,17 @@
+.tooltipWrapper {
+  width: fit-content;
+  height: fit-content;
+}
+
+.tooltipArea {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, 0.5rem);
+  background-color: rgba(black, 0.75);
+  color: white;
+}

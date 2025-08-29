@@ -16,6 +16,8 @@ export type ButtonProps = {
   isFullWidth?: boolean;
   isDisabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onPointerEnter?: (event: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerLeave?: (event: React.PointerEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
   className?: string;
 };
@@ -65,6 +67,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       tabIndex={props.tabIndex}
       disabled={props.isDisabled}
       onClick={props.onClick}
+      onPointerEnter={props.onPointerEnter}
+      onPointerLeave={props.onPointerLeave}
     >
       {props.icon && <Icon className={style.icon} icon={props.icon} />}
       {props.label}

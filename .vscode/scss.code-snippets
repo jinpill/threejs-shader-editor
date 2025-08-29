@@ -20,7 +20,8 @@
   "Import Utilities": {
     "prefix": "import-utilities",
     "body": ["@import \"@/styles/utils.scss\";"],
-    "description": "Import Utilities"
+    "description": "Import Utilities",
+    "scope": "css,scss"
   },
   "To Brightness": {
     "prefix": "to-brightness",

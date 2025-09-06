@@ -29,7 +29,7 @@ const TooltipBase = React.forwardRef<HTMLDivElement, TooltipProps>((props, ref) 
         contents: props.contents,
         rect: $wrapper.getBoundingClientRect(),
       });
-    }, 1000);
+    }, 500);
   };
 
   const handlePointerLeave = () => {

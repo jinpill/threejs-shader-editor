@@ -9,9 +9,12 @@ import style from "./style.module.scss";
 
 export type TooltipProps = {
   contents: string;
+  direction?: TooltipDirection;
   children?: React.ReactNode;
   className?: string;
 };
+
+export type TooltipDirection = "top" | "right" | "bottom" | "left";
 
 const TooltipBase = React.forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   const timeoutIdRef = useRef<number | null>(null);
@@ -27,6 +30,7 @@ const TooltipBase = React.forwardRef<HTMLDivElement, TooltipProps>((props, ref) 
     timeoutIdRef.current = window.setTimeout(() => {
       setData({
         contents: props.contents,
+        direction: props.direction ?? "bottom",
         rect: $wrapper.getBoundingClientRect(),
       });
     }, 500);

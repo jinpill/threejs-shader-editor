@@ -1,9 +1,11 @@
 import classNames from "classnames";
+import type { TooltipDirection } from "..";
 import useMountAnimation from "@/hooks/useMountAnimation";
 import style from "../style.module.scss";
 
 type TooltipContentsProps = {
   contents: string;
+  direction: TooltipDirection;
   style: React.CSSProperties;
 };
 
@@ -12,7 +14,7 @@ const TooltipContents = (props: TooltipContentsProps) => {
 
   return (
     <div
-      className={classNames(style.tooltip, {
+      className={classNames(style.tooltip, style[props.direction], {
         [style.unmounting]: isUnmounting,
       })}
       style={props.style}

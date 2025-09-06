@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import type { TooltipDirection } from ".";
 
 export type TooltipContextState = {
   data: TooltipData | null;
@@ -7,6 +8,7 @@ export type TooltipContextState = {
 
 export type TooltipData = {
   contents: string;
+  direction: TooltipDirection;
   rect: DOMRect;
 };
 

@@ -37,6 +37,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     contents: "이것은 중요한 버튼입니다.",
+    direction: "bottom",
     children: <Button label="실행" />,
   },
 };

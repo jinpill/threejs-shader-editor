@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 
 import MountAnimation from "@/components/MountAnimation";
-import { useTooltipContext } from "../Context";
 import TooltipContents from "./TooltipContents";
+import type { TooltipDirection } from "..";
+import { useTooltipContext } from "../Context";
 
 import style from "../style.module.scss";
 
@@ -18,6 +19,7 @@ const TooltipArea = (props: TooltipAreaProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const [contents, setContents] = useState("");
+  const [direction, setDirection] = useState<TooltipDirection>("bottom");
   const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
 
   useEffect(() => {
@@ -29,11 +31,33 @@ const TooltipArea = (props: TooltipAreaProps) => {
 
     const areaRect = $area.getBoundingClientRect();
     setContents(data.contents);
-    setTooltipStyle({
-      top: data.rect.top - areaRect.top + data.rect.height,
-      left: data.rect.left - areaRect.left + data.rect.width / 2,
-    });
+    setDirection(data.direction);
     setIsVisible(true);
+
+    setTooltipStyle(() => {
+      switch (data.direction) {
+        case "top":
+          return {
+            top: data.rect.top - areaRect.top,
+            left: data.rect.left - areaRect.left + data.rect.width / 2,
+          };
+        case "right":
+          return {
+            top: data.rect.top - areaRect.top + data.rect.height / 2,
+            left: data.rect.left - areaRect.left + data.rect.width,
+          };
+        case "left":
+          return {
+            top: data.rect.top - areaRect.top + data.rect.height / 2,
+            left: data.rect.left - areaRect.left,
+          };
+        default:
+          return {
+            top: data.rect.top - areaRect.top + data.rect.height,
+            left: data.rect.left - areaRect.left + data.rect.width / 2,
+          };
+      }
+    });
   }, [data]);
 
   return (
@@ -46,10 +70,11 @@ const TooltipArea = (props: TooltipAreaProps) => {
         isVisible={isVisible}
         onUnmounted={() => {
           setContents("");
+          setDirection("bottom");
           setTooltipStyle({});
         }}
       >
-        <TooltipContents contents={contents} style={tooltipStyle} />
+        <TooltipContents contents={contents} direction={direction} style={tooltipStyle} />
       </MountAnimation>
     </div>
   );

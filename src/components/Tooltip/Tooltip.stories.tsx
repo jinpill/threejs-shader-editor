@@ -91,7 +91,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    contents: "이것은 중요한 버튼입니다.",
+    contents: `
+      Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt
+      ut labore et dolore magna aliqua.
+    `,
     direction: "bottom",
     children: <Button label="실행" />,
   },

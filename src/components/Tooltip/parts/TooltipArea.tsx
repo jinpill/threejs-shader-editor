@@ -55,7 +55,14 @@ const TooltipArea = (props: TooltipAreaProps) => {
       }
 
       if (direction === "left" || direction === "right") {
-        style.top = rect.top - areaRect.top + rect.height / 2;
+        let top = rect.top - areaRect.top + rect.height / 2;
+        if (top + contentsRect.height / 2 > areaRect.height) {
+          top -= top + contentsRect.height / 2 - areaRect.height;
+        } else if (top - contentsRect.height / 2 < 0) {
+          top -= top - contentsRect.height / 2;
+        }
+        style.top = top;
+
         if (direction === "left") {
           style.left = rect.left - areaRect.left;
         } else {

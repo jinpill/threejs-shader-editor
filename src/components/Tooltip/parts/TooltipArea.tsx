@@ -15,49 +15,74 @@ export type TooltipAreaProps = {
 
 const TooltipArea = (props: TooltipAreaProps) => {
   const areaRef = useRef<HTMLDivElement>(null);
+  const contentsRef = useRef<HTMLDivElement>(null);
   const { data } = useTooltipContext();
+
   const [isVisible, setIsVisible] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const [contents, setContents] = useState("");
   const [direction, setDirection] = useState<TooltipDirection>("bottom");
   const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
 
-  useEffect(() => {
+  const handleMounted = () => {
     const $area = areaRef.current;
-    if (!data || !$area) {
+    const $contents = contentsRef.current;
+    if (!$area || !$contents || !data) return;
+
+    setIsReady(true);
+    setTooltipStyle(() => {
+      const { direction, rect } = data;
+      const style: React.CSSProperties = {};
+
+      const areaRect = $area.getBoundingClientRect();
+      const contentsRect = $contents.getBoundingClientRect();
+
+      if (direction === "top" || direction === "bottom") {
+        let left = rect.left - areaRect.left + rect.width / 2;
+        if (left + contentsRect.width / 2 > areaRect.width) {
+          left -= left + contentsRect.width / 2 - areaRect.width;
+        } else if (left - contentsRect.width / 2 < 0) {
+          left -= left - contentsRect.width / 2;
+        }
+        style.left = left;
+
+        if (direction === "top") {
+          style.top = rect.top - areaRect.top;
+        } else {
+          style.top = rect.top - areaRect.top + rect.height;
+        }
+      }
+
+      if (direction === "left" || direction === "right") {
+        style.top = rect.top - areaRect.top + rect.height / 2;
+        if (direction === "left") {
+          style.left = rect.left - areaRect.left;
+        } else {
+          style.left = rect.left - areaRect.left + rect.width;
+        }
+      }
+
+      return style;
+    });
+  };
+
+  const handleUnmounted = () => {
+    setContents("");
+    setDirection("bottom");
+    setTooltipStyle({});
+    setIsReady(false);
+  };
+
+  useEffect(() => {
+    if (!data) {
       setIsVisible(false);
       return;
     }
 
-    const areaRect = $area.getBoundingClientRect();
     setContents(data.contents);
     setDirection(data.direction);
     setIsVisible(true);
-
-    setTooltipStyle(() => {
-      switch (data.direction) {
-        case "top":
-          return {
-            top: data.rect.top - areaRect.top,
-            left: data.rect.left - areaRect.left + data.rect.width / 2,
-          };
-        case "right":
-          return {
-            top: data.rect.top - areaRect.top + data.rect.height / 2,
-            left: data.rect.left - areaRect.left + data.rect.width,
-          };
-        case "left":
-          return {
-            top: data.rect.top - areaRect.top + data.rect.height / 2,
-            left: data.rect.left - areaRect.left,
-          };
-        default:
-          return {
-            top: data.rect.top - areaRect.top + data.rect.height,
-            left: data.rect.left - areaRect.left + data.rect.width / 2,
-          };
-      }
-    });
   }, [data]);
 
   return (
@@ -68,13 +93,16 @@ const TooltipArea = (props: TooltipAreaProps) => {
     >
       <MountAnimation
         isVisible={isVisible}
-        onUnmounted={() => {
-          setContents("");
-          setDirection("bottom");
-          setTooltipStyle({});
-        }}
+        onMounted={handleMounted}
+        onUnmounted={handleUnmounted}
       >
-        <TooltipContents contents={contents} direction={direction} style={tooltipStyle} />
+        <TooltipContents
+          ref={contentsRef}
+          contents={contents}
+          direction={direction}
+          isReady={isReady}
+          style={tooltipStyle}
+        />
       </MountAnimation>
     </div>
   );

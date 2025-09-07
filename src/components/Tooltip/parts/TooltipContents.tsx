@@ -1,3 +1,4 @@
+import React from "react";
 import classNames from "classnames";
 import type { TooltipDirection } from "..";
 import useMountAnimation from "@/hooks/useMountAnimation";
@@ -6,23 +7,29 @@ import style from "../style.module.scss";
 type TooltipContentsProps = {
   contents: string;
   direction: TooltipDirection;
+  isReady: boolean;
   style: React.CSSProperties;
 };
 
-const TooltipContents = (props: TooltipContentsProps) => {
-  const { isUnmounting, handleAnimationEnd } = useMountAnimation();
+const TooltipContents = React.forwardRef<HTMLDivElement, TooltipContentsProps>(
+  (props, ref) => {
+    const { isUnmounting, handleAnimationEnd } = useMountAnimation();
 
-  return (
-    <div
-      className={classNames(style.tooltip, style[props.direction], {
-        [style.unmounting]: isUnmounting,
-      })}
-      style={props.style}
-      onAnimationEnd={handleAnimationEnd}
-    >
-      {props.contents}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        className={classNames(style.tooltip, style[props.direction], {
+          [style.ready]: props.isReady,
+          [style.unmounting]: isUnmounting,
+        })}
+        style={props.style}
+        onAnimationEnd={handleAnimationEnd}
+      >
+        {props.contents}
+      </div>
+    );
+  },
+);
 
+TooltipContents.displayName = "TooltipContents";
 export default TooltipContents;

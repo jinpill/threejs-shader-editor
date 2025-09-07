@@ -21,25 +21,30 @@ const MountAnimation = (props: MountAnimationProps) => {
 
   const unmount = useCallback(() => {
     setState("unmounted");
-    window.setTimeout(() => {
-      onUnmountedRef.current?.();
-    }, 0);
-  }, [onUnmountedRef]);
+  }, []);
 
   useEffect(() => {
     if (!props.isVisible) return;
 
     setState("mounted");
-    window.setTimeout(() => {
-      onMountedRef.current?.();
-    }, 0);
+    return () => setState("unmounting");
+  }, [props.isVisible]);
 
-    return () => {
-      setState("unmounting");
-      // eslint-disable-next-line
-      onUnmountingRef.current?.();
-    };
-  }, [props.isVisible, onMountedRef, onUnmountingRef]);
+  useEffect(() => {
+    if (state === "mounted") {
+      window.setTimeout(() => {
+        onMountedRef.current?.();
+      }, 0);
+    } else if (state === "unmounting") {
+      window.setTimeout(() => {
+        onUnmountingRef.current?.();
+      }, 0);
+    } else {
+      window.setTimeout(() => {
+        onUnmountedRef.current?.();
+      }, 0);
+    }
+  }, [state, onMountedRef, onUnmountingRef, onUnmountedRef]);
 
   return (
     <Context.Provider

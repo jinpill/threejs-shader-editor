@@ -1,16 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import BaseInput, { type BaseInputProps } from "./BaseInput";
+import BaseInput, { type BaseInputProps, type CommonOmitProps } from "./BaseInput";
 
-export type NumberInputProps = Omit<BaseInputProps, "type" | "value" | "onChange"> & {
+export type NumberInputProps = Omit<
+  BaseInputProps,
+  CommonOmitProps | "value" | "onChange"
+> & {
   value?: number;
   onChange?: (value: number) => void;
   min?: number;
   max?: number;
   step?: number;
   decimals?: number;
+  unit?: string;
 };
 
-const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
+const NumberInput = React.forwardRef<HTMLDivElement, NumberInputProps>((props, ref) => {
   const [value, setValue] = useState(props.value?.toString() ?? "0");
   const prevValueRef = useRef(value);
 
@@ -101,6 +105,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
       onBeforeInput={handleBeforeInput}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
+      afterElement={props.unit && <span>{props.unit}</span>}
     />
   );
 });

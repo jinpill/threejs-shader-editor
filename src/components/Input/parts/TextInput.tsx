@@ -1,9 +1,9 @@
 import React from "react";
-import BaseInput, { type BaseInputProps } from "./BaseInput";
+import BaseInput, { type BaseInputProps, type CommonOmitProps } from "./BaseInput";
 
-export type TextInputProps = Omit<BaseInputProps, "type">;
+export type TextInputProps = Omit<BaseInputProps, CommonOmitProps>;
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>((props, ref) => {
   return <BaseInput ref={ref} type="text" {...props} />;
 });
 

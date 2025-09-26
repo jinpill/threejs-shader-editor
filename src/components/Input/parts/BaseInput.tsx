@@ -22,9 +22,13 @@ export type BaseInputProps = {
   onBeforeInput?: (event: React.FormEvent<HTMLInputElement>) => void;
   onInput?: (event: React.FormEvent<HTMLInputElement>) => void;
   className?: string;
+  beforeElement?: React.ReactNode;
+  afterElement?: React.ReactNode;
 };
 
-const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
+export type CommonOmitProps = "type" | "beforeElement" | "afterElement";
+
+const BaseInput = React.forwardRef<HTMLDivElement, BaseInputProps>((props, ref) => {
   const [value, setValue] = useState(props.value ?? "");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,27 +45,32 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
   }, [props.value]);
 
   return (
-    <input
+    <div
       ref={ref}
       className={classNames(style.input, props.className, {
         [style.fullWidth]: props.isFullWidth,
       })}
-      disabled={props.isDisabled}
-      readOnly={props.isReadOnly}
-      autoFocus={props.useAutoFocus}
-      maxLength={props.maxLength}
-      type={props.type}
-      value={value}
-      onChange={handleChange}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
-      onKeyDown={props.onKeyDown}
-      onKeyUp={props.onKeyUp}
-      onCopy={props.onCopy}
-      onPaste={props.onPaste}
-      onBeforeInput={props.onBeforeInput}
-      onInput={props.onInput}
-    />
+    >
+      {props.beforeElement}
+      <input
+        disabled={props.isDisabled}
+        readOnly={props.isReadOnly}
+        autoFocus={props.useAutoFocus}
+        maxLength={props.maxLength}
+        type={props.type}
+        value={value}
+        onChange={handleChange}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+        onKeyDown={props.onKeyDown}
+        onKeyUp={props.onKeyUp}
+        onCopy={props.onCopy}
+        onPaste={props.onPaste}
+        onBeforeInput={props.onBeforeInput}
+        onInput={props.onInput}
+      />
+      {props.afterElement}
+    </div>
   );
 });
 

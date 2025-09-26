@@ -1,7 +1,14 @@
 .input {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 
   &.fullWidth {
     width: 100%;
+  }
+
+  input {
+    width: 100%;
+    display: block;
   }
 }

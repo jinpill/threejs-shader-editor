@@ -124,6 +124,7 @@ export const Number: NumberInputStory = {
     max: 100,
     step: 1,
     decimals: 3,
+    unit: "",
     isFullWidth: false,
     isReadOnly: false,
     isDisabled: false,

@@ -1,11 +1,28 @@
-import React from "react";
-import BaseInput, { type BaseInputProps } from "./BaseInput";
+import React, { useState } from "react";
+import BaseInput, { type BaseInputProps, type CommonOmitProps } from "./BaseInput";
 
-export type PasswordInputProps = Omit<BaseInputProps, "type">;
+export type PasswordInputProps = Omit<BaseInputProps, CommonOmitProps>;
+type InputType = "password" | "text";
 
-const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
+const PasswordInput = React.forwardRef<HTMLDivElement, PasswordInputProps>(
   (props, ref) => {
-    return <BaseInput ref={ref} type="password" {...props} />;
+    const [type, setType] = useState<InputType>("password");
+
+    const handleToggleType = () => {
+      setType((prev) => {
+        if (prev === "text") return "password";
+        else return "text";
+      });
+    };
+
+    return (
+      <BaseInput
+        ref={ref}
+        type={type}
+        {...props}
+        afterElement={<button onClick={handleToggleType}>ㅋ</button>}
+      />
+    );
   },
 );
 

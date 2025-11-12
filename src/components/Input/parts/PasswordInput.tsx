@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import BaseInput, { type BaseInputProps, type CommonOmitProps } from "./BaseInput";
+import BaseInput, { type CommonOmitProps } from "./utils/BaseInput";
+import Container from "./utils/Container";
+import type { BaseProps } from "../types";
 
-export type PasswordInputProps = Omit<BaseInputProps, CommonOmitProps>;
+export type PasswordInputProps = Omit<BaseProps, CommonOmitProps>;
 type InputType = "password" | "text";
 
 const PasswordInput = React.forwardRef<HTMLDivElement, PasswordInputProps>(
   (props, ref) => {
+    const { className, isFullWidth, ...baseInputProps } = props;
+    const containerProps = { isFullWidth, className };
+
     const [type, setType] = useState<InputType>("password");
 
     const handleToggleType = () => {
@@ -16,12 +21,10 @@ const PasswordInput = React.forwardRef<HTMLDivElement, PasswordInputProps>(
     };
 
     return (
-      <BaseInput
-        ref={ref}
-        type={type}
-        {...props}
-        afterElement={<button onClick={handleToggleType}>ㅋ</button>}
-      />
+      <Container ref={ref} {...containerProps}>
+        <BaseInput type={type} {...baseInputProps} />
+        <button onClick={handleToggleType}>ㅋ</button>
+      </Container>
     );
   },
 );

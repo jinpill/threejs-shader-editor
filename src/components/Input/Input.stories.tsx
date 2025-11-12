@@ -40,6 +40,8 @@ type TextInputStory = StoryObj<typeof TextInputMeta>;
 export const Text: TextInputStory = {
   args: {
     size: "small",
+    placeholder: "Enter Text...",
+    value: "",
     maxLength: 20,
     isFullWidth: false,
     isReadOnly: false,
@@ -80,6 +82,8 @@ type PasswordInputStory = StoryObj<typeof PasswordInputMeta>;
 export const Password: PasswordInputStory = {
   args: {
     size: "small",
+    placeholder: "Enter Password...",
+    value: "",
     maxLength: 20,
     isFullWidth: false,
     isReadOnly: false,

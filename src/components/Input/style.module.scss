@@ -1,14 +1,62 @@
-.input {
+.inputContainer {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+
+  border-radius: var(--Radius-Small);
+  border: 0.0625rem solid var(--Border-Light-Primary);
+
+  cursor: text;
 
   &.fullWidth {
     width: 100%;
   }
 
-  input {
-    width: 100%;
-    display: block;
+  &.small {
+    height: 2.25rem;
+    padding: 0 0.875rem;
+
+    &,
+    .input {
+      font-size: var(--Text-Small);
+    }
   }
+
+  &.large {
+    height: 3.25rem;
+    padding: 0 1.25rem;
+
+    &,
+    .input {
+      font-size: var(--Text-Large);
+    }
+  }
+
+  &:focus-within {
+    outline: 0.125rem solid red;
+  }
+}
+
+.input {
+  width: 100%;
+
+  display: block;
+  padding: 0;
+
+  border: none;
+  outline: none;
+  background: none;
+
+  color: var(--Text-Light-Primary);
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.unit {
+  color: var(--Text-Light-Tertiary);
+  user-select: none;
 }

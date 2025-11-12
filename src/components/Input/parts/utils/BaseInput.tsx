@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import type { InputSize } from "..";
-import style from "../style.module.scss";
+import type { InputSize } from "../..";
+import style from "../../style.module.scss";
 
 export type BaseInputProps = {
   type: "text" | "password" | "number";
   size?: InputSize;
   value?: string;
+  placeholder?: string;
   maxLength?: number;
   useAutoFocus?: boolean;
-  isFullWidth?: boolean;
   isDisabled?: boolean;
   isReadOnly?: boolean;
+  isFullWidth?: boolean;
   onChange?: (value: string) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -22,13 +23,11 @@ export type BaseInputProps = {
   onBeforeInput?: (event: React.FormEvent<HTMLInputElement>) => void;
   onInput?: (event: React.FormEvent<HTMLInputElement>) => void;
   className?: string;
-  beforeElement?: React.ReactNode;
-  afterElement?: React.ReactNode;
 };
 
-export type CommonOmitProps = "type" | "beforeElement" | "afterElement";
+export type CommonOmitProps = "type";
 
-const BaseInput = React.forwardRef<HTMLDivElement, BaseInputProps>((props, ref) => {
+const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref) => {
   const [value, setValue] = useState(props.value ?? "");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,32 +44,26 @@ const BaseInput = React.forwardRef<HTMLDivElement, BaseInputProps>((props, ref) 
   }, [props.value]);
 
   return (
-    <div
+    <input
       ref={ref}
-      className={classNames(style.input, props.className, {
-        [style.fullWidth]: props.isFullWidth,
-      })}
-    >
-      {props.beforeElement}
-      <input
-        disabled={props.isDisabled}
-        readOnly={props.isReadOnly}
-        autoFocus={props.useAutoFocus}
-        maxLength={props.maxLength}
-        type={props.type}
-        value={value}
-        onChange={handleChange}
-        onFocus={props.onFocus}
-        onBlur={props.onBlur}
-        onKeyDown={props.onKeyDown}
-        onKeyUp={props.onKeyUp}
-        onCopy={props.onCopy}
-        onPaste={props.onPaste}
-        onBeforeInput={props.onBeforeInput}
-        onInput={props.onInput}
-      />
-      {props.afterElement}
-    </div>
+      className={classNames(style.input, props.className)}
+      disabled={props.isDisabled}
+      readOnly={props.isReadOnly}
+      autoFocus={props.useAutoFocus}
+      maxLength={props.maxLength}
+      type={props.type}
+      placeholder={props.placeholder}
+      value={value}
+      onChange={handleChange}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      onKeyDown={props.onKeyDown}
+      onKeyUp={props.onKeyUp}
+      onCopy={props.onCopy}
+      onPaste={props.onPaste}
+      onBeforeInput={props.onBeforeInput}
+      onInput={props.onInput}
+    />
   );
 });
 

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import Icon from "@/components/Icon";
 import BaseInput, { type CommonOmitProps } from "./utils/BaseInput";
 import Container from "./utils/Container";
 import type { BaseProps } from "../types";
+import style from "../style.module.scss";
 
 export type PasswordInputProps = Omit<BaseProps, CommonOmitProps>;
 type InputType = "password" | "text";
 
+/**
+ * - `--input-width`: Height of the input (default: small: 12.5rem, large: 18.75rem)
+ * - `--input-min-width`: Minimum width of the input (default: auto)
+ * - `--input-max-width`: Maximum width of the input (default: 100%)
+ */
 const PasswordInput = React.forwardRef<HTMLDivElement, PasswordInputProps>(
   (props, ref) => {
-    const { className, isFullWidth, ...baseInputProps } = props;
-    const containerProps = { isFullWidth, className };
-
     const [type, setType] = useState<InputType>("password");
 
     const handleToggleType = () => {
@@ -21,9 +25,14 @@ const PasswordInput = React.forwardRef<HTMLDivElement, PasswordInputProps>(
     };
 
     return (
-      <Container ref={ref} {...containerProps}>
-        <BaseInput type={type} {...baseInputProps} />
-        <button onClick={handleToggleType}>ㅋ</button>
+      <Container ref={ref} {...props}>
+        <BaseInput type={type} {...props} />
+        <button className={style.visibilityToggleButton} onClick={handleToggleType}>
+          <Icon
+            icon={type === "password" ? "visibility" : "visibility_off"}
+            type="outlined"
+          />
+        </button>
       </Container>
     );
   },

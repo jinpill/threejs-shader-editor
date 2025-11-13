@@ -6,6 +6,7 @@ import { InputSize } from "../..";
 export type ContainerProps = {
   size?: InputSize;
   isFullWidth?: boolean;
+  isDisabled?: boolean;
   className?: string;
   children: React.ReactNode;
 };
@@ -28,6 +29,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>((props, ref) 
         style[props.size ?? "small"],
         {
           [style.fullWidth]: props.isFullWidth,
+          [style.disabled]: props.isDisabled,
         },
       )}
       onClick={handleClick}

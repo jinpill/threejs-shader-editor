@@ -190,3 +190,47 @@ export const Vector2: Vector2InputStory = {
     return <Input.Vector2 {...args} value={value} onChange={handleChange} />;
   },
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Vector3InputMeta = {
+  title: "Reusable/Input",
+  component: Input.Vector3,
+  parameters: {
+    layout: "fullscreen",
+  },
+  tags: ["autodocs"],
+  args: { onChange: fn() },
+  decorators: [
+    (Story) => (
+      <Decorator>
+        <Story />
+      </Decorator>
+    ),
+  ],
+} satisfies Meta<typeof Input.Vector3>;
+
+type Vector3InputStory = StoryObj<typeof Vector3InputMeta>;
+
+export const Vector3: Vector3InputStory = {
+  args: {
+    size: "small",
+    min: -100,
+    max: 100,
+    step: 1,
+    decimals: 3,
+    value: new THREE.Vector3(),
+    isFullWidth: false,
+    isReadOnly: false,
+    isDisabled: false,
+  },
+  render: (args) => {
+    const [{ value }, setValue] = useArgs();
+
+    const handleChange = (value: THREE.Vector3) => {
+      setValue({ value });
+      args.onChange?.(value);
+    };
+
+    return <Input.Vector3 {...args} value={value} onChange={handleChange} />;
+  },
+};

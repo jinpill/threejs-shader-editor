@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { useArgs } from "@storybook/preview-api";
@@ -129,6 +130,7 @@ export const Number: NumberInputStory = {
     step: 1,
     decimals: 3,
     unit: "",
+    value: 0,
     isFullWidth: false,
     isReadOnly: false,
     isDisabled: false,
@@ -142,5 +144,49 @@ export const Number: NumberInputStory = {
     };
 
     return <Input.Number {...args} value={value} onChange={handleChange} />;
+  },
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Vector2InputMeta = {
+  title: "Reusable/Input",
+  component: Input.Vector2,
+  parameters: {
+    layout: "fullscreen",
+  },
+  tags: ["autodocs"],
+  args: { onChange: fn() },
+  decorators: [
+    (Story) => (
+      <Decorator>
+        <Story />
+      </Decorator>
+    ),
+  ],
+} satisfies Meta<typeof Input.Vector2>;
+
+type Vector2InputStory = StoryObj<typeof Vector2InputMeta>;
+
+export const Vector2: Vector2InputStory = {
+  args: {
+    size: "small",
+    min: -100,
+    max: 100,
+    step: 1,
+    decimals: 3,
+    value: new THREE.Vector2(),
+    isFullWidth: false,
+    isReadOnly: false,
+    isDisabled: false,
+  },
+  render: (args) => {
+    const [{ value }, setValue] = useArgs();
+
+    const handleChange = (value: THREE.Vector2) => {
+      setValue({ value });
+      args.onChange?.(value);
+    };
+
+    return <Input.Vector2 {...args} value={value} onChange={handleChange} />;
   },
 };

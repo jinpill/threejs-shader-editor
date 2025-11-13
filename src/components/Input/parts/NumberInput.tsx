@@ -8,9 +8,9 @@ export type NumberInputProps = BaseNumberInputProps & {
 };
 
 /**
- * - `--input-width`: Height of the input (default: small: 12.5rem, large: 18.75rem)
- * - `--input-min-width`: Minimum width of the input (default: auto)
- * - `--input-max-width`: Maximum width of the input (default: 100%)
+ * - `--input-width`: 가로 크기 (default: small: 12.5rem, large: 18.75rem)
+ * - `--input-min-width`: 최소 가로 크기 (default: auto)
+ * - `--input-max-width`: 최대 가로 크기 (default: 100%)
  */
 const NumberInput = React.forwardRef<HTMLDivElement, NumberInputProps>((props, ref) => (
   <Container ref={ref} {...props}>

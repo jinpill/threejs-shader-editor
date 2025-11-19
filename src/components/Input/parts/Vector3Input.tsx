@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import * as THREE from "three";
 import BaseNumberInput, { type BaseNumberInputProps } from "./utils/BaseNumberInput";
 import Container from "./utils/Container";
@@ -15,6 +15,10 @@ export type Vector3InputProps = Omit<BaseNumberInputProps, "value" | "onChange">
  * - `--input-max-width`: 최대 가로 크기 (default: 100%)
  */
 const Vector3Input = React.forwardRef<HTMLDivElement, Vector3InputProps>((props, ref) => {
+  const xId = useId();
+  const yId = useId();
+  const zId = useId();
+
   const [vector3, setVector3] = useState<THREE.Vector3>(() => {
     return props.value ?? new THREE.Vector3();
   });
@@ -36,23 +40,26 @@ const Vector3Input = React.forwardRef<HTMLDivElement, Vector3InputProps>((props,
 
   return (
     <Container ref={ref} {...props}>
-      <FieldLabel>X</FieldLabel>
+      <FieldLabel id={xId}>X</FieldLabel>
       <BaseNumberInput
         {...props}
+        id={xId}
         value={vector3.x}
         onChange={handleChange.bind(null, "x")}
       />
 
-      <FieldLabel>Y</FieldLabel>
+      <FieldLabel id={yId}>Y</FieldLabel>
       <BaseNumberInput
         {...props}
+        id={yId}
         value={vector3.y}
         onChange={handleChange.bind(null, "y")}
       />
 
-      <FieldLabel>Z</FieldLabel>
+      <FieldLabel id={zId}>Z</FieldLabel>
       <BaseNumberInput
         {...props}
+        id={zId}
         value={vector3.z}
         onChange={handleChange.bind(null, "z")}
       />

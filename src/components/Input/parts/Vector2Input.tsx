@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import * as THREE from "three";
 import BaseNumberInput, { type BaseNumberInputProps } from "./utils/BaseNumberInput";
 import Container from "./utils/Container";
@@ -15,6 +15,9 @@ export type Vector2InputProps = Omit<BaseNumberInputProps, "value" | "onChange">
  * - `--input-max-width`: 최대 가로 크기 (default: 100%)
  */
 const Vector2Input = React.forwardRef<HTMLDivElement, Vector2InputProps>((props, ref) => {
+  const xId = useId();
+  const yId = useId();
+
   const [vector2, setVector2] = useState<THREE.Vector2>(() => {
     return props.value ?? new THREE.Vector2();
   });
@@ -36,16 +39,18 @@ const Vector2Input = React.forwardRef<HTMLDivElement, Vector2InputProps>((props,
 
   return (
     <Container ref={ref} {...props}>
-      <FieldLabel>X</FieldLabel>
+      <FieldLabel id={xId}>X</FieldLabel>
       <BaseNumberInput
         {...props}
+        id={xId}
         value={vector2.x}
         onChange={handleChange.bind(null, "x")}
       />
 
-      <FieldLabel>Y</FieldLabel>
+      <FieldLabel id={yId}>Y</FieldLabel>
       <BaseNumberInput
         {...props}
+        id={yId}
         value={vector2.y}
         onChange={handleChange.bind(null, "y")}
       />

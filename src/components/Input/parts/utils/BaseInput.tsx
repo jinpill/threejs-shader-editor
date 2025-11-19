@@ -4,6 +4,7 @@ import type { InputSize } from "../..";
 import style from "../../style.module.scss";
 
 export type BaseInputProps = {
+  id?: string;
   type: "text" | "password" | "number";
   size?: InputSize;
   value?: string;
@@ -46,6 +47,7 @@ const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((props, ref
   return (
     <input
       ref={ref}
+      id={props.id}
       className={classNames(style.input, props.className)}
       disabled={props.isDisabled}
       readOnly={props.isReadOnly}

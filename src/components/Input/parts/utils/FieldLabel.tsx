@@ -1,7 +1,18 @@
 import style from "../../style.module.scss";
 
-const FieldLabel = (props: React.PropsWithChildren) => (
-  <div className={style.label}>{props.children}</div>
+type FieldLabelProps = {
+  id: string;
+  children?: React.ReactNode;
+};
+
+const FieldLabel = (props: FieldLabelProps) => (
+  <label
+    className={style.label}
+    htmlFor={props.id}
+    onClick={(event) => event.stopPropagation()}
+  >
+    {props.children}
+  </label>
 );
 
 export default FieldLabel;

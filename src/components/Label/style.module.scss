@@ -1,18 +1,33 @@
 .label {
+  --Label-Line-Height: calc(var(--Label-Text-Size) * 1.5);
   display: flex;
 
   &.notReady {
     visibility: hidden;
   }
 
+  &.small {
+    --Label-Text-Size: var(--Text-Medium);
+    --Label-Contents-Height: 2.25rem;
+    gap: var(--Label-Gap-Small);
+  }
+
+  &.large {
+    --Label-Text-Size: var(--Text-Large);
+    --Label-Contents-Height: 3.25rem;
+    gap: var(--Label-Gap-Large);
+  }
+
   &.top {
+    --Label-Gap-Small: 0.375rem;
+    --Label-Gap-Large: 0.5rem;
     flex-direction: column;
-    gap: 0.375rem;
   }
 
   &.left {
+    --Label-Gap-Small: 1rem;
+    --Label-Gap-Large: 1.5rem;
     align-items: center;
-    gap: 1rem;
 
     .text {
       white-space: nowrap;
@@ -20,15 +35,16 @@
   }
 
   &.right {
+    --Label-Gap-Small: 0.5rem;
+    --Label-Gap-Large: 1rem;
     flex-direction: row-reverse;
-    gap: 0.5rem;
 
     .text {
-      padding-top: calc((2.25rem - var(--Text-Small) * 1.5) / 2);
+      padding-top: calc((var(--Label-Contents-Height) - var(--Label-Line-Height)) / 2);
     }
 
     .contents {
-      height: 2.25rem;
+      height: var(--Label-Contents-Height);
       display: flex;
       align-items: center;
     }
@@ -38,8 +54,8 @@
 .text {
   max-width: 300px;
   color: var(--Text-Light-Primary);
-  font-size: var(--Text-Medium);
-  line-height: calc(var(--Text-Small) * 1.5);
+  font-size: var(--Label-Text-Size);
+  line-height: var(--Label-Line-Height);
 
   div {
     width: fit-content;

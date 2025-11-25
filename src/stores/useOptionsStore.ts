@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { IconName } from "@/components/Icon";
+import type { CommonSize } from "@/hooks/useCommonSize";
 
 type OptionsStore = {
   options: Options<string | number> | null;
@@ -16,7 +17,7 @@ export type Options<V extends string | number> = {
   callback: (value: V) => void;
 };
 
-export type OptionSize = "small" | "large";
+export type OptionSize = CommonSize;
 
 export type Option<V extends string | number> = {
   icon?: IconName;

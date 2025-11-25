@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import useCommonSize, { type CommonSize } from "@/hooks/useCommonSize";
 import style from "./style.module.scss";
 
 export type RadioProps = {
@@ -10,10 +11,11 @@ export type RadioProps = {
   className?: string;
 };
 
-export type RadioSize = "small" | "large";
+export type RadioSize = CommonSize;
 
 const Radio = (props: RadioProps) => {
   const [value, setValue] = useState(props.value ?? false);
+  const size = useCommonSize(props.size);
 
   const handleClick = () => {
     const newValue = !value;
@@ -31,7 +33,7 @@ const Radio = (props: RadioProps) => {
 
   return (
     <button
-      className={classNames(style.radio, style[props.size ?? "small"], {
+      className={classNames(style.radio, style[size], {
         [style.checked]: value,
       })}
       disabled={props.isDisabled}

@@ -2,7 +2,9 @@
 
 import React, { useEffect, useImperativeHandle, useRef } from "react";
 import classNames from "classnames";
+
 import Icon, { type IconName } from "@/components/Icon";
+import useCommonSize, { type CommonSize } from "@/hooks/useCommonSize";
 import style from "./style.module.scss";
 
 export type ButtonProps = {
@@ -22,7 +24,7 @@ export type ButtonProps = {
   className?: string;
 };
 
-export type ButtonSize = "small" | "large";
+export type ButtonSize = CommonSize;
 export type ButtonType = "primary" | "secondary" | "tertiary" | "danger";
 
 /**
@@ -45,6 +47,7 @@ export type ButtonType = "primary" | "secondary" | "tertiary" | "danger";
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   useImperativeHandle(ref, () => buttonRef.current!, []);
+  const size = useCommonSize(props.size);
 
   useEffect(() => {
     if (!props.useAutoFocus) return;
@@ -57,7 +60,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
       className={classNames(
         style.button,
         props.className,
-        style[props.size ?? "small"],
+        style[size],
         style[props.type ?? "secondary"],
         {
           [style.fullWidth]: props.isFullWidth,

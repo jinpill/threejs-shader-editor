@@ -1,7 +1,9 @@
 import React from "react";
 import classNames from "classnames";
+
+import type { InputSize } from "../..";
+import useCommonSize from "@/hooks/useCommonSize";
 import style from "../../style.module.scss";
-import { InputSize } from "../..";
 
 export type ContainerProps = {
   size?: InputSize;
@@ -12,6 +14,8 @@ export type ContainerProps = {
 };
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
+  const size = useCommonSize(props.size);
+
   const handleClick = (event: React.MouseEvent) => {
     const $target = event.target as HTMLElement;
     if ($target.tagName === "INPUT") return;
@@ -23,15 +27,10 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>((props, ref) 
   return (
     <div
       ref={ref}
-      className={classNames(
-        style.inputContainer,
-        props.className,
-        style[props.size ?? "small"],
-        {
-          [style.fullWidth]: props.isFullWidth,
-          [style.disabled]: props.isDisabled,
-        },
-      )}
+      className={classNames(style.inputContainer, props.className, style[size], {
+        [style.fullWidth]: props.isFullWidth,
+        [style.disabled]: props.isDisabled,
+      })}
       onClick={handleClick}
     >
       {props.children}

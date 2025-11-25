@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import Button, { type ButtonSize } from "@/components/Button";
 import Icon from "@/components/Icon";
+import useCommonSize from "@/hooks/useCommonSize";
 import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
 
 import style from "./style.module.scss";
@@ -24,7 +25,7 @@ const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
   const id = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const size = props.size ?? "small";
+  const size = useCommonSize(props.size);
   const options = props.options ?? [];
   const option = options.find((option) => option.value === props.value);
   const isDisabled = props.isDisabled || options.length === 0;

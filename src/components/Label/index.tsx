@@ -1,15 +1,21 @@
-import classNames from "classnames";
-import LabelGroup from "./parts/LabelGroup";
-import style from "./style.module.scss";
-import { useLabelGroupContext } from "./hooks";
 import { useEffect, useId, useRef } from "react";
+import classNames from "classnames";
+
+import LabelGroup from "./parts/LabelGroup";
+import { type CommonSize, CommonSizeContext } from "@/hooks/useCommonSize";
+import { useLabelGroupContext } from "./hooks";
+
+import style from "./style.module.scss";
 
 export type LabelProps = {
   text: string;
+  size?: LabelSize;
   direction?: LabelDirection;
   className?: string;
   children?: React.ReactNode;
 };
+
+export type LabelSize = CommonSize;
 
 export type LabelDirection = "top" | "left" | "right";
 
@@ -35,6 +41,7 @@ const Label = (props: LabelProps) => {
       className={classNames(
         style.label,
         props.className,
+        style[props.size ?? "small"],
         style[props.direction ?? "top"],
         {
           [style.notReady]: props.direction === "left" && updateWidth && width === 0,
@@ -50,7 +57,11 @@ const Label = (props: LabelProps) => {
         <div ref={textRef}>{props.text}</div>
       </div>
 
-      <div className={style.contents}>{props.children}</div>
+      <div className={style.contents}>
+        <CommonSizeContext.Provider value={{ size: props.size }}>
+          {props.children}
+        </CommonSizeContext.Provider>
+      </div>
     </label>
   );
 };

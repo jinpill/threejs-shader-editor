@@ -2,7 +2,7 @@ import { useEffect, useId, useRef } from "react";
 import classNames from "classnames";
 
 import LabelGroup from "./parts/LabelGroup";
-import { type CommonSize, CommonSizeContext } from "@/hooks/useCommonSize";
+import useCommonSize, { CommonSizeContext, type CommonSize } from "@/hooks/useCommonSize";
 import { useLabelGroupContext } from "./hooks";
 
 import style from "./style.module.scss";
@@ -22,6 +22,8 @@ export type LabelDirection = "top" | "left" | "right";
 const Label = (props: LabelProps) => {
   const id = useId();
   const textRef = useRef<HTMLDivElement>(null);
+
+  const size = useCommonSize(props.size);
   const { width, updateWidth, disconnect } = useLabelGroupContext();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const Label = (props: LabelProps) => {
       className={classNames(
         style.label,
         props.className,
-        style[props.size ?? "small"],
+        style[size],
         style[props.direction ?? "top"],
         {
           [style.notReady]: props.direction === "left" && updateWidth && width === 0,

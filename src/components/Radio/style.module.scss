@@ -67,3 +67,11 @@ $transition: 0.1s ease-in-out;
     }
   }
 }
+
+.group {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}

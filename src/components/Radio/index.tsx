@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import RadioGroup from "./parts/RadioGroup";
 import useCommonSize, { type CommonSize } from "@/hooks/useCommonSize";
 import style from "./style.module.scss";
 
@@ -42,4 +43,5 @@ const Radio = (props: RadioProps) => {
   );
 };
 
+Radio.Group = RadioGroup;
 export default Radio;

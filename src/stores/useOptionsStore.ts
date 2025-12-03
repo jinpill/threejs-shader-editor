@@ -3,12 +3,12 @@ import type { IconName } from "@/components/Icon";
 import type { CommonSize } from "@/hooks/useCommonSize";
 
 type OptionsStore = {
-  options: Options<string | number> | null;
-  getOptions: () => Options<string | number> | null;
-  setOptions: (options: Options<string | number> | null) => void;
+  options: Options<OptionValue> | null;
+  getOptions: () => Options<OptionValue> | null;
+  setOptions: (options: Options<OptionValue> | null) => void;
 };
 
-export type Options<V extends string | number> = {
+export type Options<V extends OptionValue> = {
   id: string;
   size: OptionSize;
   rect: DOMRect;
@@ -19,12 +19,14 @@ export type Options<V extends string | number> = {
 
 export type OptionSize = CommonSize;
 
-export type Option<V extends string | number> = {
+export type Option<V extends OptionValue> = {
   icon?: IconName;
   value: V;
   label: string;
   description?: string;
 };
+
+export type OptionValue = string | number;
 
 export const useOptionsStore = create<OptionsStore>((set, get) => ({
   options: null,

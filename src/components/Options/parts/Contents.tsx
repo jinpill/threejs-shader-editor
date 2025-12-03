@@ -7,7 +7,7 @@ import Icon from "@/components/Icon";
 
 import useMountAnimation from "@/hooks/useMountAnimation";
 import useScrollbar from "@/hooks/useScrollbar";
-import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
+import { useOptionsStore, type Option, type OptionValue } from "@/stores/useOptionsStore";
 
 import style from "../style.module.scss";
 
@@ -27,7 +27,7 @@ const Contents = () => {
     return options.list.findIndex((option) => option.value === options.value);
   }, [options.value, options.list]);
 
-  const getTitleAttr = (option: Option<string | number>) => {
+  const getTitleAttr = (option: Option<OptionValue>) => {
     let title = option.label;
     if (option.description) title += ` - ${option.description}`;
     return title;

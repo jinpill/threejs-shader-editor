@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Label from "@/components/Label";
 import Radio, { type RadioSize } from "..";
-import type { Option } from "@/stores/useOptionsStore";
+import type { Option, OptionValue } from "@/stores/useOptionsStore";
 import { CommonSizeContext } from "@/hooks/useCommonSize";
 import style from "../style.module.scss";
 
-export type RadioGroupProps<V extends string | number> = {
+export type RadioGroupProps<V extends OptionValue> = {
   size?: RadioSize;
   value?: V;
   options?: Option<V>[];
@@ -14,7 +14,7 @@ export type RadioGroupProps<V extends string | number> = {
   className?: string;
 };
 
-const RadioGroup = <V extends string | number>(props: RadioGroupProps<V>) => {
+const RadioGroup = <V extends OptionValue>(props: RadioGroupProps<V>) => {
   const size = props.size ?? "small";
 
   const [value, setValue] = useState(props.value);

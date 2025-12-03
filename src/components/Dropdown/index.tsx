@@ -4,11 +4,11 @@ import classNames from "classnames";
 import Button, { type ButtonSize } from "@/components/Button";
 import Icon from "@/components/Icon";
 import useCommonSize from "@/hooks/useCommonSize";
-import { useOptionsStore, type Option } from "@/stores/useOptionsStore";
+import { useOptionsStore, type Option, type OptionValue } from "@/stores/useOptionsStore";
 
 import style from "./style.module.scss";
 
-export type DropdownProps<V extends string | number> = {
+export type DropdownProps<V extends OptionValue> = {
   size?: DropdownSize;
   value?: V;
   options?: Option<V>[];
@@ -21,7 +21,7 @@ export type DropdownProps<V extends string | number> = {
 
 export type DropdownSize = ButtonSize;
 
-const Dropdown = <V extends string | number>(props: DropdownProps<V>) => {
+const Dropdown = <V extends OptionValue>(props: DropdownProps<V>) => {
   const id = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 

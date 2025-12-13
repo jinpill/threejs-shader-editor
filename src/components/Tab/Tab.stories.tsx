@@ -29,6 +29,7 @@ export const Default: Story = {
 
     const handleChange = (value: number) => {
       setValue({ value });
+      args.onChange?.(value);
     };
 
     return <Tab {...(args as TabProps<number>)} value={value} onChange={handleChange} />;

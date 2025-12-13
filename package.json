@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
+    "sb": "pnpm storybook",
     "build-storybook": "storybook build"
   },
   "dependencies": {

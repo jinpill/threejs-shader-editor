@@ -29,12 +29,12 @@ const Toggle = (props: ToggleProps) => {
 
   return (
     <button
-      className={classNames(style.toggle, props.className)}
+      className={classNames(style.toggle, style[size], props.className, {
+        [style.active]: value,
+      })}
       disabled={props.isDisabled}
       onClick={handleClick}
-    >
-      Toggle {value ? "On" : "Off"}
-    </button>
+    />
   );
 };
 

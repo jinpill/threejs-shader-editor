@@ -1,0 +1,49 @@
+.toggle {
+  $toggle-width: 3rem;
+  $toggle-height: 1.75rem;
+  $toggle-padding: 0.25rem;
+  $toggle-border-width: 0.0625rem;
+  $knob-size: $toggle-height - ($toggle-padding + $toggle-border-width) * 2;
+
+  width: $toggle-width;
+  height: $toggle-height;
+
+  display: block;
+  padding: $toggle-padding;
+
+  border-radius: $toggle-height / 2;
+  border: $toggle-border-width solid var(--Border-Light-Primary);
+  background-color: var(--BG-Light-Primary);
+
+  cursor: pointer;
+
+  &::after {
+    width: $knob-size;
+    height: $knob-size;
+
+    display: block;
+    content: "";
+    box-sizing: border-box;
+
+    position: relative;
+    left: 0;
+
+    border-radius: 50%;
+    border: 0.0625rem solid var(--Border-Light-Primary);
+    background-color: var(--BG-Light-Quaternary);
+
+    transition: 0.2s ease-in-out;
+    transition-property: left;
+  }
+
+  &.active {
+    &::after {
+      left: $toggle-width - $knob-size - ($toggle-padding + $toggle-border-width) * 2;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

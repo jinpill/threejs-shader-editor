@@ -28,13 +28,15 @@ const Toggle = (props: ToggleProps) => {
   }, [props.value]);
 
   return (
-    <button
-      className={classNames(style.toggle, style[size], props.className, {
-        [style.active]: value,
-      })}
-      disabled={props.isDisabled}
-      onClick={handleClick}
-    />
+    <div className={classNames(style.toggleWrapper, style[size], props.className)}>
+      <button
+        className={classNames(style.toggle, {
+          [style.active]: value,
+        })}
+        disabled={props.isDisabled}
+        onClick={handleClick}
+      />
+    </div>
   );
 };
 

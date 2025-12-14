@@ -59,7 +59,7 @@ const Label = (props: LabelProps) => {
         <div ref={textRef}>{props.text}</div>
       </div>
 
-      <div className={style.contents}>
+      <div className={style.contents} onClick={(event) => event.preventDefault()}>
         <CommonSizeContext.Provider value={{ size: props.size }}>
           {props.children}
         </CommonSizeContext.Provider>

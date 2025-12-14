@@ -1,6 +1,7 @@
 .label {
   --Label-Line-Height: calc(var(--Label-Text-Size) * 1.5);
   display: flex;
+  pointer-events: none;
 
   &.notReady {
     visibility: hidden;
@@ -38,10 +39,7 @@
     --Label-Gap-Small: 0.5rem;
     --Label-Gap-Large: 1rem;
     flex-direction: row-reverse;
-
-    .text {
-      padding-top: calc((var(--Label-Contents-Height) - var(--Label-Line-Height)) / 2);
-    }
+    justify-content: flex-end;
 
     .contents {
       height: var(--Label-Contents-Height);
@@ -52,7 +50,8 @@
 }
 
 .text {
-  max-width: 300px;
+  min-height: var(--Label-Contents-Height);
+  padding-top: calc((var(--Label-Contents-Height) - var(--Label-Line-Height)) / 2);
   color: var(--Text-Light-Primary);
   font-size: var(--Label-Text-Size);
   line-height: var(--Label-Line-Height);
@@ -60,4 +59,9 @@
   div {
     width: fit-content;
   }
+}
+
+.text,
+.contents {
+  pointer-events: all;
 }

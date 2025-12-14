@@ -97,4 +97,9 @@ export const RightLabel: Story = {
     direction: "right",
     children: <CheckBox />,
   },
+  render: (args) => (
+    <div style={{ width: "18.75rem" }}>
+      <Label {...args} />
+    </div>
+  ),
 };

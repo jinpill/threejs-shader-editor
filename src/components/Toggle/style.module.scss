@@ -20,8 +20,11 @@
 
   display: block;
   border: $border-width solid var(--Border-Light-Primary);
-  background-color: var(--BG-Light-Primary);
+  background-color: var(--BG-Light-Tertiary);
+
   cursor: pointer;
+  transition: 0.2s ease-in-out;
+  transition-property: border-color, background-color;
 
   @mixin setSize($width, $height, $padding) {
     $knob-size: $height - ($padding + $border-width) * 2;
@@ -37,16 +40,23 @@
 
       @at-root #{selector.unify(&, ".active")} {
         left: $width - $knob-size - ($padding + $border-width) * 2;
+        border-color: color-mix(in srgb, var(--Primary-Light) 80%, black);
       }
     }
   }
 
   .small & {
-    @include setSize(3rem, 1.75rem, 0.25rem);
+    @include setSize(3rem, 1.75rem, 0.1875rem);
   }
 
   .large & {
-    @include setSize(4rem, 2.25rem, 0.3125rem);
+    @include setSize(4rem, 2.25rem, 0.25rem);
+  }
+
+  &.active {
+    border-color: var(--Primary-Light);
+    border-color: color-mix(in srgb, var(--Primary-Light) 80%, black);
+    background-color: var(--Primary-Light);
   }
 
   &::after {
@@ -59,10 +69,10 @@
 
     border-radius: 50%;
     border: 0.0625rem solid var(--Border-Light-Primary);
-    background-color: var(--BG-Light-Quaternary);
+    background-color: var(--BG-Light-Primary);
 
     transition: 0.2s ease-in-out;
-    transition-property: left;
+    transition-property: left, border-color;
   }
 
   &:disabled {

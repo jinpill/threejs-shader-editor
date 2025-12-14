@@ -20,11 +20,12 @@
 
   display: block;
   border: $border-width solid var(--Border-Light-Primary);
+  outline: 0.1875rem solid transparent;
   background-color: var(--BG-Light-Tertiary);
 
   cursor: pointer;
   transition: 0.2s ease-in-out;
-  transition-property: border-color, background-color;
+  transition-property: border-color, outline-color, background-color, opacity;
 
   @mixin setSize($width, $height, $padding) {
     $knob-size: $height - ($padding + $border-width) * 2;
@@ -54,7 +55,6 @@
   }
 
   &.active {
-    border-color: var(--Primary-Light);
     border-color: color-mix(in srgb, var(--Primary-Light) 80%, black);
     background-color: var(--Primary-Light);
   }
@@ -75,8 +75,16 @@
     transition-property: left, border-color;
   }
 
+  &:focus {
+    outline-color: color-mix(in srgb, var(--Gray-1500) 10%, transparent);
+
+    &.active {
+      outline-color: color-mix(in srgb, var(--Primary-Light) 70%, transparent);
+    }
+  }
+
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.75;
   }
 }

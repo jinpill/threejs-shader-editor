@@ -53,15 +53,21 @@ export const Test: Story = {
         }}
       >
         <Label size={args.size} direction="left" text="위치">
-          <Input.Vector3 />
+          <Input.Vector3 isDisabled={args.isDisabled} />
         </Label>
         <Label size={args.size} direction="left" text="상태 표시하기">
           <Toggle {...args} value={value} onChange={handleChange} />
         </Label>
         <Label size={args.size} direction="right" text="어떤 기능 실행하기">
-          <CheckBox />
+          <CheckBox isDisabled={args.isDisabled} />
         </Label>
-        <Button size={args.size} type="primary" label="실행하기" isFullWidth />
+        <Button
+          size={args.size}
+          type="primary"
+          label="실행하기"
+          isFullWidth
+          isDisabled={args.isDisabled}
+        />
       </div>
     );
   },

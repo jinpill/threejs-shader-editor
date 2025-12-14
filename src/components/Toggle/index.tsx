@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import Icon from "@/components/Icon";
 import useCommonSize, { type CommonSize } from "@/hooks/useCommonSize";
 import style from "./style.module.scss";
 
@@ -28,14 +29,17 @@ const Toggle = (props: ToggleProps) => {
   }, [props.value]);
 
   return (
-    <div className={classNames(style.toggleWrapper, style[size], props.className)}>
-      <button
-        className={classNames(style.toggle, {
-          [style.active]: value,
-        })}
-        disabled={props.isDisabled}
-        onClick={handleClick}
-      />
+    <div
+      className={classNames(style.toggleWrapper, style[size], props.className, {
+        [style.active]: value,
+      })}
+    >
+      <button className={style.toggle} disabled={props.isDisabled} onClick={handleClick}>
+        <div className={style.knob}>
+          <Icon icon="check" className={style.icon} />
+          <Icon icon="clear" className={style.icon} />
+        </div>
+      </button>
     </div>
   );
 };

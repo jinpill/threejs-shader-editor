@@ -96,12 +96,12 @@
       top: 50%;
       transform: translate(0, -50%);
 
-      opacity: 0.625;
       transition: opacity 0.2s ease-in-out;
 
       &:first-child {
         right: calc(100% + 0.0625rem);
         color: var(--Gray-0);
+        opacity: 0.625;
 
         .toggleWrapper:not(.active) & {
           opacity: 0;
@@ -111,6 +111,7 @@
       &:last-child {
         left: calc(100% + 0.0625rem);
         color: var(--Gray-1500);
+        opacity: 0.5;
 
         .toggleWrapper.active & {
           opacity: 0;
@@ -124,6 +125,14 @@
 
     .active & {
       outline-color: color-mix(in srgb, var(--Primary-Light) 70%, transparent);
+    }
+  }
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--BG-Light-Tertiary) 95%, black);
+
+    .active & {
+      background-color: color-mix(in srgb, var(--Primary-Light) 90%, black);
     }
   }
 

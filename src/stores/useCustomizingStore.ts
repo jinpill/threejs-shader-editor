@@ -34,6 +34,8 @@ export const useCustomizingStore = create<CustomizingStore>((set, get) => ({
       theme = darkMode ? "dark" : "light";
     }
 
+    theme = "light";
+
     set({ theme: theme as Theme });
   },
 

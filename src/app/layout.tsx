@@ -4,7 +4,6 @@ import { Noto_Sans_KR, Noto_Sans_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import ThemeProvider from "./Initializer";
-import Header from "./Header";
 import DialogManager from "./DialogManager";
 
 import "material-icons/iconfont/material-icons.css";
@@ -44,7 +43,6 @@ const RootLayout = (props: React.PropsWithChildren) => (
     >
       <AppRouterCacheProvider>
         <ThemeProvider>
-          <Header />
           {props.children}
           <DialogManager />
         </ThemeProvider>

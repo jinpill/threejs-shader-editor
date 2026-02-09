@@ -1,4 +1,8 @@
 .dialogArea {
   position: fixed;
   inset: 0;
+
+  &.active {
+    pointer-events: all;
+  }
 }

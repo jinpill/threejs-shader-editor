@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Noto_Sans_KR, Noto_Sans_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
+import NotiInitializer from "./NotiInitializer";
 import ThemeProvider from "./Initializer";
 import DialogManager from "./DialogManager";
 import Toasts from "@/components/Toasts";
@@ -51,6 +52,7 @@ const RootLayout = (props: React.PropsWithChildren) => (
             <DialogManager />
             <Toasts />
           </div>
+          <NotiInitializer />
         </ThemeProvider>
       </AppRouterCacheProvider>
     </body>

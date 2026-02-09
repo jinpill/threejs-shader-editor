@@ -6,10 +6,11 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import ThemeProvider from "./Initializer";
 import Header from "./Header";
 import DialogManager from "./DialogManager";
+import Toasts from "@/components/Toasts";
 
+import style from "./layout.module.scss";
 import "material-icons/iconfont/material-icons.css";
 import "./globals.scss";
-import Toasts from "@/components/Toasts";
 
 const notoSansKr = Noto_Sans_KR({
   weight: ["400", "600"],
@@ -47,8 +48,11 @@ const RootLayout = (props: React.PropsWithChildren) => (
         <ThemeProvider>
           <Header />
           {props.children}
-          <DialogManager />
-          <Toasts />
+
+          <div className={style.popupArea}>
+            <DialogManager />
+            <Toasts />
+          </div>
         </ThemeProvider>
       </AppRouterCacheProvider>
     </body>

@@ -4,9 +4,16 @@ import MountAnimation from "@/components/MountAnimation";
 import Dialog from "@/components/Dialog";
 import { useDialogStore } from "../stores/useDialogStore";
 import style from "./DialogManager.module.scss";
+import { useEffect } from "react";
 
 const DialogManager = () => {
-  const { dialogProps, isDialogVisible } = useDialogStore();
+  const { dialogProps, isDialogVisible, alert } = useDialogStore();
+
+  useEffect(() => {
+    window.test = {
+      alert,
+    };
+  }, []);
 
   return (
     <div className={style.dialogArea}>

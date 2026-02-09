@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import Toast from "@/components/Toast";
 import Item from "./parts/Item";

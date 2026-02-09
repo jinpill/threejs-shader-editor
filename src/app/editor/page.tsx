@@ -24,6 +24,9 @@ import { useThreeStore } from "@/stores/useThreeStore";
 import { useToolbarStore } from "@/stores/useToolbarStore";
 import { useGeometryStore } from "@/stores/useGeometryStore";
 import { useMaterialStore } from "@/stores/useMaterialStore";
+import { useToastStore } from "@/stores/useToastStore";
+
+// import Toasts from "@/components/Toasts";
 
 import vertex from "./shaders/vertex.glsl";
 import fragment from "./shaders/fragment.glsl";
@@ -44,6 +47,8 @@ const EditorPage = () => {
   const [fragmentShader, setFragmentShader] = useState(fragment);
   const { materialOptions } = useMaterialStore();
   const material = useMaterial(vertexShader, fragmentShader, materialOptions);
+
+  const addToast = useToastStore((state) => state.addToast);
 
   useBackgroundColor();
 
@@ -97,6 +102,10 @@ const EditorPage = () => {
     return () => window.removeEventListener("keydown", handleSpace);
   }, [setBoundingCamera]);
 
+  useEffect(() => {
+    window.addToast = addToast;
+  }, [addToast]);
+
   return (
     <div
       ref={ref}
@@ -116,7 +125,6 @@ const EditorPage = () => {
             {activeToolPanel === "Material" && <MaterialPanel />}
             {activeToolPanel === "Settings" && <SettingsPanel />}
           </div>
-
           {/* Overview */}
           <div className={style.overviewArea}>
             {dragging && (
@@ -127,6 +135,17 @@ const EditorPage = () => {
             )}
             {error && <p className={style.errorMessage}>{error}</p>}
           </div>
+          {/* <button
+            onClick={() => {
+              addToast({
+                status: "success",
+                title: "test",
+                message: "이진필 바보",
+              });
+            }}
+          >
+            ss
+          </button> */}
 
           <Canvas
             camera={{

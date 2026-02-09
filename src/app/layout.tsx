@@ -9,6 +9,7 @@ import DialogManager from "./DialogManager";
 
 import "material-icons/iconfont/material-icons.css";
 import "./globals.scss";
+import Toasts from "@/components/Toasts";
 
 const notoSansKr = Noto_Sans_KR({
   weight: ["400", "600"],
@@ -47,6 +48,7 @@ const RootLayout = (props: React.PropsWithChildren) => (
           <Header />
           {props.children}
           <DialogManager />
+          <Toasts />
         </ThemeProvider>
       </AppRouterCacheProvider>
     </body>

@@ -38,6 +38,7 @@
   box-shadow: var(--Shadow-1);
 
   animation: appear 0.2s ease-in-out forwards;
+  pointer-events: all;
 
   &.disappear {
     animation: disappear 0.2s ease-in-out forwards;

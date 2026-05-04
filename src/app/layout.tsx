@@ -3,9 +3,11 @@ import classNames from "classnames";
 import { Noto_Sans_KR, Noto_Sans_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
-import ThemeProvider from "./Initializer";
+import Initializer from "./Initializer";
 import DialogManager from "./DialogManager";
+import Toasts from "@/components/Toasts";
 
+import style from "./layout.module.scss";
 import "material-icons/iconfont/material-icons.css";
 import "./globals.scss";
 
@@ -42,10 +44,14 @@ const RootLayout = (props: React.PropsWithChildren) => (
       )}
     >
       <AppRouterCacheProvider>
-        <ThemeProvider>
+        <Initializer>
           {props.children}
-          <DialogManager />
-        </ThemeProvider>
+
+          <div className={style.popupArea}>
+            <DialogManager />
+            <Toasts />
+          </div>
+        </Initializer>
       </AppRouterCacheProvider>
     </body>
   </html>

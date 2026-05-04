@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { ToastProps } from "@/components/Toast";
 
-type ToastStore = {
+export type ToastStore = {
   lastId: number;
   list: ToastConfig[];
   idsToRemove: number[];

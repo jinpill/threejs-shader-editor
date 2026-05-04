@@ -38,20 +38,44 @@ const useGeometry = (params: GeometryParams) => {
     }
 
     if (params.type === "file") {
+      const id = toast.add({
+        status: "info",
+        title: "STL 파일 로드",
+        message: "STL 파일을 불러오는 중입니다...",
+        progress: 0,
+        duration: null,
+      });
+
       const url = URL.createObjectURL(params.file);
       const loader = new STLLoader();
+
       loader.load(
         url,
         (geometry: THREE.BufferGeometry) => {
           setGeometry(geometry);
           setError("");
+
+          toast.update(id, {
+            status: "success",
+            message: "STL 파일을 성공적으로 불러왔습니다!",
+            progress: 1,
+            duration: 3000,
+          });
         },
         (xhr) => {
-          console.log("Loading Progress:", `${(xhr.loaded / xhr.total) * 100}%`);
+          toast.update(id, {
+            progress: xhr.loaded / xhr.total,
+          });
         },
         (error) => {
           console.error("STL 파일 로드 중 오류 발생:", error);
-          setError("STL 파일을 로드하는 중 오류가 발생했습니다.");
+          setError("STL 파일을 불러오는 중 오류가 발생했습니다.");
+
+          toast.update(id, {
+            status: "error",
+            message: "STL 파일을 불러오는 중 오류가 발생했습니다.",
+            duration: 3000,
+          });
         },
       );
     }
